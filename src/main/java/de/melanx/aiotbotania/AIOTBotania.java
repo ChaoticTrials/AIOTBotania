@@ -4,8 +4,10 @@ import de.melanx.aiotbotania.client.OreDict;
 import de.melanx.aiotbotania.client.aiotbotaniaTab;
 import de.melanx.aiotbotania.items.ModItems;
 import de.melanx.aiotbotania.proxy.CommonProxy;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -14,12 +16,21 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = AIOTBotania.MODID, version = "0.1", name = "AIOT Botania", dependencies = "required-after:botania")
+import java.util.Map;
+
+import static de.melanx.aiotbotania.items.ModItems.ITEMS_TO_REGISTER;
+
+@Mod(modid = AIOTBotania.MODID, name = AIOTBotania.NAME, version = AIOTBotania.VERSION, dependencies = AIOTBotania.DEPS)
 
 public class AIOTBotania {
 
     public static final String MODID = "aiotbotania";
+    public static final String NAME = "AIOT Botania";
+    public static final String VERSION = "@VERSION@";
+    public static final String DEPS = "required-after:botania";
     public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
+
+
 
     @SidedProxy(clientSide = "de.melanx.aiotbotania.proxy.ClientProxy", serverSide = "de.melanx.aiotbotania.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -29,12 +40,19 @@ public class AIOTBotania {
 
         @SubscribeEvent
         public static void registerItems(RegistryEvent.Register<Item> event) {
-            ModItems.register(event.getRegistry());
+            ModItems.init();
+
+            for(Item item : ITEMS_TO_REGISTER) {
+                System.out.println(item.getUnlocalizedName());
+                event.getRegistry().register(item);
+            }
         }
 
         @SubscribeEvent
-        public static void registerModels(ModelRegistryEvent event) {
-            ModItems.registerModels();
+        public static  void registerModels(RegistryEvent evemt) {
+            for(Map.Entry<ItemStack, ModelResourceLocation> entry : ModItems.MODEL_LOCATIONS.entrySet()) {
+                ModelLoader.setCustomModelResourceLocation(entry.getKey().getItem(), entry.getKey().getItemDamage(), entry.getValue());
+            }
         }
     }
 

@@ -1,12 +1,11 @@
 package de.melanx.aiotbotania.items.manasteel;
 
-import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.items.base.ItemHoeBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -18,23 +17,12 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 
-public class ItemManasteelHoe extends ItemHoe implements IManaUsingItem {
+public class ItemManasteelHoe extends ItemHoeBase implements IManaUsingItem {
 
     private static final int MANA_PER_DAMAGE = 60;
 
     public ItemManasteelHoe() {
-        this(BotaniaAPI.manasteelToolMaterial, "manasteelHoe");
-    }
-
-    public ItemManasteelHoe(ToolMaterial mat, String name) {
-        super(mat);
-        setCreativeTab(AIOTBotania.creativeTab);
-        setRegistryName("manasteelhoe");
-        setUnlocalizedName(name);
-    }
-
-    public void registerItemModel() {
-        AIOTBotania.proxy.registerItemRenderer(this, 0, "manasteelhoe");
+        super( "manasteelHoe", BotaniaAPI.manasteelToolMaterial);
     }
 
     @Override

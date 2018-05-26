@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.items.manasteel;
 
 import com.google.common.collect.Sets;
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,35 +10,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
 import java.util.Set;
 
-import static vazkii.botania.api.BotaniaAPI.manasteelToolMaterial;
-
-public class ItemManasteelAIOT extends ItemTool implements IManaUsingItem {
+public class ItemManasteelAIOT extends ItemAIOTBase implements IManaUsingItem {
 
     private static final int MANA_PER_DAMAGE = 60;
 
     public ItemManasteelAIOT() {
-        this(manasteelToolMaterial, "manasteelAIOT");
-    }
-
-    private ItemManasteelAIOT(ToolMaterial mat, String name) {
-        super(1.0f, 10.0f, mat, new HashSet<>());
-        setCreativeTab(AIOTBotania.creativeTab);
-        setRegistryName("manasteelAIOT");
-        setUnlocalizedName(name);
+        super("manasteelAIOT", BotaniaAPI.manasteelToolMaterial,1.0f, 10.0f);
     }
 
     public void registerItemModel() {
