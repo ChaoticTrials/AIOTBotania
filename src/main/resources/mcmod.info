@@ -1,0 +1,16 @@
+[
+{
+  "modid": "AIOTBotania",
+  "name": "AIOT Botania",
+  "description": "This mod adds AIOTs. Because an AIOT is so much better than just a tool.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MelanX"],
+  "credits": "Vazkii for Botania. My brain for the idea. skate702 for a slot. Oh, wait. Which slot?",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
