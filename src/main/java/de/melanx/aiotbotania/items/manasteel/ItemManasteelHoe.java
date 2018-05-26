@@ -33,6 +33,10 @@ public class ItemManasteelHoe extends ItemHoe implements IManaUsingItem {
         setUnlocalizedName(name);
     }
 
+    public void registerItemModel() {
+        AIOTBotania.proxy.registerItemRenderer(this, 0, "manasteelhoe");
+    }
+
     @Override
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
         ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDmg());
@@ -67,9 +71,5 @@ public class ItemManasteelHoe extends ItemHoe implements IManaUsingItem {
     @Override
     public boolean usesMana(ItemStack stack) {
         return true;
-    }
-
-    public void registerItemModel() {
-        AIOTBotania.proxy.registerItemRenderer(this, 0, "manasteelhoe");
     }
 }
