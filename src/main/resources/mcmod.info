@@ -7,8 +7,8 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["MelanX"],
-  "credits": "Vazkii for Botania. My brain for the idea. derkalaender for textures. AIOTs for being very annoying.",
+  "authorList": ["MelanX", "derkalaender"],
+  "credits": "Vazkii for Botania. My brain for the idea. derkalaender for textures and a lot of code. AIOTs for being very annoying.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
