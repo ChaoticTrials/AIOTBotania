@@ -1,10 +1,8 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.Registry;
-import de.melanx.aiotbotania.blocks.BlockSuperFarmland;
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +23,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
@@ -82,15 +78,13 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
                     return tiltBlock(player, world, pos, stack, block1);
                 }
             }
-
             return EnumActionResult.PASS;
         }
     }
 
     private EnumActionResult tiltBlock(EntityPlayer player, @Nonnull World world, BlockPos pos, ItemStack stack, Block block1) {
-        SoundType sound = block1.getSoundType(block1.getDefaultState(), world, pos, player);
 
-        world.playSound(null, pos, sound.getStepSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
+        world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
 
         if(world.isRemote)
             return EnumActionResult.SUCCESS;

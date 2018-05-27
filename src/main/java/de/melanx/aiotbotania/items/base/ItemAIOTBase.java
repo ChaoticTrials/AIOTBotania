@@ -1,15 +1,15 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.Registry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.init.Items;
-import net.minecraft.init.Blocks;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.block.state.IBlockState;
-import de.melanx.aiotbotania.items.ModItems;
 import com.google.common.collect.Sets;
+import de.melanx.aiotbotania.Registry;
+import de.melanx.aiotbotania.items.ModItems;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -58,7 +58,10 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
         if(!playerIn.isSneaking() && fertilizer) return ModItems.elementiumhoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
         else if(!playerIn.isSneaking() && !fertilizer) return ModItems.manahoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
-        return Items.IRON_SHOVEL.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        Block block = worldIn.getBlockState(pos).getBlock();
+        if (block == Blocks.GRASS_PATH) return EnumActionResult.SUCCESS;
+        else
+            return vazkii.botania.common.item.ModItems.manasteelShovel.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
     }
 
     @Override
@@ -74,7 +77,7 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     @Override
     public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-        return par2ItemStack.getItem() == vazkii.botania.common.item.ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+        return par2ItemStack.getItem() == vazkii.botania.common.item.ModItems.manaResource && par2ItemStack.getItemDamage() == 0 || super.getIsRepairable(par1ItemStack, par2ItemStack);
     }
 
     @Override
