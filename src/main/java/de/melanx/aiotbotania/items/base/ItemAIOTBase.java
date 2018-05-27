@@ -27,11 +27,13 @@ import java.util.Set;
 public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
+    private boolean fertilizer;
 
-    public ItemAIOTBase(String name, ToolMaterial mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE) {
+    public ItemAIOTBase(String name, ToolMaterial mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean fertilizer) {
         super(attackDamage, attackSpeed, mat, new HashSet<>());
         this.setHarvestLevels(mat.getHarvestLevel());
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+        this.fertilizer = fertilizer;
         Registry.registerItem(this, name);
         Registry.registerModel(this);
     }
@@ -54,7 +56,8 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
-        if(!playerIn.isSneaking()) return Items.IRON_HOE.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        if(!playerIn.isSneaking() && fertilizer) return ModItems.elementiumhoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        else if(!playerIn.isSneaking() && !fertilizer) return ModItems.manahoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
         return Items.IRON_SHOVEL.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
     }
 

@@ -10,7 +10,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     private static final int MANA_PER_DAMAGE = 60;
 
     public ItemElementiumAIOT() {
-        super("elementiumAIOT", BotaniaAPI.manasteelToolMaterial,6.0f, -2.2f, MANA_PER_DAMAGE);
+        super("elementiumAIOT", BotaniaAPI.manasteelToolMaterial,6.0f, -2.2f, MANA_PER_DAMAGE, true);
     }
 
     @Override
