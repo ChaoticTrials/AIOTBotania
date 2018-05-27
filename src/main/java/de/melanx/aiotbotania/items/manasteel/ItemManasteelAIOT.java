@@ -31,11 +31,6 @@ public class ItemManasteelAIOT extends ItemAIOTBase implements IManaUsingItem {
         super("manasteelAIOT", BotaniaAPI.manasteelToolMaterial,1.0f, 10.0f);
     }
 
-    public void registerItemModel() {
-        AIOTBotania.proxy.registerItemRenderer(this, 0, "manasteelaiot");
-    }
-
-
     @Override
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
         ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDmg());

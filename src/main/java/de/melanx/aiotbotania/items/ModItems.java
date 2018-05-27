@@ -6,10 +6,8 @@ import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class ModItems {
     public static final List<Item> ITEMS_TO_REGISTER = new ArrayList<>();
@@ -29,5 +27,9 @@ public class ModItems {
         item.setCreativeTab(AIOTBotania.creativeTab);
 
         ITEMS_TO_REGISTER.add(item);
+    }
+
+    public static void registerModel(Item item) {
+        MODEL_LOCATIONS.put(new ItemStack(item), new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory"));
     }
 }

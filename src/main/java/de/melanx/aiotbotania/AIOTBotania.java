@@ -18,8 +18,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
-import static de.melanx.aiotbotania.items.ModItems.ITEMS_TO_REGISTER;
-
 @Mod(modid = AIOTBotania.MODID, name = AIOTBotania.NAME, version = AIOTBotania.VERSION, dependencies = AIOTBotania.DEPS)
 
 public class AIOTBotania {
@@ -42,7 +40,7 @@ public class AIOTBotania {
         public static void registerItems(RegistryEvent.Register<Item> event) {
             ModItems.init();
 
-            for(Item item : ITEMS_TO_REGISTER) {
+            for(Item item : ModItems.ITEMS_TO_REGISTER) {
                 System.out.println(item.getUnlocalizedName());
                 event.getRegistry().register(item);
             }
