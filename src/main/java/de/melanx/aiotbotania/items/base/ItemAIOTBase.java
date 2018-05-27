@@ -33,6 +33,7 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
         ModItems.registerModel(this);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+        this.setHarvestLevels(mat.getHarvestLevel());
     }
 
     @Override
@@ -76,5 +77,11 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     @Override
     public boolean usesMana(ItemStack itemStack) {
         return true;
+    }
+
+    private void setHarvestLevels(int amount){
+        for(String s : this.getToolClasses(null)){
+            this.setHarvestLevel(s, amount);
+        }
     }
 }
