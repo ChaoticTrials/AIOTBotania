@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania.items;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.items.elementium.ItemElementiumHoe;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,9 +17,13 @@ public class ModItems {
     public static Item manahoe;
     public static Item manaaiot;
 
+    public static Item elementiumhoe;
+
     public static void init() {
         manahoe = new ItemManasteelHoe();
         manaaiot = new ItemManasteelAIOT();
+
+        elementiumhoe = new ItemElementiumHoe();
     }
 
     public static void registerItem(Item item, String name) {

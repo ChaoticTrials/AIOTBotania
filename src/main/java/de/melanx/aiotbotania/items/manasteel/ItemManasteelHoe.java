@@ -5,7 +5,7 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class ItemManasteelHoe extends ItemHoeBase {
 
-    private static final int MANA_PER_DAMAGE = 1000;
+    private static final int MANA_PER_DAMAGE = 60;
 
     public ItemManasteelHoe() {
         super( "manasteelHoe", BotaniaAPI.manasteelToolMaterial, MANA_PER_DAMAGE);

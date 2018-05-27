@@ -1,14 +1,13 @@
 package de.melanx.aiotbotania.items.elementium;
 
-import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
+import de.melanx.aiotbotania.items.base.ItemHoeBase;
+import vazkii.botania.api.BotaniaAPI;
 
-public class ItemElementiumHoe extends ItemManasteelHoe {
+public class ItemElementiumHoe extends ItemHoeBase {
 
-//    public ItemElementiumHoe() {
-//        super(BotaniaAPI.elementiumToolMaterial, "elementiumHoe");
-//        MinecraftForge.EVENT_BUS.register(this);
-//    }
+    private static final int MANA_PER_DAMAGE = 60;
 
-    //To be continued
-
+    public ItemElementiumHoe() {
+        super("elementiumHoe", BotaniaAPI.elementiumToolMaterial, MANA_PER_DAMAGE);
+    }
 }
