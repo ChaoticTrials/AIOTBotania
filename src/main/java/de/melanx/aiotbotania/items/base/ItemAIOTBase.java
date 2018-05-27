@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.items.base;
 
 import com.google.common.collect.Sets;
 import de.melanx.aiotbotania.Registry;
+import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -56,12 +57,17 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
-        if(!playerIn.isSneaking() && fertilizer) return ModItems.elementiumhoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
-        else if(!playerIn.isSneaking() && !fertilizer) return ModItems.manahoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
         Block block = worldIn.getBlockState(pos).getBlock();
-        if (block == Blocks.GRASS_PATH) return EnumActionResult.SUCCESS;
-        else
-            return vazkii.botania.common.item.ModItems.manasteelShovel.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+
+        if(!playerIn.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superfarmland)) {
+            if (fertilizer) return ModItems.elementiumhoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+            else return ModItems.manahoe.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        } else if(!playerIn.isSneaking()) {
+            return vazkii.botania.common.item.ModItems.manasteelPick.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        }
+
+        if (block != Blocks.GRASS_PATH) return vazkii.botania.common.item.ModItems.manasteelShovel.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+        return EnumActionResult.PASS;
     }
 
     @Override
