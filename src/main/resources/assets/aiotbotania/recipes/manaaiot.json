@@ -1,0 +1,23 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:manasteelpick"
+    },
+    {
+      "item": "botania:manasteelsword"
+    },
+    {
+      "item": "botania:manasteelshovel"
+    },
+    {
+      "item": "botania:manasteelaxe"
+    },
+    {
+      "item": "aiotbotania:manasteelhoe"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:manasteelaiot"
+  }
+}
