@@ -1,6 +1,8 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.items.ModItems;
+import de.melanx.aiotbotania.Registry;
+import de.melanx.aiotbotania.blocks.BlockSuperFarmland;
+import de.melanx.aiotbotania.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
@@ -23,18 +25,22 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
+    private boolean fertilizer;
 
-    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE) {
+    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE, boolean fertilizer) {
         super(mat);
-        ModItems.registerItem(this, name);
-        ModItems.registerModel(this);
+        Registry.registerItem(this, name);
+        Registry.registerModel(this);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+        this.fertilizer = fertilizer;
     }
 
     @Override
@@ -63,26 +69,35 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
 
             Block block = world.getBlockState(pos).getBlock();
 
-            if (side != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
-                if (block == Blocks.GRASS || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
+            if(side != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
+                if(block == Blocks.GRASS || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
 
                     Block block1 = Blocks.FARMLAND;
-
-                    SoundType sound = block1.getSoundType(block1.getDefaultState(), world, pos, player);
-
-                    world.playSound(null, pos, sound.getStepSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
-
-                    if (world.isRemote)
-                        return EnumActionResult.SUCCESS;
-                    else {
-                        world.setBlockState(pos, block1.getDefaultState());
-                        ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-                        return EnumActionResult.SUCCESS;
+                    if(fertilizer) {
+                        block1 = ModBlocks.superfarmland;
                     }
+                    return tiltBlock(player, world, pos, stack, block1);
+                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland) && fertilizer) {
+                    Block block1 = Blocks.DIRT;
+                    return tiltBlock(player, world, pos, stack, block1);
                 }
             }
 
             return EnumActionResult.PASS;
+        }
+    }
+
+    private EnumActionResult tiltBlock(EntityPlayer player, @Nonnull World world, BlockPos pos, ItemStack stack, Block block1) {
+        SoundType sound = block1.getSoundType(block1.getDefaultState(), world, pos, player);
+
+        world.playSound(null, pos, sound.getStepSound(), SoundCategory.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
+
+        if(world.isRemote)
+            return EnumActionResult.SUCCESS;
+        else {
+            world.setBlockState(pos, block1.getDefaultState());
+            ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+            return EnumActionResult.SUCCESS;
         }
     }
 
