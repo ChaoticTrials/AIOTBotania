@@ -15,7 +15,7 @@ public class aiotbotaniaTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ModItems.manahoe);
+        return new ItemStack(ModItems.manaaiot);
     }
 
 }
