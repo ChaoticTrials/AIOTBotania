@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "XX",
+    " #",
+    " #"
+  ],
+  "key": {
+    "#": {
+      "item": "botania:manaresource",
+      "data": 3
+    },
+    "X": {
+      "item": "botania:manaresource",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aiotbotania:manasteelhoe"
+  }
+}
