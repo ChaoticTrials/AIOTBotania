@@ -2,7 +2,6 @@ package de.melanx.aiotbotania.items.base;
 
 import com.google.common.collect.Sets;
 import de.melanx.aiotbotania.blocks.ModBlocks;
-import de.melanx.aiotbotania.items.ModItems;
 import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
@@ -13,12 +12,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -58,14 +60,41 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
         Block block = world.getBlockState(pos).getBlock();
 
-        if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superfarmland)) {
-            if (special) return ToolUtil.hoeUse(player, world, pos, hand, side, true, MANA_PER_DAMAGE);
-            else return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
-        } else if(!player.isSneaking()) {
-            return ToolUtil.pickUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+        boolean hoemode = ItemNBTHelper.getBoolean(player.getHeldItem(hand), "hoemode", true);
+
+        if(hoemode) {
+            if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superfarmland)) {
+                if (special) return ToolUtil.hoeUse(player, world, pos, hand, side, true, MANA_PER_DAMAGE);
+                else return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
+            } else {
+                return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
+            }
+        } else {
+            if(!player.isSneaking()) {
+                return ToolUtil.pickUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+            } else {
+                return ToolUtil.axeUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+            }
+        }
+    }
+
+    @Nonnull
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+        if(player.isSneaking()) {
+            RayTraceResult result = player.rayTrace(5, 1.0F);
+
+            if (result != null) {
+                BlockPos block = result.getBlockPos();
+
+                if (world.isAirBlock(block)) {
+                    ToolUtil.changeMode(player, player.getHeldItem(hand));
+                    return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+                }
+            }
         }
 
-        return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
 
     @Override

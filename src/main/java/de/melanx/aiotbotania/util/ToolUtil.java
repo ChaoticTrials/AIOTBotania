@@ -13,18 +13,22 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.regex.Pattern;
 
 public class ToolUtil {
     private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
+    private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
     public static void onUpdate(ItemStack stack, World world, Entity player, int MPD) {
         if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MPD * 2, true)) {
@@ -43,6 +47,17 @@ public class ToolUtil {
         }
 
         return true;
+    }
+
+    public static void changeMode(EntityPlayer player, ItemStack stack) {
+        if(ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
+            ItemNBTHelper.setBoolean(stack, "hoemode", false);
+        } else {
+            ItemNBTHelper.setBoolean(stack, "hoemode", true);
+        }
+
+        TextComponentString string = new TextComponentString(TextFormatting.AQUA + "" + TextFormatting.ITALIC + "Changed AIOT Mode");
+        player.sendStatusMessage(string, true);
     }
 
     private static EnumActionResult tiltBlock(EntityPlayer player, World world, BlockPos pos, ItemStack stack, Block block1, int MPD) {
@@ -101,6 +116,22 @@ public class ToolUtil {
                 EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
                 player.setHeldItem(hand, saveHeldStack);
                 ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
+                return did;
+            }
+        }
+
+        return EnumActionResult.PASS;
+    }
+
+    public static EnumActionResult axeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
+        for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+            ItemStack stackAt = player.inventory.getStackInSlot(i);
+            if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
+                ItemStack saveHeldStack = player.getHeldItem(hand);
+                player.setHeldItem(hand, stackAt);
+                EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+                player.setHeldItem(hand, saveHeldStack);
+                ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
                 return did;
             }
         }
