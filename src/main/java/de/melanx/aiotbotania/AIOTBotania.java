@@ -65,8 +65,6 @@ public class AIOTBotania {
                 ModelLoader.setCustomModelResourceLocation(entry.getKey().getItem(), entry.getKey().getItemDamage(), entry.getValue());
             }
         }
-
-
     }
 
     @Mod.EventHandler

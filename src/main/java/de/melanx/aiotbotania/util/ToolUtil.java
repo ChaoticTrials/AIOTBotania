@@ -3,6 +3,9 @@ package de.melanx.aiotbotania.util;
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.Language;
+import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,8 +16,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
+import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
@@ -50,14 +53,20 @@ public class ToolUtil {
     }
 
     public static void changeMode(EntityPlayer player, ItemStack stack) {
+        ITextComponent text;
+
         if(ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
+
+            text = new TextComponentTranslation("aiotbotania.changeMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+                    .appendSibling(new TextComponentTranslation("aiotbotania.utilityMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
+            text = new TextComponentTranslation("aiotbotania.changeMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+                    .appendSibling(new TextComponentTranslation("aiotbotania.hoeMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         }
 
-        TextComponentString string = new TextComponentString(TextFormatting.AQUA + "" + TextFormatting.ITALIC + "Changed AIOT Mode");
-        player.sendStatusMessage(string, true);
+        player.sendStatusMessage(text, true);
     }
 
     private static EnumActionResult tiltBlock(EntityPlayer player, World world, BlockPos pos, ItemStack stack, Block block1, int MPD) {
