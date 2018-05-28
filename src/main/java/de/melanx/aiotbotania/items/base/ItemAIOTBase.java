@@ -40,6 +40,14 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     }
 
     @Override
+    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+        if(state.getBlockHardness(world, pos) != 0F)
+            ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
+
+        return true;
+    }
+
+    @Override
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
         ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
         return true;
