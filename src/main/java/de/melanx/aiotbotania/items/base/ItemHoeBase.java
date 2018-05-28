@@ -1,23 +1,17 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.Registry;
-import de.melanx.aiotbotania.blocks.ModBlocks;
-import net.minecraft.block.Block;
+import de.melanx.aiotbotania.util.Registry;
+import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -28,15 +22,15 @@ import javax.annotation.Nonnull;
 public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
-    private boolean fertilizer;
+    private boolean special;
 
-    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE, boolean fertilizer) {
+    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE, boolean special) {
         super(mat);
         Registry.registerItem(this, name);
         Registry.registerModel(this);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
-        this.fertilizer = fertilizer;
+        this.special = special;
     }
 
     @Override
@@ -49,52 +43,8 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
     @Nonnull
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, @Nonnull World world, BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
-        ItemStack stack = player.getHeldItem(hand);
-
-        if (!player.canPlayerEdit(pos, side, stack)) {
-            return EnumActionResult.PASS;
-        } else {
-            UseHoeEvent event = new UseHoeEvent(player, stack, world, pos);
-            if (MinecraftForge.EVENT_BUS.post(event))
-                return EnumActionResult.FAIL;
-
-            if (event.getResult() == Event.Result.ALLOW) {
-                ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-                return EnumActionResult.SUCCESS;
-            }
-
-            Block block = world.getBlockState(pos).getBlock();
-
-            if(side != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
-                if(block == Blocks.GRASS || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
-
-                    Block block1 = Blocks.FARMLAND;
-                    if(fertilizer) {
-                        block1 = ModBlocks.superfarmland;
-                    }
-                    return tiltBlock(player, world, pos, stack, block1);
-                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland) && fertilizer) {
-                    Block block1 = Blocks.DIRT;
-                    return tiltBlock(player, world, pos, stack, block1);
-                }
-            }
-            return EnumActionResult.PASS;
-        }
+        return ToolUtil.hoeUse(player, world, pos, hand, side, special, MANA_PER_DAMAGE);
     }
-
-    private EnumActionResult tiltBlock(EntityPlayer player, @Nonnull World world, BlockPos pos, ItemStack stack, Block block1) {
-
-        world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
-
-        if(world.isRemote)
-            return EnumActionResult.SUCCESS;
-        else {
-            world.setBlockState(pos, block1.getDefaultState());
-            ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-            return EnumActionResult.SUCCESS;
-        }
-    }
-
 
     @Override
     public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {

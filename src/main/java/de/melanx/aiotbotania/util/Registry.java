@@ -1,5 +1,6 @@
-package de.melanx.aiotbotania;
+package de.melanx.aiotbotania.util;
 
+import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.ItemBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

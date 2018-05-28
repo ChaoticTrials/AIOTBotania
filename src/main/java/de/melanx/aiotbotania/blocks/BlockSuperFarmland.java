@@ -1,6 +1,6 @@
 package de.melanx.aiotbotania.blocks;
 
-import de.melanx.aiotbotania.Registry;
+import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
