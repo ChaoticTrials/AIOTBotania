@@ -2,9 +2,7 @@ package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.client.aiotbotaniaTab;
-import de.melanx.aiotbotania.crafting.CraftingRecipes;
 import de.melanx.aiotbotania.items.ModItems;
-import de.melanx.aiotbotania.lexicon.LexiconData;
 import de.melanx.aiotbotania.proxy.CommonProxy;
 import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
@@ -74,8 +72,6 @@ public class AIOTBotania {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        LexiconData.init();
-        CraftingRecipes.init();
     }
 
     @Mod.EventHandler
