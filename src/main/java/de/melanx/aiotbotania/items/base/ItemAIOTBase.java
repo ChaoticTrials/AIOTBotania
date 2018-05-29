@@ -6,10 +6,12 @@ import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.ActionResult;
@@ -128,5 +130,10 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
         for(String s : this.getToolClasses(null)){
             this.setHarvestLevel(s, amount);
         }
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Items.DIAMOND_SWORD);
     }
 }
