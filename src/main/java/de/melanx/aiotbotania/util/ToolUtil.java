@@ -53,17 +53,17 @@ public class ToolUtil {
         return true;
     }
 
-    public static void changeMode(EntityPlayer player, ItemStack stack) {
+    public static void toggleMode(EntityPlayer player, ItemStack stack) {
         ITextComponent text;
 
         if(ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
 
-            text = new TextComponentTranslation("aiotbotania.changeMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+            text = new TextComponentTranslation("aiotbotania.toggleMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
                     .appendSibling(new TextComponentTranslation("aiotbotania.utilityMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
-            text = new TextComponentTranslation("aiotbotania.changeMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+            text = new TextComponentTranslation("aiotbotania.toggleMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
                     .appendSibling(new TextComponentTranslation("aiotbotania.hoeMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         }
 
@@ -76,20 +76,18 @@ public class ToolUtil {
 
         world.playSound(null, pos, soundtype.getStepSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 
-        if(world.isRemote)
-            return EnumActionResult.SUCCESS;
-        else {
+        if(!world.isRemote) {
             world.setBlockState(pos, block1.getDefaultState());
             ToolCommons.damageItem(stack, 1, player, MPD);
-            return EnumActionResult.SUCCESS;
         }
+        return EnumActionResult.SUCCESS;
     }
 
     public static EnumActionResult hoeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, boolean special, int MPD) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (!player.canPlayerEdit(pos, side, stack)) {
-            return EnumActionResult.PASS;
+            return EnumActionResult.FAIL;
         } else {
             UseHoeEvent event = new UseHoeEvent(player, stack, world, pos);
             if (MinecraftForge.EVENT_BUS.post(event))
@@ -115,7 +113,7 @@ public class ToolUtil {
                     return tiltBlock(player, world, pos, stack, block1, MPD);
                 }
             }
-            return EnumActionResult.PASS;
+            return EnumActionResult.SUCCESS;
         }
     }
 
@@ -125,14 +123,12 @@ public class ToolUtil {
             if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
                 ItemStack saveHeldStack = player.getHeldItem(hand);
                 player.setHeldItem(hand, stackAt);
-                EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+                stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
                 player.setHeldItem(hand, saveHeldStack);
                 ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
-                return did;
             }
         }
-
-        return EnumActionResult.PASS;
+        return EnumActionResult.SUCCESS;
     }
 
     public static EnumActionResult axeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
@@ -141,20 +137,18 @@ public class ToolUtil {
             if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
                 ItemStack saveHeldStack = player.getHeldItem(hand);
                 player.setHeldItem(hand, stackAt);
-                EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+                stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
                 player.setHeldItem(hand, saveHeldStack);
                 ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
-                return did;
             }
         }
-
-        return EnumActionResult.PASS;
+        return EnumActionResult.SUCCESS;
     }
 
     public static EnumActionResult shovelUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, int MPD) {
         ItemStack stack = player.getHeldItem(hand);
         if (!player.canPlayerEdit(pos, side, stack)) {
-            return EnumActionResult.PASS;
+            return EnumActionResult.FAIL;
         } else {
             UseHoeEvent event = new UseHoeEvent(player, stack, world, pos);
             if (MinecraftForge.EVENT_BUS.post(event)) {
@@ -172,6 +166,6 @@ public class ToolUtil {
                 }
             }
         }
-        return EnumActionResult.PASS;
+        return EnumActionResult.SUCCESS;
     }
 }

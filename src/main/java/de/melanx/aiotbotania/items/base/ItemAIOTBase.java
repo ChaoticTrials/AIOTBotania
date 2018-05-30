@@ -20,7 +20,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -60,7 +59,7 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand){
         Block block = world.getBlockState(pos).getBlock();
 
         boolean hoemode = ItemNBTHelper.getBoolean(player.getHeldItem(hand), "hoemode", true);
@@ -86,22 +85,14 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
 
-        if(player.isSneaking()) {
-            double blockReachDistance = player.getAttributeMap().getAttributeInstance(EntityPlayer.REACH_DISTANCE).getAttributeValue();
-            RayTraceResult result = player.rayTrace(blockReachDistance, 1.0F);
+        if(!world.isRemote) {
+            if(player.isSneaking()) {
 
-            if (result != null) {
-                BlockPos block = result.getBlockPos();
-
-                if (world.isAirBlock(block)) {
-                    ToolUtil.changeMode(player, itemStack);
-                    return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
+                ToolUtil.toggleMode(player, itemStack);
                 }
             }
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
         }
-
-        return new ActionResult<>(EnumActionResult.PASS, itemStack);
-    }
 
     @Override
     public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state){
