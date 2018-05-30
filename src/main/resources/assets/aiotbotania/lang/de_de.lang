@@ -10,3 +10,10 @@ item.manasteelAIOT.name=Manastahl AIOT
 
 item.elementiumHoe.name=Elementiumhacke
 item.elementiumAIOT.name=Elementium AIOT
+
+# Lexica Botania
+botania.page.manaGear12=Die &1Manastahlhacke&0
+botania.page.manaGear13=Das &1Manastahl AIOT&0
+
+botania.page.elfGear17=Die &1Elementium Hacke&0
+botania.page.elfGear19=Das &1Elementium AIOT&0
