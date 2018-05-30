@@ -83,6 +83,8 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+        ItemStack itemStack = player.getHeldItem(hand);
+
         if(player.isSneaking()) {
             RayTraceResult result = player.rayTrace(5, 1.0F);
 
@@ -90,13 +92,13 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
                 BlockPos block = result.getBlockPos();
 
                 if (world.isAirBlock(block)) {
-                    ToolUtil.changeMode(player, player.getHeldItem(hand));
-                    return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+                    ToolUtil.changeMode(player, itemStack);
+                    return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
                 }
             }
         }
 
-        return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+        return new ActionResult<>(EnumActionResult.PASS, itemStack);
     }
 
     @Override

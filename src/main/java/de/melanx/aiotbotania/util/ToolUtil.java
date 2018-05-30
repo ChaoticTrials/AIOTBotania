@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
@@ -71,7 +72,9 @@ public class ToolUtil {
 
     private static EnumActionResult tiltBlock(EntityPlayer player, World world, BlockPos pos, ItemStack stack, Block block1, int MPD) {
 
-        world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
+        SoundType soundtype = block1.getSoundType(block1.getDefaultState(), world, pos, player);
+
+        world.playSound(null, pos, soundtype.getStepSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 
         if(world.isRemote)
             return EnumActionResult.SUCCESS;
@@ -165,6 +168,7 @@ public class ToolUtil {
                     Block block1 = Blocks.GRASS_PATH;
 
                     tiltBlock(player, world, pos, stack, block1, MPD);
+                    return EnumActionResult.SUCCESS;
                 }
             }
         }
