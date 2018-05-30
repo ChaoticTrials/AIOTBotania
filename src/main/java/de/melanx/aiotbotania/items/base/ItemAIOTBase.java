@@ -20,6 +20,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -86,7 +87,8 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
         ItemStack itemStack = player.getHeldItem(hand);
 
         if(player.isSneaking()) {
-            RayTraceResult result = player.rayTrace(5, 1.0F);
+            double blockReachDistance = player.getAttributeMap().getAttributeInstance(EntityPlayer.REACH_DISTANCE).getAttributeValue();
+            RayTraceResult result = player.rayTrace(blockReachDistance, 1.0F);
 
             if (result != null) {
                 BlockPos block = result.getBlockPos();
