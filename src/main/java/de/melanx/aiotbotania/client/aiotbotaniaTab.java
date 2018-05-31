@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class aiotbotaniaTab extends CreativeTabs {
 
-    private static final String modID = "MelanX Tweaks";
+    private static final String modID = "AIOT Botania";
 
     public aiotbotaniaTab() {
         super(AIOTBotania.MODID);
