@@ -1,6 +1,6 @@
 # General
 itemGroup.aiotbotania=AIOT Botania
-aiotbotania.changeMode=Secondary AIOT mode changed
+aiotbotania.toggleMode=Secondary AIOT mode changed
 aiotbotania.hoeMode=Till soil und create grass paths
 aiotbotania.utilityMode=Place down torches and saplings
 

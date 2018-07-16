@@ -1,6 +1,6 @@
 # General
 itemGroup.aiotbotania=AIOT Botania
-aiotbotania.changeMode=AIOT Sekundär-Modus gewechselt
+aiotbotania.toggleMode=AIOT Sekundär-Modus gewechselt
 aiotbotania.hoeMode=Acker bestellen und Graswege erschaffen
 aiotbotania.utilityMode=Fackeln und Setzlinge platzieren
 
