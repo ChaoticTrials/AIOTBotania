@@ -1,0 +1,23 @@
+# General
+itemGroup.aiotbotania=AIOT Botania
+aiotbotania.changeMode=全能工具模式已更改
+aiotbotania.hoeMode=开垦土地与草径
+aiotbotania.utilityMode=放置火把与树苗
+
+# Tools
+item.manasteelHoe.name=魔钢锄
+item.manasteelAIOT.name=魔钢全能工具
+
+item.elementiumHoe.name=源质钢锄
+item.elementiumAIOT.name=源质钢全能工具
+
+# Lexica Botania
+botania.page.manaGear11=若安装&2AIOT Botania&0模组还增加了两样工具。&1锄&0用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗&4魔力&0。<br>而&1全能工具&0则融合了魔钢&1剑&0，&1斧&0，&1镐&0，&1铲&0与&1锄&0的所有功能。
+botania.page.manaGear12=&1魔钢锄&0
+botania.page.manaGear13=&1魔钢全能工具&0
+
+botania.page.elfGear10=&1源质钢剑&0会增加攻击时生成&4小精灵&0的概率（当未穿戴&1源质钢装备&0时也会生成），并强化&4小精灵&0的能力。
+botania.page.elfGear16=&1源质钢锄&0耕种的土地不会因跳跃而被破坏，也不用担心水源问题。另外，再次右击耕地可转化为泥土。
+botania.page.elfGear17=&1源质钢锄&0
+botania.page.elfGear18=同时，&1源质钢全能工具&0融合了全部&1源质钢&0工具的功能。<br>由于它继承了斧和镐右击放置&4树苗&0与&4火把&0，所以你需要使用&4Shift右击&0切换模式来进行耕种。<br>这一切还未完成。
+botania.page.elfGear19=&1源质钢全能工具&0
