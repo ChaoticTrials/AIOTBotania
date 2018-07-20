@@ -67,16 +67,26 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
         if(hoemode) {
             if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superfarmland)) {
-                if (special) return ToolUtil.hoeUse(player, world, pos, hand, side, true, MANA_PER_DAMAGE);
-                else return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
+                if (special){
+                    return ToolUtil.hoeUse(player, world, pos, hand, side, true, MANA_PER_DAMAGE);
+                } else {
+                    return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
+                }
             } else {
-                return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
+                if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
+                    return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
+                }else{
+                    return EnumActionResult.PASS;
+                }
             }
         } else {
             if(!player.isSneaking()) {
                 return ToolUtil.pickUse(player, world, pos, hand, side, hitX, hitY, hitZ);
             } else {
-                return ToolUtil.axeUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+                if(side == EnumFacing.UP){
+                    return ToolUtil.axeUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+                }
+                return EnumActionResult.PASS;
             }
         }
     }
@@ -85,7 +95,6 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-
         if(!world.isRemote) {
             if(player.isSneaking()) {
 
