@@ -28,6 +28,7 @@ import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
+import javax.annotation.Nonnull;
 import java.util.regex.Pattern;
 
 public class ToolUtil {
@@ -117,32 +118,38 @@ public class ToolUtil {
         }
     }
 
+    @Nonnull
     public static EnumActionResult pickUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
         for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
             ItemStack stackAt = player.inventory.getStackInSlot(i);
             if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
                 ItemStack saveHeldStack = player.getHeldItem(hand);
                 player.setHeldItem(hand, stackAt);
-                stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+                EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
                 player.setHeldItem(hand, saveHeldStack);
                 ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
+                return did;
             }
         }
-        return EnumActionResult.SUCCESS;
+
+        return EnumActionResult.PASS;
     }
 
+    @Nonnull
     public static EnumActionResult axeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
         for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
             ItemStack stackAt = player.inventory.getStackInSlot(i);
             if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
                 ItemStack saveHeldStack = player.getHeldItem(hand);
                 player.setHeldItem(hand, stackAt);
-                stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+                EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
                 player.setHeldItem(hand, saveHeldStack);
                 ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
+                return did;
             }
         }
-        return EnumActionResult.SUCCESS;
+
+        return EnumActionResult.PASS;
     }
 
     public static EnumActionResult shovelUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, int MPD) {
