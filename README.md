@@ -1,6 +1,4 @@
-# aiotbotania
-This mod adds AIOTs for Botania tools. Because an AIOT is so much better than just a tool.
-
+# AIOT Botania
 This mod adds four new items! That is Hoes and AIOTs (All In One Tool), each as a Manasteel and as an Elementium version.
 
  
