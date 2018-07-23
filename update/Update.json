@@ -3,13 +3,14 @@
   "homepage": "www.melanx.de/aiot-botania",
   "promos": {
 
-    "1.12.2-latest": "0.3",
-    "1.12.2-recommended": "0.3"
+    "1.12.2-latest": "0.4",
+    "1.12.2-recommended": "0.4"
 
   },
 
   "1.12.2": {
 
+    "0.4": "Added zh_cn.lang (by DYColdWind)\nAdded changelog (GitHub only)Added update checker\nFixed AIOT mode lang\nFixed Interaction with AIOTs (by derNiklaas)\nImplemented primary effects of elementium tools\nIncreased mana usage for AIOTs",
     "0.3": "Fixed wrong mining level by AIOTs",
     "0.2": "Added the secundary function of the axe to place down saplings\n \nBecause of that there are now 2 different modes:\n- Shift-Rightclick into the air to change the mode\n- Mode 1: Rightclick to make farmland; Shift-Rightclick to make grass paths\n- Mode 2: Rightclick to place down torches; Shift-Rightclick to place down saplings instead\n \nLexica Botanica support! There's now some in-game text in the Lexica Botanica which explains the new tools added with this mod\n \nMinor (cough cough) Bugfixes:\n- Switch from \"hacky\" secundary functions to \"real\" ones\n- That means that mana will now be drained correctly\n- The tools didn't get damaged/drained mana correctly when destroying blocks with it. That's fixed\n- The AIOT can now be enchanted with sword-specific enchantments as well!\n- Adjusted the durability for the elemtium AIOT",
     "0.1": "Initial Release"
