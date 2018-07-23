@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
-@Mod(modid = AIOTBotania.MODID, name = AIOTBotania.NAME, version = AIOTBotania.VERSION, dependencies = AIOTBotania.DEPS)
+@Mod(modid = AIOTBotania.MODID, name = AIOTBotania.NAME, version = AIOTBotania.VERSION, dependencies = AIOTBotania.DEPS, updateJSON = AIOTBotania.UPDATE)
 
 public class AIOTBotania {
 
@@ -31,6 +31,7 @@ public class AIOTBotania {
     static final String NAME = "AIOT Botania";
     static final String VERSION = "@VERSION@";
     static final String DEPS = "required-after:botania";
+    static final String UPDATE = "";
     public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
 
     @SidedProxy(clientSide = "de.melanx.aiotbotania.proxy.ClientProxy", serverSide = "de.melanx.aiotbotania.proxy.CommonProxy")

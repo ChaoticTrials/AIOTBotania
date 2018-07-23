@@ -7,7 +7,7 @@ import vazkii.botania.api.item.IPixieSpawner;
 
 public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
-    private static final int MANA_PER_DAMAGE = 60;
+    private static final int MANA_PER_DAMAGE = 66;
 
     public ItemElementiumAIOT() {
         super("elementiumAIOT", BotaniaAPI.elementiumToolMaterial, 6.0f, -2.2f, MANA_PER_DAMAGE, true);
