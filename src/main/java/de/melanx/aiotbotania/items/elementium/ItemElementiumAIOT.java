@@ -77,7 +77,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
                 Random rand = event.getEntityLiving().world.rand;
                 int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
-                if(event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(1) <= 3 + looting)
+                if(event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting)
                     addDrop(event, new ItemStack(Items.SKULL, 1, event.getEntityLiving() instanceof EntityWitherSkeleton ? 1 : 0));
                 else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
                     addDrop(event, new ItemStack(Items.SKULL, 1, 2));
