@@ -31,7 +31,7 @@ public class AIOTBotania {
     static final String NAME = "AIOT Botania";
     static final String VERSION = "@VERSION@";
     static final String DEPS = "required-after:botania";
-    static final String UPDATE = "";
+    static final String UPDATE = "https://raw.githubusercontent.com/MelanX/aiotbotania/9c76294a8165e474cdb29fe6445fce4f8671574c/update/Update.json";
     public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
 
     @SidedProxy(clientSide = "de.melanx.aiotbotania.proxy.ClientProxy", serverSide = "de.melanx.aiotbotania.proxy.CommonProxy")
