@@ -1,3 +1,6 @@
+# 1.12.2-0.4.1
+- Fixed update checker wrong link
+
 # 1.12.2-0.4
 - Added zh_cn.lang (by DYColdWind)
 - Added changelog
