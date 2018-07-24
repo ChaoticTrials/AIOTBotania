@@ -2,9 +2,11 @@ package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.client.aiotbotaniaTab;
+import de.melanx.aiotbotania.config.ConfigurationHandler;
 import de.melanx.aiotbotania.crafting.CraftingRecipes;
 import de.melanx.aiotbotania.items.ModItems;
 import de.melanx.aiotbotania.lexicon.LexiconData;
+import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.proxy.CommonProxy;
 import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
@@ -23,18 +25,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
-@Mod(modid = AIOTBotania.MODID, name = AIOTBotania.NAME, version = AIOTBotania.VERSION, dependencies = AIOTBotania.DEPS, updateJSON = AIOTBotania.UPDATE)
+@Mod(modid = LibMisc.MODID, name = LibMisc.NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPS, updateJSON = LibMisc.UPDATE)
 
 public class AIOTBotania {
 
-    public static final String MODID = "aiotbotania";
-    static final String NAME = "AIOT Botania";
-    static final String VERSION = "@VERSION@";
-    static final String DEPS = "required-after:botania";
-    static final String UPDATE = "https://raw.githubusercontent.com/MelanX/aiotbotania/9c76294a8165e474cdb29fe6445fce4f8671574c/update/Update.json";
     public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
 
-    @SidedProxy(clientSide = "de.melanx.aiotbotania.proxy.ClientProxy", serverSide = "de.melanx.aiotbotania.proxy.CommonProxy")
+    @SidedProxy(clientSide = LibMisc.PROXY_CLIENT, serverSide = LibMisc.PROXY_SERVER)
     public static CommonProxy PROXY;
 
     @Mod.EventBusSubscriber
@@ -70,8 +67,9 @@ public class AIOTBotania {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        System.out.println(MODID + " is loading");
+        System.out.println(LibMisc.MODID + " is loading");
         CraftingRecipes.init();
+        new ConfigurationHandler(event.getSuggestedConfigurationFile());
     }
 
     @Mod.EventHandler
@@ -81,7 +79,7 @@ public class AIOTBotania {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        System.out.println(MODID + " is finished.");
+        System.out.println(LibMisc.MODID + " is finished.");
     }
 
 }

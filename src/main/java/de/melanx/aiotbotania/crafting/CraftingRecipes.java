@@ -1,10 +1,10 @@
 package de.melanx.aiotbotania.crafting;
 
-import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.lib.LibMisc;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = AIOTBotania.MODID)
+@Mod.EventBusSubscriber(modid = LibMisc.MODID)
 public final class CraftingRecipes {
 
     public static ResourceLocation recipeManaHoe;
@@ -20,7 +20,7 @@ public final class CraftingRecipes {
     }
 
     private static ResourceLocation path(String path) {
-        return new ResourceLocation(AIOTBotania.MODID, path);
+        return new ResourceLocation(LibMisc.MODID, path);
     }
 
 }
