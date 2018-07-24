@@ -31,7 +31,7 @@ public class AIOTBotania {
 
     public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
 
-    @SidedProxy(clientSide = "de.melanx.aiotbotania.proxy.ClientProxy", serverSide = "de.melanx.aiotbotania.proxy.CommonProxy")
+    @SidedProxy(clientSide = LibMisc.PROXY_CLIENT, serverSide = LibMisc.PROXY_SERVER)
     public static CommonProxy PROXY;
 
     @Mod.EventBusSubscriber
