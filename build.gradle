@@ -27,7 +27,7 @@ minecraft {
     mappings = "${mappings_version}"
 
     replace "@VERSION@", project.version
-    replaceIn "AIOTBotania.java"
+    replaceIn "LibMisc.java"
 }
 
 dependencies {

@@ -4,7 +4,8 @@ import de.melanx.aiotbotania.config.ConfigCategories;
 
 public enum ConfigBoolValues {
 
-    GENERAL("Set to true", ConfigCategories.GENERAL, true, "If set to true, this is true. Else this is wrong. [default: true]");
+    MANASTEEL_AIOT("Manasteel AIOT", ConfigCategories.TOOLS, true, "If set to false, Manasteel AIOT will be disabled. [default: true]"),
+    ELEMENTIUM_AIOT("Elementium AIOT", ConfigCategories.TOOLS, true, "If set to false, Elementium AIOT will be disabled. [default: true]");
 
     public final String name;
     public final String category;
