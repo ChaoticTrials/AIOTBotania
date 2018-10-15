@@ -8,8 +8,6 @@ import net.minecraft.item.ItemStack;
 
 public class aiotbotaniaTab extends CreativeTabs {
 
-    private static final String modID = LibMisc.NAME;
-
     public aiotbotaniaTab() {
         super(LibMisc.MODID);
     }

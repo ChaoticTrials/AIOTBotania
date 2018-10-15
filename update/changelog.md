@@ -1,3 +1,7 @@
+# 1.12.2-0.5
+- Added fancy pink particles for super farmland (can turned off in config) (closed #15)
+- Fixed creative tab icon
+
 # 1.12.2-0.4.1
 - Added config file
     - Elementium/Manasteel AIOT can turned off

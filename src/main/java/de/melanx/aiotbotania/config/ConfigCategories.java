@@ -4,7 +4,8 @@ import java.util.Locale;
 
 public enum ConfigCategories {
 
-    TOOLS("Tools", "Things about tools");
+    TOOLS("Tools", "Things about tools"),
+    CLIENT("Client", "Things about the client");
 
     public final String name;
     public final String comment;

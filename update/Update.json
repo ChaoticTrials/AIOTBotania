@@ -3,13 +3,14 @@
   "homepage": "www.melanx.de/aiot-botania",
   "promos": {
 
-    "1.12.2-latest": "0.4.1",
-    "1.12.2-recommended": "0.4.1"
+    "1.12.2-latest": "0.5",
+    "1.12.2-recommended": "0.5"
 
   },
 
   "1.12.2": {
 
+    "0.5": "Added fancy pink particles for super farmland (can turned off in config)\nFixed creative tab icon",
     "0.4.1": "Added config file:\n   Elementium/Manasteel AIOT can turned off\nFixed update checker wrong link",
     "0.4": "Added zh_cn.lang (by DYColdWind)\nAdded changelog (GitHub only)\nAdded update checker\nFixed AIOT mode lang\nFixed Interaction with AIOTs (by derNiklaas)\nImplemented primary effects of elementium tools\nIncreased mana usage for AIOTs",
     "0.3": "Fixed wrong mining level by AIOTs",

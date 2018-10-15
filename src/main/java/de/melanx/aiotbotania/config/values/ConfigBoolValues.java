@@ -5,7 +5,8 @@ import de.melanx.aiotbotania.config.ConfigCategories;
 public enum ConfigBoolValues {
 
     MANASTEEL_AIOT("Manasteel AIOT", ConfigCategories.TOOLS, true, "If set to false, Manasteel AIOT will be disabled. [default: true]"),
-    ELEMENTIUM_AIOT("Elementium AIOT", ConfigCategories.TOOLS, true, "If set to false, Elementium AIOT will be disabled. [default: true]");
+    ELEMENTIUM_AIOT("Elementium AIOT", ConfigCategories.TOOLS, true, "If set to false, Elementium AIOT will be disabled. [default: true]"),
+    PARTICLES("Particles", ConfigCategories.CLIENT, true, "If set to false, particles will be disabled. [default: true]");
 
     public final String name;
     public final String category;

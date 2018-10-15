@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -17,6 +18,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -91,5 +95,16 @@ public class BlockSuperFarmland extends Block {
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        double d0 = (double)pos.getX() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.9D;
+        double d1 = (double)((float)pos.getY() + 1.0625F);
+        double d2 = (double)pos.getZ() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.9D;
+        float f1 = 1.0F;
+        float f2 = 0.15F;
+        float f3 = 0.9F;
+        Botania.proxy.sparkleFX(d0 + (Math.random() - 0.5) * 0.5, d1, d2 + (Math.random() - 0.5) * 0.5, f1, f2, f3, (float) Math.random(), 8);
     }
 }
