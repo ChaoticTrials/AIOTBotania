@@ -16,9 +16,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
@@ -35,9 +35,14 @@ import static vazkii.botania.common.item.equipment.tool.ToolCommons.materialsSho
 public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
     private static final int MANA_PER_DAMAGE = 66;
+    public static final ToolMaterial elementiumAIOTMaterial;
+
+    static {
+        elementiumAIOTMaterial = EnumHelper.addToolMaterial("ELEMENTIUM_AIOT", 3, 720 * 5, 6.2F, 2.0F, 20);
+    }
 
     public ItemElementiumAIOT() {
-        super("elementiumAIOT", BotaniaAPI.elementiumToolMaterial, 6.0f, -2.2f, MANA_PER_DAMAGE, true);
+        super("elementiumAIOT", elementiumAIOTMaterial, 6.0f, -2.2f, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
