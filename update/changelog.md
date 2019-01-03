@@ -1,3 +1,6 @@
+# 1.12.2-0.5.1
+- Fixed durability from AIOTs not stacked (closed #18)
+
 # 1.12.2-0.5
 - Added fancy pink particles for super farmland (can turned off in config) (closed #15)
 - Fixed creative tab icon
