@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "botania:manaresource",
+      "data": 3
+    },
+    "X": {
+      "item": "botania:livingwood",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "aiotbotania:livingwoodsword"
+  }
+}

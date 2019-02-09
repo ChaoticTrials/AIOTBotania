@@ -1,0 +1,23 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "aiotbotania:livingwoodpickaxe"
+    },
+    {
+      "item": "aiotbotania:livingwoodsword"
+    },
+    {
+      "item": "aiotbotania:livingwoodshovel"
+    },
+    {
+      "item": "aiotbotania:livingwoodaxe"
+    },
+    {
+      "item": "aiotbotania:livingwoodhoe"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:livingwoodaiot"
+  }
+}

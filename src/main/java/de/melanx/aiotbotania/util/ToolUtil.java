@@ -109,8 +109,11 @@ public class ToolUtil {
                         block1 = ModBlocks.superfarmland;
                     }
                     return tiltBlock(player, world, pos, stack, block1, MPD);
-                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland) && special) {
+                } else if((block == Blocks.FARMLAND)) {
                     Block block1 = Blocks.DIRT;
+                    return tiltBlock(player, world, pos, stack, block1, MPD);
+                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland && special)) {
+                    Block block1 = Blocks.GRASS;
                     return tiltBlock(player, world, pos, stack, block1, MPD);
                 }
             }
