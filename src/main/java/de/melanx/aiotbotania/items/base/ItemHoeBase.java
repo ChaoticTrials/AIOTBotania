@@ -24,14 +24,16 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
     private boolean special;
+    private boolean low_tier;
 
-    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE, boolean special) {
+    public ItemHoeBase(String name, ToolMaterial mat, int MANA_PER_DAMAGE, boolean special, boolean low_tier) {
         super(mat);
         Registry.registerItem(this, name);
         Registry.registerModel(this);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
+        this.low_tier = low_tier;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
     @Nonnull
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, @Nonnull World world, BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
-        return ToolUtil.hoeUse(player, world, pos, hand, side, special, MANA_PER_DAMAGE);
+        return ToolUtil.hoeUse(player, world, pos, hand, side, special, low_tier, MANA_PER_DAMAGE);
     }
 
     @Override

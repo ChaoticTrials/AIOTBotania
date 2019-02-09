@@ -16,7 +16,12 @@ public final class CraftingRecipes {
     public static ResourceLocation recipeWoodAIOT;
 
     // Livingrock
-
+    public static ResourceLocation recipeRockSword;
+    public static ResourceLocation recipeRockAxe;
+    public static ResourceLocation recipeRockPickaxe;
+    public static ResourceLocation recipeRockShovel;
+    public static ResourceLocation recipeRockHoe;
+    public static ResourceLocation recipeRockAIOT;
 
     // Manasteel
     public static ResourceLocation recipeManaHoe;
@@ -34,8 +39,16 @@ public final class CraftingRecipes {
         recipeWoodHoe = path("woodhoe");
         recipeWoodAIOT = path("woodaiot");
 
+        recipeRockSword = path("rocksword");
+        recipeRockAxe = path("rockaxe");
+        recipeRockPickaxe = path("rockpickaxe");
+        recipeRockShovel = path("rockshovel");
+        recipeRockHoe = path("rockhoe");
+        recipeRockAIOT = path("rockaiot");
+
         recipeManaHoe = path("manahoe");
         recipeManaAIOT = path("manaaiot");
+
         recipeElementiumHoe = path("elementiumhoe");
         recipeElementiumAIOT = path("elementiumaiot");
     }

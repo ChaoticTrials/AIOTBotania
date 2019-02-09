@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items.livingwood;
 
-import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.items.ToolMaterials;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
@@ -31,11 +30,11 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
         Block block = world.getBlockState(pos).getBlock();
 
         if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
-                return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
+                return ToolUtil.hoeUse(player, world, pos, hand, side, false, true, MANA_PER_DAMAGE);
         } else {
             if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
                 return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
-            }else{
+            } else {
                 return EnumActionResult.PASS;
             }
         }

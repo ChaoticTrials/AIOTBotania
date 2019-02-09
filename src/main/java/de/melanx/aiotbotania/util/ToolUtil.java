@@ -84,7 +84,7 @@ public class ToolUtil {
         return EnumActionResult.SUCCESS;
     }
 
-    public static EnumActionResult hoeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, boolean special, int MPD) {
+    public static EnumActionResult hoeUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, boolean special, boolean low_tier, int MPD) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (!player.canPlayerEdit(pos, side, stack)) {
@@ -109,10 +109,10 @@ public class ToolUtil {
                         block1 = ModBlocks.superfarmland;
                     }
                     return tiltBlock(player, world, pos, stack, block1, MPD);
-                } else if((block == Blocks.FARMLAND)) {
+                } else if((block == Blocks.FARMLAND) && low_tier == false) {
                     Block block1 = Blocks.DIRT;
                     return tiltBlock(player, world, pos, stack, block1, MPD);
-                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland && special)) {
+                } else if((block == Blocks.FARMLAND || block == ModBlocks.superfarmland) && special) {
                     Block block1 = Blocks.GRASS;
                     return tiltBlock(player, world, pos, stack, block1, MPD);
                 }

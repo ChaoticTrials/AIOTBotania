@@ -4,8 +4,8 @@ import de.melanx.aiotbotania.config.ConfigCategories;
 
 public enum ConfigBoolValues {
 
-    LIVINGWOOD_TOOLS("Livingwood Tools", ConfigCategories.TOOLS, false, "If set to true, Livingwood tools will be enabled. Livingwood AIOT can only be enabled if the tools are enabled. [default: false]"),
-    LIVINGROCK_TOOLS("Livingrock Tools", ConfigCategories.TOOLS, false, "If set to true, Livingrock tools will be enabled. Livingrock AIOT can only be enabled if the tools are enabled. [default: false]"),
+    LIVINGWOOD_TOOLS("Livingwood Tools", ConfigCategories.TOOLS, true, "If set to false, Livingwood tools will be disabled. Livingwood AIOT can only be enabled if the tools are enabled. [default: true]"),
+    LIVINGROCK_TOOLS("Livingrock Tools", ConfigCategories.TOOLS, true, "If set to false, Livingrock tools will be disabled. Livingrock AIOT can only be enabled if the tools are enabled. [default: true]"),
     LIVINGWOOD_AIOT("Livingwood AIOT", ConfigCategories.TOOLS, true, "If set to false, Livingwood AIOT will be disabled. [default: true]"),
     LIVINGROCK_AIOT("Livingrock AIOT", ConfigCategories.TOOLS, true, "If set to false, Livingrock AIOT will be disabled. [default: true]"),
     MANASTEEL_AIOT("Manasteel AIOT", ConfigCategories.TOOLS, true, "If set to false, Manasteel AIOT will be disabled. [default: true]"),

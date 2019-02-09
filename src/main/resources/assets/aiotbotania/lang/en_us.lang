@@ -12,6 +12,13 @@ item.livingwoodShovel.name=Livingwood Shovel
 item.livingwoodHoe.name=Livingwood Hoe
 item.livingwoodAIOT.name=Livingwood AIOT
 
+item.livingrockSword.name=Livingrock Sword
+item.livingrockAxe.name=Livingrock Axe
+item.livingrockPickaxe.name=Livingrock Pickaxe
+item.livingrockShovel.name=Livingrock Shovel
+item.livingrockHoe.name=Livingrock Hoe
+item.livingrockAIOT.name=Livingrock AIOT
+
 item.manasteelHoe.name=Manasteel Hoe
 item.manasteelAIOT.name=Manasteel AIOT
 
@@ -29,6 +36,14 @@ botania.page.livingwoodTools3=The &1Livingwood Pickaxe&0
 botania.page.livingwoodTools4=The &1Livingwood Shovel&0
 botania.page.livingwoodTools5=The &1Livingwood Hoe&0
 botania.page.livingwoodTools6=The &1Livingwood AIOT&0
+
+botania.page.livingrockTools0=&1Livingrock&0 can be shaped into tools by AIOT Botania.<br>The tools have properties like &1Stone&0, albeit somewhat superior in enchantability, durability and a few tweaks. Whenever a &1Livingrock&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.<br>The tools are like improved vanilla tools.
+botania.page.livingrockTools1=The &1Livingrock Sword&0
+botania.page.livingrockTools2=The &1Livingrock Axe&0
+botania.page.livingrockTools3=The &1Livingrock Pickaxe&0
+botania.page.livingrockTools4=The &1Livingrock Shovel&0
+botania.page.livingrockTools5=The &1Livingrock Hoe&0
+botania.page.livingrockTools6=The &1Livingrock AIOT&0
 
 botania.page.manaGear11=Because &2AIOT Botania&0 is installed there are two more items. The &1Hoe&0 is just like a normal vanilla Hoe but uses &4Mana&0 like the other tools.<br>The &1AIOT&0 is like a fusion out of &1Manasteel Sword&0, &1Pickaxe&0, &1Axe&0, &1Shovel&0 and &1Hoe&0 and combines all of their features.
 botania.page.manaGear12=The &1Manasteel Hoe&0

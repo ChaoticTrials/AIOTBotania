@@ -8,7 +8,7 @@ public class ItemLivingwoodHoe extends ItemHoeBase {
     private static final int MANA_PER_DAMAGE = 30;
 
     public ItemLivingwoodHoe() {
-        super("livingwoodHoe", ToolMaterials.livingwoodMaterial, MANA_PER_DAMAGE, false);
+        super("livingwoodHoe", ToolMaterials.livingwoodMaterial, MANA_PER_DAMAGE, false, true);
     }
 
 }

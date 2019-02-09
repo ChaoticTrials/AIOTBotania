@@ -12,6 +12,13 @@ item.livingwoodShovel.name=Lebeholzschaufel
 item.livingwoodHoe.name=Lebeholzhacke
 item.livingwoodAIOT.name=Lebeholz AIOT
 
+item.livingrockSword.name=Lebesteinschwert
+item.livingrockAxe.name=Lebesteinaxt
+item.livingrockPickaxe.name=Lebesteinspitzhacke
+item.livingrockShovel.name=Lebesteinschaufel
+item.livingrockHoe.name=Lebesteinhacke
+item.livingrockAIOT.name=Lebestein AIOT
+
 item.manasteelHoe.name=Manastahlhacke
 item.manasteelAIOT.name=Manastahl AIOT
 
@@ -28,6 +35,13 @@ botania.page.livingwoodTools3=Die &1Lebeholzspitzhacke&0
 botania.page.livingwoodTools4=Die &1Lebeholzschaufel&0
 botania.page.livingwoodTools5=Die &1Lebeholzhacke&0
 botania.page.livingwoodTools6=Das &1Lebeholz AIOT&0
+
+botania.page.livingrockTools1=Das &1Lebesteinschwert&0
+botania.page.livingrockTools2=Die &1Lebesteinaxt&0
+botania.page.livingrockTools3=Die &1Lebesteinspitzhacke&0
+botania.page.livingrockTools4=Die &1Lebesteinschaufel&0
+botania.page.livingrockTools5=Die &1Lebesteinhacke&0
+botania.page.livingrockTools6=Das &1Lebestein AIOT&0
 
 botania.page.manaGear12=Die &1Manastahlhacke&0
 botania.page.manaGear13=Das &1Manastahl AIOT&0

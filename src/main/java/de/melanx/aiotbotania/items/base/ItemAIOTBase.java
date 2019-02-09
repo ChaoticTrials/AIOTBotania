@@ -20,7 +20,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -68,9 +67,9 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
         if(hoemode) {
             if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superfarmland)) {
                 if (special){
-                    return ToolUtil.hoeUse(player, world, pos, hand, side, true, MANA_PER_DAMAGE);
+                    return ToolUtil.hoeUse(player, world, pos, hand, side, true, false, MANA_PER_DAMAGE);
                 } else {
-                    return ToolUtil.hoeUse(player, world, pos, hand, side, false, MANA_PER_DAMAGE);
+                    return ToolUtil.hoeUse(player, world, pos, hand, side, false, false, MANA_PER_DAMAGE);
                 }
             } else {
                 if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {

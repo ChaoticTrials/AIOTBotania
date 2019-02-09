@@ -31,6 +31,9 @@ public final class LexiconData {
 
         if(ConfigBoolValues.LIVINGROCK_TOOLS.isEnabled()) {
             livingrockTools = new BasicLexiconEntry("livingrockTools", BotaniaAPI.categoryTools);
+            livingrockTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", CraftingRecipes.recipeRockSword), new PageCraftingRecipe("2", CraftingRecipes.recipeRockAxe), new PageCraftingRecipe("3", CraftingRecipes.recipeRockPickaxe), new PageCraftingRecipe("4", CraftingRecipes.recipeRockShovel), new PageCraftingRecipe("5", CraftingRecipes.recipeRockHoe));
+            if(ConfigBoolValues.LIVINGROCK_AIOT.isEnabled())
+                livingrockTools.setLexiconPages(new PageCraftingRecipe("6", CraftingRecipes.recipeRockAIOT));
         }
     }
 

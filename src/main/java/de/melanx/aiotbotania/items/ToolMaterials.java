@@ -20,7 +20,7 @@ public class ToolMaterials {
 
         // AIOT materials
         livingwoodAIOTMaterial = EnumHelper.addToolMaterial("LIVINGWOOD_AIOT", 3, 68 * 5, 2.0F, 0.5F, 18);
-        livingrockAIOTMaterial = EnumHelper.addToolMaterial("LIVINGROCK_AIOT", 1, 191 * 5, 4.5F, 1.5F, 10);
+        livingrockAIOTMaterial = EnumHelper.addToolMaterial("LIVINGROCK_AIOT", 1, 191 * 5, 4.5F, 2.5F, 10);
         manasteelAIOTMaterial = EnumHelper.addToolMaterial("MANASTEEL_AIOT", 3, 300 * 5, 6.2F, 2.0F, 20);
         elementiumAIOTMaterial = EnumHelper.addToolMaterial("ELEMENTIUM_AIOT", 3, 720 * 5, 6.2F, 2.0F, 20);
     }
