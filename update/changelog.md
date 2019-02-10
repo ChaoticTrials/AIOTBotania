@@ -1,3 +1,8 @@
+# 1.12.2-0.6
+- Added Livingwood tools
+- Added Livingrock tools
+- Improved Manasteel/Elementium AIOTs
+
 # 1.12.2-0.5.1
 - Fixed durability from AIOTs not stacked (closed #18)
 
