@@ -64,7 +64,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
         Block blk = world.getBlockState(pos).getBlock();
         if(blk instanceof BlockFalling)
-            ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1), blk, materialsShovel, silk, fortune, false);
+            ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1), state -> state.getBlock() == blk, false);
 
         return false;
     }

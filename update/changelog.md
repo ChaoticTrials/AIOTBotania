@@ -1,3 +1,6 @@
+# 1.12.2-0.6.1
+- Fixed crash when breaking gravel (closed #20)
+
 # 1.12.2-0.6
 - Added Livingwood tools
 - Added Livingrock tools

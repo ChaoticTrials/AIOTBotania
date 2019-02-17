@@ -3,13 +3,13 @@
   "homepage": "www.melanx.de/aiot-botania",
   "promos": {
 
-    "1.12.2-latest": "0.6",
-    "1.12.2-recommended": "0.5.1"
+    "1.12.2-latest": "0.6.1",
+    "1.12.2-recommended": "0.6.1"
 
   },
 
   "1.12.2": {
-
+    "0.6.1": "Fixed crash when breaking gravel",
     "0.6": "Added Livingwood tools\nAdded Livingrock tools\nImproved Manasteel/Elementium AIOTs",
     "0.5.1": "Fixed durability from AIOTs not stacked",
     "0.5": "Added fancy pink particles for super farmland (can turned off in config)\nFixed creative tab icon",

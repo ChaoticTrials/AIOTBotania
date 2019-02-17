@@ -10,6 +10,19 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
+repositories {
+    mavenCentral()
+    maven {
+        name = "botania"
+        url = "https://maven.blamejared.com/"
+    }
+
+    maven {
+        name = "baubles"
+        url = "http://maven.thiakil.com"
+    }
+}
+
 
 version = "${mod_version}"
 group = "de.melanx.aiotbotania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -31,7 +44,8 @@ minecraft {
 }
 
 dependencies {
-    compile files('libs/')
+    deobfCompile "vazkii.botania:Botania:r1.10-359.39"
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
 
 processResources {
