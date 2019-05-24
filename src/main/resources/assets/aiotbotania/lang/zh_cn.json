@@ -1,0 +1,23 @@
+{
+  "itemGroup.aiotbotania": "AIOT Botania",
+  "aiotbotania.toggleMode": "全能工具模式已更改",
+  "aiotbotania.hoeMode": "开垦土地与草径",
+  "aiotbotania.utilityMode": "放置火把与树苗",
+
+  "item.manasteelHoe.name": "魔钢锄",
+  "item.manasteelAIOT.name": "魔钢全能工具",
+
+  "item.elementiumHoe.name": "源质钢锄",
+  "item.elementiumAIOT.name": "源质钢全能工具",
+
+  "botania.page.manaGear11": "若安装&2AIOT Botania\u00a70模组还增加了两样工具。\u00a71锄\u00a70用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗&4魔力\u00a70。<br>而\u00a71全能工具\u00a70则融合了魔钢\u00a71剑\u00a70，\u00a71斧\u00a70，\u00a71镐\u00a70，\u00a71铲\u00a70与\u00a71锄\u00a70的所有功能。",
+  "botania.page.manaGear12": "\u00a71魔钢锄\u00a70",
+  "botania.page.manaGear13": "\u00a71魔钢全能工具\u00a70",
+
+  "botania.page.elfGear10": "\u00a71源质钢剑\u00a70会增加攻击时生成&4小精灵\u00a70的概率（当未穿戴\u00a71源质钢装备\u00a70时也会生成），并强化&4小精灵\u00a70的能力。",
+  "botania.page.elfGear16": "\u00a71源质钢锄\u00a70耕种的土地不会因跳跃而被破坏，也不用担心水源问题。另外，再次右击耕地可转化为泥土。",
+  "botania.page.elfGear17": "\u00a71源质钢锄\u00a70",
+  "botania.page.elfGear18": "同时，\u00a71源质钢全能工具\u00a70融合了全部\u00a71源质钢\u00a70工具的功能。<br>由于它继承了斧和镐右击放置&4树苗\u00a70与&4火把\u00a70，所以你需要使用&4Shift右击\u00a70切换模式来进行耕种。",
+  "botania.page.elfGear19": "\u00a71源质钢全能工具\u00a70"
+
+}
