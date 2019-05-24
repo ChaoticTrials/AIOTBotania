@@ -1,14 +1,16 @@
 package de.melanx.aiotbotania.items.manasteel;
 
-import de.melanx.aiotbotania.items.ToolMaterials;
+import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 
 public class ItemManasteelAIOT extends ItemAIOTBase {
 
     private static final int MANA_PER_DAMAGE = 66;
+    private static final float DAMAGE = 6.0F;
+    private static final float SPEED = -2.2F;
 
     public ItemManasteelAIOT() {
-        super("manasteelAIOT", ToolMaterials.manasteelAIOTMaterial,6.0f, -2.2f, MANA_PER_DAMAGE, false);
+        super("manasteel_aiot", ItemTiers.MANASTEEL_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
     }
 
 }

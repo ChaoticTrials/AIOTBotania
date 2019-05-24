@@ -4,7 +4,7 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.ItemBlockBase;
 import de.melanx.aiotbotania.lib.LibMisc;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -17,21 +17,16 @@ public class Registry {
     public static final Map<ItemStack, ModelResourceLocation> MODEL_LOCATIONS = new HashMap<>();
 
     public static void registerItem(Item item, String name) {
-        item.setUnlocalizedName(name);
         item.setRegistryName(LibMisc.MODID, name);
-        item.setCreativeTab(AIOTBotania.creativeTab);
-
         ITEMS_TO_REGISTER.add(item);
     }
 
     public static void registerBlock(Block block, String name, @Nullable ItemBlockBase itemBlock) {
-        block.setUnlocalizedName(name);
         block.setRegistryName(LibMisc.MODID, name);
         BLOCKS_TO_REGISTER.add(block);
 
         if(itemBlock != null) {
             itemBlock.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
-            block.setCreativeTab(AIOTBotania.creativeTab);
             ITEMS_TO_REGISTER.add(itemBlock);
         }
     }

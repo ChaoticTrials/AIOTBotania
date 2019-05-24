@@ -1,85 +1,84 @@
 package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
-import de.melanx.aiotbotania.client.aiotbotaniaTab;
-import de.melanx.aiotbotania.config.ConfigurationHandler;
 import de.melanx.aiotbotania.crafting.CraftingRecipes;
-import de.melanx.aiotbotania.items.ModItems;
-import de.melanx.aiotbotania.lexicon.LexiconData;
 import de.melanx.aiotbotania.lib.LibMisc;
-import de.melanx.aiotbotania.proxy.CommonProxy;
+import de.melanx.aiotbotania.items.ModItems;
+import de.melanx.aiotbotania.util.CreativeTab;
 import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.Map;
-
-@Mod(modid = LibMisc.MODID, name = LibMisc.NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPS, updateJSON = LibMisc.UPDATE)
-
+@Mod(LibMisc.MODID)
 public class AIOTBotania {
 
-    public static final aiotbotaniaTab creativeTab = new aiotbotaniaTab();
+    public static AIOTBotania instance;
+    private static final Logger LOGGER = LogManager.getLogger(LibMisc.MODID);
 
-    @SidedProxy(clientSide = LibMisc.PROXY_CLIENT, serverSide = LibMisc.PROXY_SERVER)
-    public static CommonProxy PROXY;
+    public static final ItemGroup aiotItemGroup = new CreativeTab();
 
-    @Mod.EventBusSubscriber
-    public static class RegistrationHandler {
+    public AIOTBotania() {
+
+        instance = this;
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistries);
+
+        MinecraftForge.EVENT_BUS.register(this);
+
+    }
+
+    private void setup(final FMLCommonSetupEvent event) {
+        CraftingRecipes.init();
+        // waiting for Botania LexiconData.init()
+        LOGGER.info("Setup method registered.");
+    }
+
+    private void clientRegistries(final FMLClientSetupEvent event) {
+        LOGGER.info("clientRegistries method registered.");
+    }
+
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
 
         @SubscribeEvent
-        public static void registerItems(RegistryEvent.Register<Item> event) {
+        public static void registerItems(final RegistryEvent.Register<Item> event) {
             ModItems.init();
-
             for(Item item : Registry.ITEMS_TO_REGISTER) {
                 event.getRegistry().register(item);
-                System.out.println(item.getRegistryName());
+                LOGGER.info(item.getRegistryName());
             }
+
+            LOGGER.info("Items registered.");
         }
 
         @SubscribeEvent
-        public static void registerBlocks(RegistryEvent.Register<Block> event) {
+        public static void registerBlocks(final RegistryEvent.Register<Block> event)
+        {
             ModBlocks.init();
-
             for(Block block : Registry.BLOCKS_TO_REGISTER) {
                 event.getRegistry().register(block);
-                System.out.println(block.getRegistryName());
+                LOGGER.info(block.getRegistryName());
             }
+
+            LOGGER.info("Blocks registered.");
         }
 
-        @SubscribeEvent
-        public static  void registerModels(ModelRegistryEvent event) {
-            for(Map.Entry<ItemStack, ModelResourceLocation> entry : Registry.MODEL_LOCATIONS.entrySet()) {
-                ModelLoader.setCustomModelResourceLocation(entry.getKey().getItem(), entry.getKey().getItemDamage(), entry.getValue());
-            }
-        }
     }
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        System.out.println(LibMisc.MODID + " is loading");
-        CraftingRecipes.init();
-        new ConfigurationHandler(event.getSuggestedConfigurationFile());
-    }
-
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        LexiconData.init();
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        System.out.println(LibMisc.MODID + " is finished.");
+    private static ResourceLocation location(String name) {
+        return new ResourceLocation(LibMisc.MODID, name);
     }
 
 }

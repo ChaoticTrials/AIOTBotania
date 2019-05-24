@@ -1,32 +1,38 @@
 package de.melanx.aiotbotania.items.livingrock;
 
-import de.melanx.aiotbotania.items.ToolMaterials;
+import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class ItemLivingrockShovel extends ItemShovelBase {
 
     private static final int MANA_PER_DAMAGE = 40;
+    private static final int DAMAGE = 1;
+    private static final float SPEED = -3.0F;
 
     public ItemLivingrockShovel() {
-        super("livingrockShovel", ToolMaterials.livingrockMaterial, MANA_PER_DAMAGE);
+        super("livingrock_shovel", ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
     }
 
-    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx) {
+        World world = ctx.getWorld();
+        BlockPos pos = ctx.getPos();
+        EnumFacing side = ctx.getFace();
+
         Block block = world.getBlockState(pos).getBlock();
 
-        if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
-            return ToolUtil.shovelUse(player, world, pos, hand, side, MANA_PER_DAMAGE);
-        } else if(!player.isSneaking() && block == Blocks.GRASS_PATH) {
-            return ToolUtil.hoeUse(player, world, pos, hand, side, false, false, MANA_PER_DAMAGE);
+        if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
+            return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
         }
         return EnumActionResult.PASS;
     }

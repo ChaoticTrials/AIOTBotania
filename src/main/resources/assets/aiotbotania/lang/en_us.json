@@ -1,0 +1,55 @@
+{
+  "itemGroup.aiotbotania": "AIOT Botania",
+  "aiotbotania.toggleMode": "Secondary AIOT mode changed",
+  "aiotbotania.hoeMode": "Till soil und create grass paths",
+  "aiotbotania.utilityMode": "Place down torches and saplings",
+
+  "item.aiotbotania.livingwood_sword": "Livingwood Sword",
+  "item.aiotbotania.livingwood_axe": "Livingwood Axe",
+  "item.aiotbotania.livingwood_pickaxe": "Livingwood Pickaxe",
+  "item.aiotbotania.livingwood_shovel": "Livingwood Shovel",
+  "item.aiotbotania.livingwood_hoe": "Livingwood Hoe",
+  "item.aiotbotania.livingwood_aiot": "Livingwood AIOT",
+
+  "item.aiotbotania.livingrock_sword": "Livingrock Sword",
+  "item.aiotbotania.livingrock_axe": "Livingrock Axe",
+  "item.aiotbotania.livingrock_pickaxe": "Livingrock Pickaxe",
+  "item.aiotbotania.livingrock_shovel": "Livingrock Shovel",
+  "item.aiotbotania.livingrock_hoe": "Livingrock Hoe",
+  "item.aiotbotania.livingrock_aiot": "Livingrock AIOT",
+
+  "item.aiotbotania.manasteel_hoe": "Manasteel Hoe",
+  "item.aiotbotania.manasteel_aiot": "Manasteel AIOT",
+
+  "item.aiotbotania.elementium_hoe": "Elementium Hoe",
+  "item.aiotbotania.elementium_aiot": "Elementium AIOT",
+
+  "botania.entry.livingwoodTools": "Livingwood Tools",
+  "botania.entry.livingrockTools": "Livingrock Tools",
+
+  "botania.page.livingwoodTools0": "\u00a71Livingwood\u00a70 can be shaped into tools by AIOT Botania.<br>The tools have properties like \u00a71Wood\u00a70, albeit somewhat superior in enchantability and durability. Whenever a \u00a71Livingwood\u00a70 item is to take damage, if there's &4Mana\u00a70 available in the inventory (such as a \u00a71Mana Tablet\u00a70), it'll use that instead.<br>Apart from the damage, they're like the vanilla tools.",
+  "botania.page.livingwoodTools1": "The \u00a71Livingwood Sword\u00a70",
+  "botania.page.livingwoodTools2": "The \u00a71Livingwood Axe\u00a70",
+  "botania.page.livingwoodTools3": "The \u00a71Livingwood Pickaxe\u00a70",
+  "botania.page.livingwoodTools4": "The \u00a71Livingwood Shovel\u00a70",
+  "botania.page.livingwoodTools5": "The \u00a71Livingwood Hoe\u00a70",
+  "botania.page.livingwoodTools6": "The \u00a71Livingwood AIOT\u00a70",
+
+  "botania.page.livingrockTools0": "\u00a71Livingrock\u00a70 can be shaped into tools by AIOT Botania.<br>The tools have properties like \u00a71Stone\u00a70, albeit somewhat superior in enchantability, durability and a few tweaks. Whenever a \u00a71Livingrock\u00a70 item is to take damage, if there's &4Mana\u00a70 available in the inventory (such as a \u00a71Mana Tablet\u00a70), it'll use that instead.<br>The tools are like improved vanilla tools.",
+  "botania.page.livingrockTools1": "The \u00a71Livingrock Sword\u00a70",
+  "botania.page.livingrockTools2": "The \u00a71Livingrock Axe\u00a70",
+  "botania.page.livingrockTools3": "The \u00a71Livingrock Pickaxe\u00a70",
+  "botania.page.livingrockTools4": "The \u00a71Livingrock Shovel\u00a70",
+  "botania.page.livingrockTools5": "The \u00a71Livingrock Hoe\u00a70",
+  "botania.page.livingrockTools6": "The \u00a71Livingrock AIOT\u00a70",
+
+  "botania.page.manaGear11": "Because &2AIOT Botania\u00a70 is installed there are two more items. The \u00a71Hoe\u00a70 is just like a normal vanilla Hoe but uses &4Mana\u00a70 like the other tools.<br>The \u00a71AIOT\u00a70 is like a fusion out of \u00a71Manasteel Sword\u00a70, \u00a71Pickaxe\u00a70, \u00a71Axe\u00a70, \u00a71Shovel\u00a70 and \u00a71Hoe\u00a70 and combines all of their features.",
+  "botania.page.manaGear12": "The \u00a71Manasteel Hoe\u00a70",
+  "botania.page.manaGear13": "The \u00a71Manasteel AIOT\u00a70",
+
+  "botania.page.elfGear10": "The \u00a71Elementium Sword\u00a70 will increase the chance of a &4Pixie\u00a70 spawning when hit (this holds true when no \u00a71Elementium Armor\u00a70 is worn) and increases the strength of any &4Pixies\u00a70 spawned.",
+  "botania.page.elfGear16": "The \u00a71Elementium Hoe\u00a70 tills a dirt block or something simular into a farmland block which doesn't break by jumping on it. With this farmland you don't need water nearby, the block is wet everytime. When right-clicking on farmland the farmland converts back to dirt.",
+  "botania.page.elfGear17": "The \u00a71Elementium Hoe\u00a70",
+  "botania.page.elfGear18": "Lastly, the \u00a71Elementium AIOT\u00a70 fusions all the special effects of the other \u00a71Elementium\u00a70 tools. <br>Because you can place &4saplings\u00a70 and &4torches\u00a70 with axe and pickaxe, there is a mode which can be toggled by &4shift-right clicking\u00a70. One mode is for tilling and create grass paths, the other mode is for placing saplings and torches.",
+  "botania.page.elfGear19": "The \u00a71Elementium AIOT\u00a70"
+}

@@ -1,9 +1,13 @@
 package de.melanx.aiotbotania.blocks;
 
+import net.minecraft.block.Block;
+
 public class ModBlocks {
-    public static BlockSuperFarmland superfarmland;
+
+    public static Block superFarmland;
 
     public static void init() {
-        superfarmland = new BlockSuperFarmland();
+        superFarmland = new BlockSuperFarmland();
     }
+
 }

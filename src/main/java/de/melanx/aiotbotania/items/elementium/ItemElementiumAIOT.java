@@ -1,6 +1,6 @@
 package de.melanx.aiotbotania.items.elementium;
 
-import de.melanx.aiotbotania.items.ToolMaterials;
+import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -11,7 +11,11 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
@@ -19,25 +23,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.api.BotaniaAPI;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Random;
-
-import static vazkii.botania.common.item.equipment.tool.ToolCommons.materialsShovel;
 
 public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
     private static final int MANA_PER_DAMAGE = 66;
+    private static final float DAMAGE = 6.0F;
+    private static final float SPEED = -2.2F;
 
     public ItemElementiumAIOT() {
-        super("elementiumAIOT", ToolMaterials.elementiumAIOTMaterial, 6.0f, -2.2f, MANA_PER_DAMAGE, true);
+        super("elementium_aiot", ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -52,15 +55,12 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
         World world = player.world;
         Material mat = world.getBlockState(pos).getMaterial();
-        if (!materialsShovel.contains(mat))
+        if (!ToolCommons.materialsShovel.contains(mat))
             return false;
 
         RayTraceResult block = ToolCommons.raytraceFromEntity(world, player, true, 10);
         if (block == null)
             return false;
-
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-        boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 
         Block blk = world.getBlockState(pos).getBlock();
         if(blk instanceof BlockFalling)
@@ -70,7 +70,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     }
 
     @SubscribeEvent
-    public void onEntityDrops(LivingDropsEvent event) {
+    private void onEntityDrops(LivingDropsEvent event) {
         if(event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
             ItemStack weapon = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItemMainhand();
             if(!weapon.isEmpty() && weapon.getItem() == this) {
@@ -78,17 +78,17 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
                 int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
                 if(event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting)
-                    addDrop(event, new ItemStack(Items.SKULL, 1, event.getEntityLiving() instanceof EntityWitherSkeleton ? 1 : 0));
+                    addDrop(event, new ItemStack(event.getEntity() instanceof EntityWitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
                 else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(event, new ItemStack(Items.SKULL, 1, 2));
+                    addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
                 else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(event, new ItemStack(Items.SKULL, 1, 4));
+                    addDrop(event, new ItemStack(Items.CREEPER_HEAD));
                 else if(event.getEntityLiving() instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
-                    ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
-                    ItemNBTHelper.setString(stack, "SkullOwner", event.getEntityLiving().getName());
+                    ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+                    ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer) event.getEntityLiving()).getGameProfile().getName());
                     addDrop(event, stack);
                 } else if(event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-                    addDrop(event, new ItemStack(ModItems.gaiaHead));
+                    addDrop(event, new ItemStack(ModBlocks.gaiaHead));
             }
         }
     }
@@ -110,29 +110,23 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
         }
     }
 
+    private static final Tag<Item> DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "disposable"));
+    private static final Tag<Item> SEMI_DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "semi_disposable"));
+
     public static boolean isDisposable(Block block) {
-        return isDisposable(new ItemStack(block));
+        return DISPOSABLE.contains(block.asItem());
     }
 
     private static boolean isDisposable(ItemStack stack) {
         if(stack.isEmpty())
             return false;
 
-        for(int id : OreDictionary.getOreIDs(stack)) {
-            String name = OreDictionary.getOreName(id);
-            if(BotaniaAPI.disposableBlocks.contains(name))
-                return true;
-        }
-        return false;
+        return DISPOSABLE.contains(stack.getItem());
     }
 
     private static boolean isSemiDisposable(ItemStack stack) {
-        for(int id : OreDictionary.getOreIDs(stack)) {
-            String name = OreDictionary.getOreName(id);
-            if(BotaniaAPI.semiDisposableBlocks.contains(name))
-                return true;
-        }
-        return false;
+        return SEMI_DISPOSABLE.contains(stack.getItem());
     }
 
 }
+

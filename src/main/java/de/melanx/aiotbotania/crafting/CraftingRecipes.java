@@ -32,29 +32,28 @@ public final class CraftingRecipes {
     public static ResourceLocation recipeElementiumAIOT;
 
     public static void init() {
-        recipeWoodSword = path("woodsword");
-        recipeWoodAxe = path("woodaxe");
-        recipeWoodPickaxe = path("woodpickaxe");
-        recipeWoodShovel = path("woodshovel");
-        recipeWoodHoe = path("woodhoe");
-        recipeWoodAIOT = path("woodaiot");
+        recipeWoodSword = path("livingwood_sword");
+        recipeWoodAxe = path("livingwood_axe");
+        recipeWoodPickaxe = path("livingwood_pickaxe");
+        recipeWoodShovel = path("livingwood_shovel");
+        recipeWoodHoe = path("livingwood_hoe");
+        recipeWoodAIOT = path("livingwood_aiot");
 
-        recipeRockSword = path("rocksword");
-        recipeRockAxe = path("rockaxe");
-        recipeRockPickaxe = path("rockpickaxe");
-        recipeRockShovel = path("rockshovel");
-        recipeRockHoe = path("rockhoe");
-        recipeRockAIOT = path("rockaiot");
+        recipeRockSword = path("livingrock_sword");
+        recipeRockAxe = path("livingrock_axe");
+        recipeRockPickaxe = path("livingrock_pickaxe");
+        recipeRockShovel = path("livingrock_shovel");
+        recipeRockHoe = path("livingrock_hoe");
+        recipeRockAIOT = path("livingrock_aiot");
 
-        recipeManaHoe = path("manahoe");
-        recipeManaAIOT = path("manaaiot");
+        recipeManaHoe = path("manasteel_hoe");
+        recipeManaAIOT = path("manasteel_aiot");
 
-        recipeElementiumHoe = path("elementiumhoe");
-        recipeElementiumAIOT = path("elementiumaiot");
+        recipeElementiumHoe = path("elementium_hoe");
+        recipeElementiumAIOT = path("elementium_aiot");
     }
 
     private static ResourceLocation path(String path) {
         return new ResourceLocation(LibMisc.MODID, path);
     }
-
 }

@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/MelanX/aiotbotania/issues/"
+[[mods]]
+modId="aiotbotania"
+version="${file.jarVersion}"
+displayName="AIOT Botania"
+updateJSONURL="https://raw.githubusercontent.com/MelanX/aiotbotania/master/update/Update.json/"
+displayURL="https://minecraft.curseforge.com/projects/aiot-botania"
+logoFile="examplemod.png"
+credits="Vazkii for Botania and derkalaender for supporting me."
+authors="MelanX, derkalaender"
+description='''
+This mod adds AIOTs. Because an AIOT is so much better than just a tool.
+'''
+
+[[dependencies.aiotbotania]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2]"
+    ordering="NONE"
+    side="BOTH"
