@@ -1,11 +1,10 @@
 package de.melanx.aiotbotania.items;
 
-import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
-import de.melanx.aiotbotania.items.elementium.ItemElementiumHoe;
+import de.melanx.aiotbotania.config.ConfigHandler;
+import de.melanx.aiotbotania.items.elementium.*;
+import de.melanx.aiotbotania.items.manasteel.*;
 import de.melanx.aiotbotania.items.livingrock.*;
 import de.melanx.aiotbotania.items.livingwood.*;
-import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
-import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
 import net.minecraft.item.Item;
 
 public class ModItems {
@@ -35,8 +34,8 @@ public class ModItems {
     public static Item elementium_aiot;
 
     public static void init() {
-//        // Livingwood
-//        if(ConfigBoolValues.LIVINGWOOD_TOOLS.isEnabled()) {
+        // Livingwood
+//        if(ConfigHandler.COMMON.LIVINGWOOD_TOOLS.get()) {
             livingwood_sword = new ItemLivingwoodSword();
             livingwood_axe = new ItemLivingwoodAxe();
             livingwood_pickaxe = new ItemLivingwoodPickaxe();
@@ -45,9 +44,9 @@ public class ModItems {
 //            if(ConfigBoolValues.LIVINGWOOD_AIOT.isEnabled())
 //                livingwood_aiot = new ItemLivingwoodAIOT();
 //        }
-//
-//        // Livingrock
-//        if(ConfigBoolValues.LIVINGROCK_TOOLS.isEnabled()) {
+
+        // Livingrock
+//        if(ConfigHandler.COMMON.LIVINGROCK_TOOLS.get()) {
             livingrock_sword = new ItemLivingrockSword();
             livingrock_axe = new ItemLivingrockAxe();
             livingrock_pickaxe = new ItemLivingrockPickaxe();
@@ -58,12 +57,12 @@ public class ModItems {
 //        }
         // Manasteel
         manasteel_hoe = new ItemManasteelHoe();
-//        if(ConfigBoolValues.MANASTEEL_AIOT.isEnabled())
+//        if(ConfigHandler.COMMON.MANASTEEL_AIOT.get())
             manasteel_aiot = new ItemManasteelAIOT();
-//
-//        // Elementium
+
+        // Elementium
         elementium_hoe = new ItemElementiumHoe();
-//        if(ConfigBoolValues.ELEMENTIUM_AIOT.isEnabled())
+//        if(ConfigHandler.COMMON.ELEMENTIUM_AIOT.get())
 //            elementium_aiot = new ItemElementiumAIOT();
     }
 

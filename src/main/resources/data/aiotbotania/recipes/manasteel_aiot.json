@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:manasteel_pick"
+    },
+    {
+      "item": "botania:manasteel_sword"
+    },
+    {
+      "item": "botania:manasteel_shovel"
+    },
+    {
+      "item": "botania:manasteel_axe"
+    },
+    {
+      "item": "aiotbotania:manasteel_hoe"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:manasteel_aiot"
+  }
+}

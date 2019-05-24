@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    " #",
+    " #"
+  ],
+  "key": {
+    "#": {
+      "item": "botania:livingwood_twig"
+    },
+    "X": {
+      "item": "botania:livingwood"
+    }
+  },
+  "result": {
+    "item": "aiotbotania:livingwood_hoe"
+  }
+}

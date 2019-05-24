@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import vazkii.botania.api.BotaniaAPI;
 
 public class ItemTiers {
 
@@ -79,132 +80,128 @@ public class ItemTiers {
     public static final IItemTier LIVINGWOOD_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return 68 * 5;
+            return LIVINGWOOD_ITEM_TIER.getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return 2.0F;
+            return LIVINGWOOD_ITEM_TIER.getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return 0.5F;
+            return LIVINGWOOD_ITEM_TIER.getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return 0;
+            return LIVINGWOOD_ITEM_TIER.getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return 18;
+            return LIVINGWOOD_ITEM_TIER.getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "livingwood"));
-            return Ingredient.fromItems(item);
+            return LIVINGWOOD_ITEM_TIER.getRepairMaterial();
         }
     };
 
     public static final IItemTier LIVINGROCK_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return 191 * 5;
+            return LIVINGROCK_ITEM_TIER.getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return 4.5F;
+            return LIVINGROCK_ITEM_TIER.getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return 2.5F;
+            return LIVINGROCK_ITEM_TIER.getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return 1;
+            return LIVINGROCK_ITEM_TIER.getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return 10;
+            return LIVINGROCK_ITEM_TIER.getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "livingrock"));
-            return Ingredient.fromItems(item);
+            return LIVINGROCK_ITEM_TIER.getRepairMaterial();
         }
     };
 
     public static final IItemTier MANASTEEL_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return 300 * 5;
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return 6.2F;
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return 2;
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return 3;
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return 20;
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
-            return Ingredient.fromItems(item);
+            return BotaniaAPI.MANASTEEL_ITEM_TIER.getRepairMaterial();
         }
     };
 
     public static final IItemTier ELEMENTIUM_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return 720 * 5;
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return 6.2F;
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return 2;
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return 3;
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return 20;
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "elementium_ingot"));
-            return Ingredient.fromItems(item);
+            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getRepairMaterial();
         }
     };
 

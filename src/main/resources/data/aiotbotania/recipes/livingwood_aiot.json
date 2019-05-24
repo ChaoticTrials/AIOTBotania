@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aiotbotania:livingwood_pickaxe"
+    },
+    {
+      "item": "aiotbotania:livingwood_sword"
+    },
+    {
+      "item": "aiotbotania:livingwood_shovel"
+    },
+    {
+      "item": "aiotbotania:livingwood_axe"
+    },
+    {
+      "item": "aiotbotania:livingwood_hoe"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:livingwood_aiot"
+  }
+}

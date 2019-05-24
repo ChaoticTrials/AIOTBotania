@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
+import de.melanx.aiotbotania.config.ConfigHandler;
 import de.melanx.aiotbotania.crafting.CraftingRecipes;
 import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.items.ModItems;
@@ -13,7 +14,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -24,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 public class AIOTBotania {
 
     public static AIOTBotania instance;
-    private static final Logger LOGGER = LogManager.getLogger(LibMisc.MODID);
+    public static final Logger LOGGER = LogManager.getLogger(LibMisc.MODID);
 
     public static final ItemGroup aiotItemGroup = new CreativeTab();
 
@@ -36,6 +39,8 @@ public class AIOTBotania {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistries);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 
     }
 
