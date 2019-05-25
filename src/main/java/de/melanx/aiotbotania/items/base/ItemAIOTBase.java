@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -113,17 +114,10 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state){
         if(state.getBlock() == Blocks.COBWEB){
             return 15.0F;
-        }
-        else{
+        } else {
             return state.getBlock().getHarvestTool(state) == null || this.getToolTypes(stack).contains(state.getBlock().getHarvestTool(state)) ? this.efficiency : 1.0F;
         }
     }
-
-//    @Nonnull
-//    @Override
-//    public Set<String> getToolClasses(ItemStack stack){
-//        return Sets.newHashSet("pickaxe", "axe", "shovel");
-//    }
 
     @Override
     public boolean usesMana(ItemStack itemStack) {
@@ -138,7 +132,7 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Items.DIAMOND_SWORD);
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     // by Ellpeck (ItemAllToolAA.java by Actually Additions)

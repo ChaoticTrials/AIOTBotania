@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0'
+version = "${mod_version}"
 group = 'de.melanx.aiotbotania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'aiotbotania'
 
@@ -70,7 +70,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.110'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -100,8 +100,8 @@ def reobfArtifact = artifacts.add('default', reobfFile) {
 
 dependencies {
     compile fg.deobf(files("lib/Botania 1.13.2 r1.10-361-deobf.jar"))
-    compileOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 }
 
 publishing {

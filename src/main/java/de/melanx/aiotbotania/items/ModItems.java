@@ -9,27 +9,27 @@ import net.minecraft.item.Item;
 
 public class ModItems {
 
-//    // Livingwood
+    // Livingwood
     public static Item livingwood_sword;
     public static Item livingwood_axe;
     public static Item livingwood_pickaxe;
     public static Item livingwood_shovel;
     public static Item livingwood_hoe;
     public static Item livingwood_aiot;
-//
-//    // Livingrock
+
+    // Livingrock
     public static Item livingrock_sword;
     public static Item livingrock_axe;
     public static Item livingrock_pickaxe;
     public static Item livingrock_shovel;
     public static Item livingrock_hoe;
     public static Item livingrock_aiot;
-//
-//    // Manasteel
+
+    // Manasteel
     public static Item manasteel_hoe;
     public static Item manasteel_aiot;
-//
-//    // Elementium
+
+    // Elementium
     public static Item elementium_hoe;
     public static Item elementium_aiot;
 
@@ -41,7 +41,7 @@ public class ModItems {
             livingwood_pickaxe = new ItemLivingwoodPickaxe();
             livingwood_shovel = new ItemLivingwoodShovel();
             livingwood_hoe = new ItemLivingwoodHoe();
-//            if(ConfigBoolValues.LIVINGWOOD_AIOT.isEnabled())
+//            if(ConfigHandler.COMMON.LIVINGWOOD_AIOT.get())
                 livingwood_aiot = new ItemLivingwoodAIOT();
 //        }
 
@@ -52,7 +52,7 @@ public class ModItems {
             livingrock_pickaxe = new ItemLivingrockPickaxe();
             livingrock_shovel = new ItemLivingrockShovel();
             livingrock_hoe = new ItemLivingrockHoe();
-//            if(ConfigBoolValues.LIVINGROCK_AIOT.isEnabled())
+//            if(ConfigHandler.COMMON.LIVINGROCK_AIOT.get())
                 livingrock_aiot = new ItemLivingrockAIOT();
 //        }
         // Manasteel

@@ -2,20 +2,18 @@ package de.melanx.aiotbotania.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
-import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber
-public class ConfigHandler {
+public final class ConfigHandler {
 
     public static class Common {
-        public static BooleanValue LIVINGWOOD_TOOLS;
-        public static BooleanValue LIVINGROCK_TOOLS;
-        public static BooleanValue LIVINGWOOD_AIOT;
-        public static BooleanValue LIVINGROCK_AIOT;
-        public static BooleanValue MANASTEEL_AIOT;
-        public static BooleanValue ELEMENTIUM_AIOT;
-//        public static BooleanValue PARTICLES;
+        public final BooleanValue LIVINGWOOD_TOOLS;
+        public final BooleanValue LIVINGROCK_TOOLS;
+        public final BooleanValue LIVINGWOOD_AIOT;
+        public final BooleanValue LIVINGROCK_AIOT;
+        public final BooleanValue MANASTEEL_AIOT;
+        public final BooleanValue ELEMENTIUM_AIOT;
+//        public final BooleanValue PARTICLES;
 
         public Common(ForgeConfigSpec.Builder builder) {
             LIVINGWOOD_TOOLS = builder
