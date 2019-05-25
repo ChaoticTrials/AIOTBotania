@@ -39,20 +39,20 @@ public class CreativeTab extends ItemGroup {
         addItem(ModItems.livingwood_axe);
         addItem(ModItems.livingwood_sword);
         addItem(ModItems.livingwood_hoe);
-//        addItem(ModItems.livingwood_aiot);
+        addItem(ModItems.livingwood_aiot);
 
         addItem(ModItems.livingrock_shovel);
         addItem(ModItems.livingrock_pickaxe);
         addItem(ModItems.livingrock_axe);
         addItem(ModItems.livingrock_sword);
         addItem(ModItems.livingrock_hoe);
-//        addItem(ModItems.livingrock_aiot);
+        addItem(ModItems.livingrock_aiot);
 
         addItem(ModItems.manasteel_hoe);
         addItem(ModItems.manasteel_aiot);
 
         addItem(ModItems.elementium_hoe);
-//        addItem(ModItems.elementium_aiot);
+        addItem(ModItems.elementium_aiot);
     }
 
     private void addItem(IItemProvider item) {

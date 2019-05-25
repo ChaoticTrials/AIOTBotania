@@ -24,7 +24,7 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
     private static final float SPEED = -2.4F;
 
     public ItemLivingwoodAIOT() {
-        super("livingwoodAIOT", ItemTiers.LIVINGWOOD_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
+        super("livingwood_aiot", ItemTiers.LIVINGWOOD_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
     }
 
     @Nonnull
@@ -37,7 +37,7 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
 
         Block block = world.getBlockState(pos).getBlock();
 
-        if(!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+        if(!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
             return ToolUtil.hoeUse(ctx, false, true, MANA_PER_DAMAGE);
         } else {
             if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {

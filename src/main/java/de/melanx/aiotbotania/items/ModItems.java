@@ -42,7 +42,7 @@ public class ModItems {
             livingwood_shovel = new ItemLivingwoodShovel();
             livingwood_hoe = new ItemLivingwoodHoe();
 //            if(ConfigBoolValues.LIVINGWOOD_AIOT.isEnabled())
-//                livingwood_aiot = new ItemLivingwoodAIOT();
+                livingwood_aiot = new ItemLivingwoodAIOT();
 //        }
 
         // Livingrock
@@ -53,7 +53,7 @@ public class ModItems {
             livingrock_shovel = new ItemLivingrockShovel();
             livingrock_hoe = new ItemLivingrockHoe();
 //            if(ConfigBoolValues.LIVINGROCK_AIOT.isEnabled())
-//                livingrock_aiot = new ItemLivingrockAIOT();
+                livingrock_aiot = new ItemLivingrockAIOT();
 //        }
         // Manasteel
         manasteel_hoe = new ItemManasteelHoe();
@@ -63,7 +63,7 @@ public class ModItems {
         // Elementium
         elementium_hoe = new ItemElementiumHoe();
 //        if(ConfigHandler.COMMON.ELEMENTIUM_AIOT.get())
-//            elementium_aiot = new ItemElementiumAIOT();
+            elementium_aiot = new ItemElementiumAIOT();
     }
 
 }

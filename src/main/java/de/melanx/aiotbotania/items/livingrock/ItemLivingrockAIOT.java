@@ -23,7 +23,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
     private static final float SPEED = -2.4F;
 
     public ItemLivingrockAIOT() {
-        super("livingrockAIOT", ItemTiers.LIVINGROCK_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
+        super("livingrock_aiot", ItemTiers.LIVINGROCK_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
     }
 
     @Nonnull
@@ -40,7 +40,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if(hoemode) {
-            if (!player.isSneaking() && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
                 return ToolUtil.hoeUse(ctx, false, true, MANA_PER_DAMAGE);
             } else {
                 if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {

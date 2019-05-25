@@ -41,7 +41,8 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
     public ItemElementiumAIOT() {
         super("elementium_aiot", ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
-        MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
+        MinecraftForge.EVENT_BUS.addListener(this::onHarvestDrops);
     }
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
@@ -69,7 +70,6 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
         return false;
     }
 
-    @SubscribeEvent
     private void onEntityDrops(LivingDropsEvent event) {
         if(event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
             ItemStack weapon = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItemMainhand();
@@ -104,8 +104,8 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
         if(event.getHarvester() != null) {
             ItemStack stack = event.getHarvester().getHeldItemMainhand();
             if(!stack.isEmpty() && (stack.getItem() == this)) {
-                event.getDrops().removeIf(s -> !s.isEmpty() && (isDisposable(s)
-                        || isSemiDisposable(s) && !event.getHarvester().isSneaking()));
+                event.getDrops().removeIf(s -> !s.isEmpty() && ((isDisposable(s)
+                        || isSemiDisposable(s)) && !event.getHarvester().isSneaking()));
             }
         }
     }
