@@ -1,0 +1,16 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "X ",
+    " X"
+  ],
+  "key": {
+    "X": {
+      "item": "botania:livingwood",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "aiotbotania:livingwoodshears"
+  }
+}

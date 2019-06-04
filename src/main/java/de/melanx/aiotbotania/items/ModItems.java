@@ -11,20 +11,22 @@ import net.minecraft.item.Item;
 
 public class ModItems {
     // Livingwood
-    public static ItemLivingwoodSword livingwoodsword;
-    public static ItemLivingwoodAxe livingwoodaxe;
-    public static ItemLivingwoodPickaxe livingwoodpickaxe;
-    public static ItemLivingwoodShovel livingwoodshovel;
-    public static ItemLivingwoodHoe livingwoodhoe;
-    public static ItemLivingwoodAIOT livingwoodaiot;
+    public static Item livingwoodshears;
+    public static Item livingwoodsword;
+    public static Item livingwoodaxe;
+    public static Item livingwoodpickaxe;
+    public static Item livingwoodshovel;
+    public static Item livingwoodhoe;
+    public static Item livingwoodaiot;
 
     // Livingrock
-    public static ItemLivingrockSword livingrocksword;
-    public static ItemLivingrockAxe livingrockaxe;
-    public static ItemLivingrockPickaxe livingrockpickaxe;
-    public static ItemLivingrockShovel livingrockshovel;
-    public static ItemLivingrockHoe livingrockhoe;
-    public static ItemLivingrockAIOT livingrockaiot;
+    public static Item livingrockshears;
+    public static Item livingrocksword;
+    public static Item livingrockaxe;
+    public static Item livingrockpickaxe;
+    public static Item livingrockshovel;
+    public static Item livingrockhoe;
+    public static Item livingrockaiot;
 
     // Manasteel
     public static Item manahoe;
@@ -37,6 +39,7 @@ public class ModItems {
     public static void init() {
         // Livingwood
         if(ConfigBoolValues.LIVINGWOOD_TOOLS.isEnabled()) {
+            livingwoodshears = new ItemLivingwoodShears();
             livingwoodsword = new ItemLivingwoodSword();
             livingwoodaxe = new ItemLivingwoodAxe();
             livingwoodpickaxe = new ItemLivingwoodPickaxe();
@@ -48,6 +51,7 @@ public class ModItems {
 
         // Livingrock
         if(ConfigBoolValues.LIVINGROCK_TOOLS.isEnabled()) {
+            livingrockshears = new ItemLivingrockShears();
             livingrocksword = new ItemLivingrockSword();
             livingrockaxe = new ItemLivingrockAxe();
             livingrockpickaxe = new ItemLivingrockPickaxe();

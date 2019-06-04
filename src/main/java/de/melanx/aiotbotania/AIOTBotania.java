@@ -43,7 +43,7 @@ public class AIOTBotania {
 
             for(Item item : Registry.ITEMS_TO_REGISTER) {
                 event.getRegistry().register(item);
-                System.out.println(item.getRegistryName());
+//                System.out.println(item.getRegistryName());
             }
         }
 
@@ -53,7 +53,7 @@ public class AIOTBotania {
 
             for(Block block : Registry.BLOCKS_TO_REGISTER) {
                 event.getRegistry().register(block);
-                System.out.println(block.getRegistryName());
+//                System.out.println(block.getRegistryName());
             }
         }
 

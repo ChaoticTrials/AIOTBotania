@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 
 public class ItemLivingwoodAIOT extends ItemAIOTBase {
 
-    private static final int MANA_PER_DAMAGE = 66;
+    private static final int MANA_PER_DAMAGE = 33;
 
     public ItemLivingwoodAIOT() {
         super("livingwoodAIOT", ToolMaterials.livingwoodAIOTMaterial, 6.0F, -2.4F, MANA_PER_DAMAGE, false);

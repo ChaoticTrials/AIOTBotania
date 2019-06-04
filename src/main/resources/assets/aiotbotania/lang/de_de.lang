@@ -5,6 +5,7 @@ aiotbotania.hoeMode=Acker bestellen und Graswege erschaffen
 aiotbotania.utilityMode=Fackeln und Setzlinge platzieren
 
 # Tools
+item.livingwoodShears.name=Lebeholzschere
 item.livingwoodSword.name=Lebeholzschwert
 item.livingwoodAxe.name=Lebeholzaxt
 item.livingwoodPickaxe.name=Lebeholzspitzhacke
@@ -12,6 +13,7 @@ item.livingwoodShovel.name=Lebeholzschaufel
 item.livingwoodHoe.name=Lebeholzhacke
 item.livingwoodAIOT.name=Lebeholz AIOT
 
+item.livingrockShears.name=Lebesteinschere
 item.livingrockSword.name=Lebesteinschwert
 item.livingrockAxe.name=Lebesteinaxt
 item.livingrockPickaxe.name=Lebesteinspitzhacke
@@ -29,19 +31,21 @@ item.elementiumAIOT.name=Elementium AIOT
 botania.entry.livingwoodTools=Lebeholz Werkzeuge
 botania.entry.livingrockTools=Lebestein Werkzeuge
 
-botania.page.livingwoodTools1=Das &1Lebeholzschwert&0
-botania.page.livingwoodTools2=Die &1Lebeholzaxt&0
-botania.page.livingwoodTools3=Die &1Lebeholzspitzhacke&0
-botania.page.livingwoodTools4=Die &1Lebeholzschaufel&0
-botania.page.livingwoodTools5=Die &1Lebeholzhacke&0
-botania.page.livingwoodTools6=Das &1Lebeholz AIOT&0
+botania.page.livingwoodTools1=Die &1Lebeholzspitzhacke&0
+botania.page.livingwoodTools2=Die &1Lebeholzschaufel&0
+botania.page.livingwoodTools3=Die &1Lebeholzaxt&0
+botania.page.livingwoodTools4=Die &1Lebeholzschere&0
+botania.page.livingwoodTools5=Das &1Lebeholzschwert&0
+botania.page.livingwoodTools6=Die &1Lebeholzhacke&0
+botania.page.livingwoodTools7=Das &1Lebeholz AIOT&0
 
-botania.page.livingrockTools1=Das &1Lebesteinschwert&0
-botania.page.livingrockTools2=Die &1Lebesteinaxt&0
-botania.page.livingrockTools3=Die &1Lebesteinspitzhacke&0
-botania.page.livingrockTools4=Die &1Lebesteinschaufel&0
-botania.page.livingrockTools5=Die &1Lebesteinhacke&0
-botania.page.livingrockTools6=Das &1Lebestein AIOT&0
+botania.page.livingrockTools1=Die &1Lebesteinspitzhacke&0
+botania.page.livingrockTools2=Die &1Lebesteinschaufel&0
+botania.page.livingrockTools3=Die &1Lebesteinaxt&0
+botania.page.livingrockTools4=Die &1Lebesteinschere&0
+botania.page.livingrockTools5=Das &1Lebesteinschwert&0
+botania.page.livingrockTools6=Die &1Lebesteinhacke&0
+botania.page.livingrockTools7=Das &1Lebestein AIOT&0
 
 botania.page.manaGear12=Die &1Manastahlhacke&0
 botania.page.manaGear13=Das &1Manastahl AIOT&0

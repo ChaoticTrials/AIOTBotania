@@ -21,6 +21,17 @@ repositories {
         name = "baubles"
         url = "http://maven.thiakil.com"
     }
+
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
 }
 
 
@@ -46,6 +57,7 @@ minecraft {
 dependencies {
     deobfCompile "vazkii.botania:Botania:r1.10-359.39"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
 }
 
 task deobfJar(type: Jar) {

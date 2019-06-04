@@ -24,16 +24,16 @@ public final class LexiconData {
 
         if(ConfigBoolValues.LIVINGWOOD_TOOLS.isEnabled()) {
             livingwoodTools = new BasicLexiconEntry("livingwoodTools", BotaniaAPI.categoryTools);
-            livingwoodTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", CraftingRecipes.recipeWoodSword), new PageCraftingRecipe("2", CraftingRecipes.recipeWoodAxe), new PageCraftingRecipe("3", CraftingRecipes.recipeWoodPickaxe), new PageCraftingRecipe("4", CraftingRecipes.recipeWoodShovel), new PageCraftingRecipe("5", CraftingRecipes.recipeWoodHoe));
+            livingwoodTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", CraftingRecipes.recipeWoodPickaxe), new PageCraftingRecipe("2", CraftingRecipes.recipeWoodShovel), new PageCraftingRecipe("3", CraftingRecipes.recipeWoodAxe), new PageCraftingRecipe("4", CraftingRecipes.recipeWoodShears), new PageCraftingRecipe("5", CraftingRecipes.recipeWoodSword), new PageCraftingRecipe("6", CraftingRecipes.recipeWoodHoe));
             if(ConfigBoolValues.LIVINGWOOD_AIOT.isEnabled())
-                livingwoodTools.setLexiconPages(new PageCraftingRecipe("6", CraftingRecipes.recipeWoodAIOT));
+                livingwoodTools.setLexiconPages(new PageCraftingRecipe("7", CraftingRecipes.recipeWoodAIOT));
         }
 
         if(ConfigBoolValues.LIVINGROCK_TOOLS.isEnabled()) {
             livingrockTools = new BasicLexiconEntry("livingrockTools", BotaniaAPI.categoryTools);
-            livingrockTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", CraftingRecipes.recipeRockSword), new PageCraftingRecipe("2", CraftingRecipes.recipeRockAxe), new PageCraftingRecipe("3", CraftingRecipes.recipeRockPickaxe), new PageCraftingRecipe("4", CraftingRecipes.recipeRockShovel), new PageCraftingRecipe("5", CraftingRecipes.recipeRockHoe));
+            livingrockTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", CraftingRecipes.recipeRockPickaxe), new PageCraftingRecipe("2", CraftingRecipes.recipeRockShovel), new PageCraftingRecipe("3", CraftingRecipes.recipeRockAxe), new PageCraftingRecipe("4", CraftingRecipes.recipeRockShears), new PageCraftingRecipe("5", CraftingRecipes.recipeRockSword), new PageCraftingRecipe("6", CraftingRecipes.recipeRockHoe));
             if(ConfigBoolValues.LIVINGROCK_AIOT.isEnabled())
-                livingrockTools.setLexiconPages(new PageCraftingRecipe("6", CraftingRecipes.recipeRockAIOT));
+                livingrockTools.setLexiconPages(new PageCraftingRecipe("7", CraftingRecipes.recipeRockAIOT));
         }
     }
 

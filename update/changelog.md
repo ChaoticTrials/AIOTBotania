@@ -1,3 +1,7 @@
+# 1.12.2-0.7
+- Added Livingwood/Livingrock Shears
+- Fixed mana usage for Livingwood AIOT
+
 # 1.12.2-0.6.1
 - Fixed crash when breaking gravel (closed #20)
 
