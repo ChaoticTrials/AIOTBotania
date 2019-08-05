@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items;
 
-import de.melanx.aiotbotania.config.ConfigHandler;
 import de.melanx.aiotbotania.items.elementium.*;
 import de.melanx.aiotbotania.items.manasteel.*;
 import de.melanx.aiotbotania.items.livingrock.*;
@@ -35,35 +34,28 @@ public class ModItems {
 
     public static void init() {
         // Livingwood
-//        if(ConfigHandler.COMMON.LIVINGWOOD_TOOLS.get()) {
-            livingwood_sword = new ItemLivingwoodSword();
-            livingwood_axe = new ItemLivingwoodAxe();
-            livingwood_pickaxe = new ItemLivingwoodPickaxe();
-            livingwood_shovel = new ItemLivingwoodShovel();
-            livingwood_hoe = new ItemLivingwoodHoe();
-//            if(ConfigHandler.COMMON.LIVINGWOOD_AIOT.get())
-                livingwood_aiot = new ItemLivingwoodAIOT();
-//        }
+        livingwood_sword = new ItemLivingwoodSword();
+        livingwood_axe = new ItemLivingwoodAxe();
+        livingwood_pickaxe = new ItemLivingwoodPickaxe();
+        livingwood_shovel = new ItemLivingwoodShovel();
+        livingwood_hoe = new ItemLivingwoodHoe();
+        livingwood_aiot = new ItemLivingwoodAIOT();
 
         // Livingrock
-//        if(ConfigHandler.COMMON.LIVINGROCK_TOOLS.get()) {
-            livingrock_sword = new ItemLivingrockSword();
-            livingrock_axe = new ItemLivingrockAxe();
-            livingrock_pickaxe = new ItemLivingrockPickaxe();
-            livingrock_shovel = new ItemLivingrockShovel();
-            livingrock_hoe = new ItemLivingrockHoe();
-//            if(ConfigHandler.COMMON.LIVINGROCK_AIOT.get())
-                livingrock_aiot = new ItemLivingrockAIOT();
-//        }
+        livingrock_sword = new ItemLivingrockSword();
+        livingrock_axe = new ItemLivingrockAxe();
+        livingrock_pickaxe = new ItemLivingrockPickaxe();
+        livingrock_shovel = new ItemLivingrockShovel();
+        livingrock_hoe = new ItemLivingrockHoe();
+        livingrock_aiot = new ItemLivingrockAIOT();
+
         // Manasteel
         manasteel_hoe = new ItemManasteelHoe();
-//        if(ConfigHandler.COMMON.MANASTEEL_AIOT.get())
-            manasteel_aiot = new ItemManasteelAIOT();
+        manasteel_aiot = new ItemManasteelAIOT();
 
         // Elementium
         elementium_hoe = new ItemElementiumHoe();
-//        if(ConfigHandler.COMMON.ELEMENTIUM_AIOT.get())
-            elementium_aiot = new ItemElementiumAIOT();
+        elementium_aiot = new ItemElementiumAIOT();
     }
 
 }
