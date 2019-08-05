@@ -99,7 +99,7 @@ def reobfArtifact = artifacts.add('default', reobfFile) {
 }
 
 dependencies {
-    compile fg.deobf(files("lib/Botania 1.13.2 r1.10-361-deobf.jar"))
+    compile fg.deobf(files("lib/Botania 1.13.2-unofficial-deobf.jar"))
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 }
