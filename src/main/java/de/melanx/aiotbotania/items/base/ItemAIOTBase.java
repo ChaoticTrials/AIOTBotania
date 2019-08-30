@@ -1,25 +1,22 @@
 package de.melanx.aiotbotania.items.base;
 
-import com.google.common.collect.Sets;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -27,9 +24,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
-import java.util.Set;
 
-public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
+public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
     private boolean special;
@@ -49,23 +45,23 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
     }
 
     @Override
-    public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
+    public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
         return ToolUtil.hitEntity(par1ItemStack, par3EntityLivingBase, MANA_PER_DAMAGE);
     }
 
     @Override
-    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
         return ToolUtil.onBlockDestroyed(stack, world, state, pos, entity, MANA_PER_DAMAGE);
     }
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx){
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx){
         World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
-        EntityPlayer player = ctx.getPlayer();
+        PlayerEntity player = ctx.getPlayer();
         ItemStack stack = ctx.getItem();
-        EnumFacing side = ctx.getFace();
+        Direction side = ctx.getFace();
 
         Block block = world.getBlockState(pos).getBlock();
 
@@ -79,27 +75,27 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
                     return ToolUtil.hoeUse(ctx, false, false, MANA_PER_DAMAGE);
                 }
             } else {
-                if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
+                if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
                     return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
                 }else{
-                    return EnumActionResult.PASS;
+                    return ActionResultType.PASS;
                 }
             }
         } else {
             if(!player.isSneaking()) {
                 return ToolUtil.pickUse(ctx);
             } else {
-                if(side == EnumFacing.UP){
+                if(side == Direction.UP){
                     return ToolUtil.axeUse(ctx);
                 }
-                return EnumActionResult.PASS;
+                return ActionResultType.PASS;
             }
         }
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
         if(!world.isRemote) {
             if(player.isSneaking()) {
@@ -107,11 +103,11 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
                 ToolUtil.toggleMode(player, itemStack);
             }
         }
-        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
+        return ActionResult.newResult(ActionResultType.SUCCESS, itemStack);
     }
 
     @Override
-    public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state){
+    public float getDestroySpeed(@Nonnull ItemStack stack, BlockState state){
         if(state.getBlock() == Blocks.COBWEB){
             return 15.0F;
         } else {
@@ -137,7 +133,7 @@ public class ItemAIOTBase extends ItemTool implements IManaUsingItem {
 
     // by Ellpeck (ItemAllToolAA.java by Actually Additions)
     @Override
-    public boolean canHarvestBlock(IBlockState state){
+    public boolean canHarvestBlock(BlockState state){
         return state.getMaterial().isToolNotRequired() || (state.getBlock() == Blocks.SNOW || state.getBlock() == Blocks.SNOW || (state.getBlock() == Blocks.OBSIDIAN ? this.getTier().getHarvestLevel() >= 3 : (state.getBlock() != Blocks.DIAMOND_BLOCK && state.getBlock() != Blocks.DIAMOND_ORE ? (state.getBlock() != Blocks.EMERALD_ORE && state.getBlock() != Blocks.EMERALD_BLOCK ? (state.getBlock() != Blocks.GOLD_BLOCK && state.getBlock() != Blocks.GOLD_ORE ? (state.getBlock() != Blocks.IRON_BLOCK && state.getBlock() != Blocks.IRON_ORE ? (state.getBlock() != Blocks.LAPIS_BLOCK && state.getBlock() != Blocks.LAPIS_ORE ? (state.getBlock() != Blocks.REDSTONE_ORE && state.getBlock() != Blocks.REDSTONE_ORE ? (state.getMaterial() == Material.ROCK || (state.getMaterial() == Material.IRON || state.getMaterial() == Material.ANVIL)) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2)));
     }
 

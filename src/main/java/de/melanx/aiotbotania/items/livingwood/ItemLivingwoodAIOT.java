@@ -4,14 +4,14 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -29,30 +29,30 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx) {
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
-        EntityPlayer player = ctx.getPlayer();
-        EnumFacing side = ctx.getFace();
+        PlayerEntity player = ctx.getPlayer();
+        Direction side = ctx.getFace();
 
         Block block = world.getBlockState(pos).getBlock();
 
-        if(!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+        if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
             return ToolUtil.hoeUse(ctx, false, true, MANA_PER_DAMAGE);
         } else {
-            if (side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
+            if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
                 return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
             } else {
-                return EnumActionResult.PASS;
+                return ActionResultType.PASS;
             }
         }
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        return ActionResult.newResult(EnumActionResult.FAIL, itemStack);
+        return ActionResult.newResult(ActionResultType.FAIL, itemStack);
     }
 
 }

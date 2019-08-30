@@ -2,11 +2,11 @@ package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 
 import static de.melanx.aiotbotania.AIOTBotania.aiotItemGroup;
 
-public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
+public class ItemHoeBase extends HoeItem implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
     private boolean special;
@@ -37,18 +37,18 @@ public class ItemHoeBase extends ItemHoe implements IManaUsingItem {
     }
 
     @Override
-    public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
+    public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
         return ToolUtil.hitEntity(par1ItemStack, par3EntityLivingBase, MANA_PER_DAMAGE);
     }
 
     @Override
-    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
         return ToolUtil.onBlockDestroyed(stack, world, state, pos, entity, MANA_PER_DAMAGE);
     }
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx) {
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         return ToolUtil.hoeUse(ctx, special, low_tier, MANA_PER_DAMAGE);
     }
 

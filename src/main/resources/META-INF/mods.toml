@@ -17,6 +17,6 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
 [[dependencies.aiotbotania]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.13.2]"
+    versionRange="[1.14.4]"
     ordering="NONE"
     side="BOTH"

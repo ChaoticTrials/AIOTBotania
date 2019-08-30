@@ -4,14 +4,14 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAxeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -29,28 +29,30 @@ public class ItemLivingrockAxe extends ItemAxeBase {
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx) {
-        EnumFacing side = ctx.getFace();
-        if(side == EnumFacing.UP) {
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
+        Direction side = ctx.getFace();
+        if (side == Direction.UP) {
             return ToolUtil.axeUse(ctx);
         } else {
             World world = ctx.getWorld();
             BlockPos pos = ctx.getPos();
-            IBlockState state = world.getBlockState(pos);
+            BlockState state = world.getBlockState(pos);
             Block block = BLOCK_STRIPPING_MAP.get(state.getBlock());
             if (block != null) {
-                EntityPlayer player = ctx.getPlayer();
+                PlayerEntity player = ctx.getPlayer();
                 world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 if (!world.isRemote) {
-                    world.setBlockState(pos, block.getDefaultState().with(BlockRotatedPillar.AXIS, state.get(BlockRotatedPillar.AXIS)), 11);
+                    world.setBlockState(pos, block.getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)), 11);
                     if (player != null) {
-                        ctx.getItem().damageItem(1, player);
+                        ctx.getItem().damageItem(1, player, (consumer) -> {
+                            consumer.sendBreakAnimation(ctx.getHand());
+                        });
                     }
                 }
 
-                return EnumActionResult.SUCCESS;
+                return ActionResultType.SUCCESS;
             } else {
-                return EnumActionResult.PASS;
+                return ActionResultType.PASS;
             }
         }
     }

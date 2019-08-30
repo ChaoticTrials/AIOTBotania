@@ -3,9 +3,9 @@ package de.melanx.aiotbotania.items.livingrock;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemPickaxeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 
 import javax.annotation.Nonnull;
 
@@ -21,12 +21,12 @@ public class ItemLivingrockPickaxe extends ItemPickaxeBase {
 
     @Nonnull
     @Override
-    public EnumActionResult onItemUse(@Nonnull ItemUseContext ctx) {
-        EntityPlayer player = ctx.getPlayer();
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
+        PlayerEntity player = ctx.getPlayer();
 
-        if(!player.isSneaking()) {
+        if (!player.isSneaking()) {
             return ToolUtil.pickUse(ctx);
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 }
