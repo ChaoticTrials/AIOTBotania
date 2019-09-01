@@ -16,14 +16,14 @@ AIOT Botania:
 Modpack: 
 <!-- Do not forget the name of the modpack -->
 
+**Describe the bug**
+<!-- A clear and concise description of what the bug is. -->
+
 **How to reproduce**
 <!-- Steps to reproduce the behavior -->
 1. 
 2. 
 3. 
-
-**Describe the bug**
-<!-- A clear and concise description of what the bug is. -->
 
 **Expected behavior**
 <!-- A clear and concise description of what you expected to happen. -->
