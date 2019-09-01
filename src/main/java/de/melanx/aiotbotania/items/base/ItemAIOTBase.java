@@ -19,6 +19,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -31,7 +32,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     private boolean special;
 
     public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special){
-        super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.aiotItemGroup));
+        super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.aiotItemGroup)
+                .addToolType(ToolType.AXE, mat.getHarvestLevel()).addToolType(ToolType.PICKAXE, mat.getHarvestLevel()).addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
 //        this.setHarvestLevels(mat.getHarvestLevel());
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
