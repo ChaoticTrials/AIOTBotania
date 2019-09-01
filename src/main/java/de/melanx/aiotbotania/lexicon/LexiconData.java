@@ -9,8 +9,8 @@ import vazkii.botania.common.lexicon.page.PageText;
 
 public class LexiconData {
 
-    public static LexiconEntry livingwoodTools;
-    public static LexiconEntry livingrockTools;
+    private static LexiconEntry livingwoodTools;
+    private static LexiconEntry livingrockTools;
 
     public static void init() {
 
@@ -23,14 +23,14 @@ public class LexiconData {
 
 //        if(ConfigBoolValues.LIVINGWOOD_TOOLS.isEnabled()) {
             livingwoodTools = new BasicLexiconEntry("livingwoodTools", BotaniaAPI.categoryTools);
-            livingwoodTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModItems.livingwood_sword), new PageCraftingRecipe("2", ModItems.livingwood_axe), new PageCraftingRecipe("3", ModItems.livingwood_pickaxe), new PageCraftingRecipe("4", ModItems.livingwood_shovel), new PageCraftingRecipe("5", ModItems.livingwood_hoe));
+            livingwoodTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModItems.livingwood_sword), new PageCraftingRecipe("2", ModItems.livingwood_axe), new PageCraftingRecipe("3", ModItems.livingwood_pickaxe), new PageCraftingRecipe("4", ModItems.livingwood_shovel), new PageCraftingRecipe("5", ModItems.livingwood_shears), new PageCraftingRecipe("6", ModItems.livingwood_hoe));
 //            if(ConfigBoolValues.LIVINGWOOD_AIOT.isEnabled())
                 livingwoodTools.setLexiconPages(new PageCraftingRecipe("6", ModItems.livingwood_aiot));
 //        }
 
 //        if(ConfigBoolValues.LIVINGROCK_TOOLS.isEnabled()) {
             livingrockTools = new BasicLexiconEntry("livingrockTools", BotaniaAPI.categoryTools);
-            livingrockTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModItems.livingrock_sword), new PageCraftingRecipe("2", ModItems.livingrock_axe), new PageCraftingRecipe("3", ModItems.livingrock_pickaxe), new PageCraftingRecipe("4", ModItems.livingrock_shovel), new PageCraftingRecipe("5", ModItems.livingrock_hoe));
+            livingrockTools.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModItems.livingrock_sword), new PageCraftingRecipe("2", ModItems.livingrock_axe), new PageCraftingRecipe("3", ModItems.livingrock_pickaxe), new PageCraftingRecipe("4", ModItems.livingrock_shovel), new PageCraftingRecipe("5", ModItems.livingrock_shears), new PageCraftingRecipe("6", ModItems.livingrock_hoe));
 //            if(ConfigBoolValues.LIVINGROCK_AIOT.isEnabled())
                 livingrockTools.setLexiconPages(new PageCraftingRecipe("6", ModItems.livingrock_aiot));
 //        }

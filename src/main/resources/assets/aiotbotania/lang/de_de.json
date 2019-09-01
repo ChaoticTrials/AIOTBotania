@@ -4,6 +4,7 @@
   "aiotbotania.hoeMode": "Acker bestellen und Graswege erschaffen",
   "aiotbotania.utilityMode": "Fackeln und Setzlinge platzieren",
 
+  "item.aiotbotania.livingwood_shears": "Lebeholzschere",
   "item.aiotbotania.livingwood_sword": "Lebeholzschwert",
   "item.aiotbotania.livingwood_axe": "Lebeholzaxt",
   "item.aiotbotania.livingwood_pickaxe": "Lebeholzspitzhacke",
@@ -11,6 +12,7 @@
   "item.aiotbotania.livingwood_hoe": "Lebeholzhacke",
   "item.aiotbotania.livingwood_aiot": "Lebeholz AIOT",
 
+  "item.aiotbotania.livingrock_shears": "Lebesteinschere",
   "item.aiotbotania.livingrock_sword": "Lebesteinschwert",
   "item.aiotbotania.livingrock_axe": "Lebesteinaxt",
   "item.aiotbotania.livingrock_pickaxe": "Lebesteinspitzhacke",
