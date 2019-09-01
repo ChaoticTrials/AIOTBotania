@@ -2,7 +2,6 @@ package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.config.ConfigHandler;
-import de.melanx.aiotbotania.crafting.CraftingRecipes;
 import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.items.ModItems;
 import de.melanx.aiotbotania.util.CreativeTab;
@@ -45,7 +44,6 @@ public class AIOTBotania {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        CraftingRecipes.init();
         // waiting for Botania LexiconData.init()
         LOGGER.info("Setup method registered.");
     }

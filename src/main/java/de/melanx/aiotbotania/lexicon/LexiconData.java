@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.lexicon;
 
-import de.melanx.aiotbotania.crafting.CraftingRecipes;
 import de.melanx.aiotbotania.items.ModItems;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
