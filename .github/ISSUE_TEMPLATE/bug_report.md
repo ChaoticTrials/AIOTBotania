@@ -12,7 +12,7 @@ assignees: ''
 Minecraft: 
 Forge: 
 Botania: 
-AIOT: 
+AIOT Botania: 
 Modpack: 
 <!-- Do not forget the name of the modpack -->
 
