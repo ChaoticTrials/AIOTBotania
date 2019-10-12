@@ -1,3 +1,8 @@
+# 1.12.2-0.7.1
+- Added ru_ru.lang (by TheDirectorX)
+- Added tooltips to AIOTs (closes #27)
+- Improved en_us.lang (by TheDirectorX)
+
 # 1.12.2-0.7
 - Added Livingwood/Livingrock Shears
 - Fixed mana usage for Livingwood AIOT

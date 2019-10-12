@@ -60,11 +60,11 @@ public class ToolUtil {
         if (ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
 
-            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(" ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
                     .appendSibling(new TranslationTextComponent("aiotbotania.utilityMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
-            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(": ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
+            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(" ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
                     .appendSibling(new TranslationTextComponent("aiotbotania.hoeMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
         }
 

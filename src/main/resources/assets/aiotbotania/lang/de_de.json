@@ -1,8 +1,8 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
-  "aiotbotania.toggleMode": "AIOT Sekundär-Modus gewechselt",
-  "aiotbotania.hoeMode": "Acker bestellen und Graswege erschaffen",
-  "aiotbotania.utilityMode": "Fackeln und Setzlinge platzieren",
+  "aiotbotania.toggleMode": "\u00A76Modus:",
+  "aiotbotania.hoeMode": "\u00A73Acker bestellen und Graswege erschaffen",
+  "aiotbotania.utilityMode": "\u00A7eFackeln und Setzlinge platzieren",
 
   "item.aiotbotania.livingwood_shears": "Lebeholzschere",
   "item.aiotbotania.livingwood_sword": "Lebeholzschwert",

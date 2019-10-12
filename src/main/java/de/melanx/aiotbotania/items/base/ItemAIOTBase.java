@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,13 +19,18 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
+import java.util.List;
 
 public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
@@ -137,6 +143,20 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     @Override
     public boolean canHarvestBlock(BlockState state){
         return state.getMaterial().isToolNotRequired() || (state.getBlock() == Blocks.SNOW || state.getBlock() == Blocks.SNOW || (state.getBlock() == Blocks.OBSIDIAN ? this.getTier().getHarvestLevel() >= 3 : (state.getBlock() != Blocks.DIAMOND_BLOCK && state.getBlock() != Blocks.DIAMOND_ORE ? (state.getBlock() != Blocks.EMERALD_ORE && state.getBlock() != Blocks.EMERALD_BLOCK ? (state.getBlock() != Blocks.GOLD_BLOCK && state.getBlock() != Blocks.GOLD_ORE ? (state.getBlock() != Blocks.IRON_BLOCK && state.getBlock() != Blocks.IRON_ORE ? (state.getBlock() != Blocks.LAPIS_BLOCK && state.getBlock() != Blocks.LAPIS_ORE ? (state.getBlock() != Blocks.REDSTONE_ORE && state.getBlock() != Blocks.REDSTONE_ORE ? (state.getMaterial() == Material.ROCK || (state.getMaterial() == Material.IRON || state.getMaterial() == Material.ANVIL)) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2)));
+    }
+
+    public static boolean getBindMode(ItemStack stack) {
+        return ItemNBTHelper.getBoolean(stack, "hoemode", true);
+    }
+
+    public static String getModeString(ItemStack stack) {
+        return "aiotbotania." + (getBindMode(stack) ? "hoeMode" : "utilityMode");
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+        list.add(new TranslationTextComponent(getModeString(stack)));
     }
 
 }
