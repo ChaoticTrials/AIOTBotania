@@ -1,8 +1,8 @@
 # General
 itemGroup.aiotbotania=AIOT Botania
-aiotbotania.toggleMode=Режим
-aiotbotania.hoeMode=Вспахивание земли и создание троп
-aiotbotania.utilityMode=Размещение факелов и саженцев
+aiotbotania.toggleMode=§6Режим:
+aiotbotania.hoeMode=§aВспахивание земли и создание троп
+aiotbotania.utilityMode=§eРазмещение факелов и саженцев
 
 # Tools
 item.livingwoodShears.name=Ножницы из жизнедерева

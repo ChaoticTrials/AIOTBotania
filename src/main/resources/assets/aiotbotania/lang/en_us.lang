@@ -1,8 +1,8 @@
 # General
 itemGroup.aiotbotania=AIOT Botania
-aiotbotania.toggleMode=Mode
-aiotbotania.hoeMode=Till soil and create grass paths
-aiotbotania.utilityMode=Place down torches and saplings
+aiotbotania.toggleMode=§6Mode:
+aiotbotania.hoeMode=§aTill soil and create grass paths
+aiotbotania.utilityMode=§ePlace down torches and saplings
 
 # Tools
 item.livingwoodShears.name=Livingwood Shears

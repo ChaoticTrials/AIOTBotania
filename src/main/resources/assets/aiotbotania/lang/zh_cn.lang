@@ -1,8 +1,8 @@
 # General
 itemGroup.aiotbotania=AIOT Botania
-aiotbotania.toggleMode=全能工具模式已更改
-aiotbotania.hoeMode=开垦土地与草径
-aiotbotania.utilityMode=放置火把与树苗
+aiotbotania.toggleMode=§6全能工具模式已更改:
+aiotbotania.hoeMode=§a开垦土地与草径
+aiotbotania.utilityMode=§e放置火把与树苗
 
 # Tools
 item.manasteelHoe.name=魔钢锄
