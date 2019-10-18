@@ -1,6 +1,8 @@
 package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
+import de.melanx.aiotbotania.capabilities.FarmlandData;
+import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -108,7 +110,12 @@ public class ToolUtil {
 
                     Block block1 = Blocks.FARMLAND;
                     if (special) {
-                        block1 = ModBlocks.superFarmland;
+//                        block1 = ModBlocks.superFarmland; // Don't use superfarmland anymore
+
+                        if(!world.isRemote()) {
+                            world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP)
+                                    .ifPresent(farmlandData -> farmlandData.add(pos));
+                        }
                     }
                     return tiltBlock(player, world, pos, stack, block1, MPD);
                 } else if ((block == Blocks.FARMLAND) && !low_tier) {

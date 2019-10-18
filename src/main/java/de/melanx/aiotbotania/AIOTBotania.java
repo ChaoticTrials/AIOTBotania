@@ -1,7 +1,11 @@
 package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.blocks.ModBlocks;
+import de.melanx.aiotbotania.capabilities.FarmlandData;
+import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
+import de.melanx.aiotbotania.capabilities.FarmlandDataStorage;
 import de.melanx.aiotbotania.config.ConfigHandler;
+import de.melanx.aiotbotania.handlers.MoistureHandler;
 import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.items.ModItems;
 import de.melanx.aiotbotania.util.CreativeTab;
@@ -10,8 +14,13 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -45,6 +54,7 @@ public class AIOTBotania {
 
     private void setup(final FMLCommonSetupEvent event) {
         // waiting for Botania LexiconData.init()
+        CapabilityManager.INSTANCE.register(FarmlandData.class, new FarmlandDataStorage(), FarmlandData::new);
         LOGGER.info("Setup method registered.");
     }
 
@@ -77,7 +87,13 @@ public class AIOTBotania {
 
             LOGGER.info("Blocks registered.");
         }
+    }
 
+    @SubscribeEvent
+    public void attachCapability(AttachCapabilitiesEvent<World> event) {
+        if(event.getObject() != null && !event.getObject().isRemote()) {
+            event.addCapability(location("farmland_data"), new FarmlandDataProvider());
+        }
     }
 
     private static ResourceLocation location(String name) {
