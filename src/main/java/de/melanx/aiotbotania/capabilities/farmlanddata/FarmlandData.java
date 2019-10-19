@@ -1,10 +1,10 @@
-package de.melanx.aiotbotania.capabilities;
+package de.melanx.aiotbotania.capabilities.farmlanddata;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +29,19 @@ public class FarmlandData {
         farmlandBlocks.addAll(newPos);
     }
 
-    public void moistenAll(World world) {
+    public void clean(IChunk chunk) {
         List<BlockPos> kept = new ArrayList<>();
         farmlandBlocks.forEach(pos -> {
-            BlockState state = world.getBlockState(pos);
+            BlockState state = chunk.getBlockState(pos);
             if (state.getBlock() == Blocks.FARMLAND) {
                 kept.add(pos);
-                if ((Integer) state.getValues().get(FarmlandBlock.MOISTURE) < 7) {
-                    world.getWorld().setBlockState(pos, state.with(FarmlandBlock.MOISTURE, 7));
-                }
             }
         });
         set(kept);
+    }
+
+    public List<BlockPos> cleanAndGetRest(IChunk chunk) {
+        clean(chunk);
+        return farmlandBlocks;
     }
 }

@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.capabilities;
+package de.melanx.aiotbotania.capabilities.farmlanddata;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

@@ -1,29 +1,23 @@
 package de.melanx.aiotbotania.handlers;
 
-import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
+import de.melanx.aiotbotania.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FarmlandHandler {
-    private static int ticks = 0;
 
-    // Maybe remove the tick check to reduce flickering when tilting soil (performance penalty?)
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event) {
-        if (ticks % 2 == 0) {
-            if (!event.world.isRemote()) {
-                event.world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP).ifPresent(data -> {
-                    data.moistenAll(event.world);
-                });
-            }
-        }
-        ticks++;
-        if (ticks == 3) {
-            ticks = 0;
+        if (!event.world.isRemote()) {
+            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(event.world);
+            blocks.forEach(blockPos -> Util.moistenFarmland(event.world, blockPos));
         }
     }
 
@@ -31,12 +25,10 @@ public class FarmlandHandler {
     public static void preventFarmlandDestroy(BlockEvent.FarmlandTrampleEvent event) {
         World world = event.getWorld().getWorld();
         if (!world.isRemote()) {
-            world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP).ifPresent(data -> {
-                if (data.getAll().contains(event.getPos())) {
-                    System.out.println(event.isCancelable());
-                    event.setCanceled(true);
-                }
-            });
+            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(world);
+            if (blocks.contains(event.getPos())) {
+                event.setCanceled(true);
+            }
         }
     }
 }

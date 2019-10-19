@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.capabilities;
+package de.melanx.aiotbotania.capabilities.chunkmarker;
 
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -11,25 +11,25 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class FarmlandDataProvider implements ICapabilitySerializable<INBT> {
-    @CapabilityInject(FarmlandData.class)
-    public static Capability<FarmlandData> FARMLAND_DATA_CAP;
+public class ChunkMarkerProvider implements ICapabilitySerializable<INBT> {
+    @CapabilityInject(ChunkMarker.class)
+    public static Capability<ChunkMarker> CHUNK_MARKER_CAP;
 
     @SuppressWarnings("NullableProblems")
-    private LazyOptional<FarmlandData> instance = LazyOptional.of(FARMLAND_DATA_CAP::getDefaultInstance);
+    private LazyOptional<ChunkMarker> instance = LazyOptional.of(CHUNK_MARKER_CAP::getDefaultInstance);
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == FARMLAND_DATA_CAP ? instance.cast() : LazyOptional.empty();
+        return cap == CHUNK_MARKER_CAP ? instance.cast() : LazyOptional.empty();
     }
 
     @Override
     public INBT serializeNBT() {
         AtomicReference<INBT> nbt = new AtomicReference<>(null);
         instance.ifPresent(ins ->
-                nbt.set(FARMLAND_DATA_CAP.getStorage().writeNBT(
-                FARMLAND_DATA_CAP,
+                nbt.set(CHUNK_MARKER_CAP.getStorage().writeNBT(
+                        CHUNK_MARKER_CAP,
                 ins,
                 null)));
         return nbt.get();
@@ -38,7 +38,7 @@ public class FarmlandDataProvider implements ICapabilitySerializable<INBT> {
     @Override
     public void deserializeNBT(INBT nbt) {
         instance.ifPresent(ins ->
-                FARMLAND_DATA_CAP.getStorage().readNBT(FARMLAND_DATA_CAP,
+                CHUNK_MARKER_CAP.getStorage().readNBT(CHUNK_MARKER_CAP,
                 ins,
                 null,
                 nbt

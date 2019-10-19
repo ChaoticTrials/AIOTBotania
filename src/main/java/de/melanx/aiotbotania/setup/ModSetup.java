@@ -1,7 +1,9 @@
 package de.melanx.aiotbotania.setup;
 
-import de.melanx.aiotbotania.capabilities.FarmlandData;
-import de.melanx.aiotbotania.capabilities.FarmlandDataStorage;
+import de.melanx.aiotbotania.capabilities.chunkmarker.ChunkMarker;
+import de.melanx.aiotbotania.capabilities.chunkmarker.ChunkMarkerStorage;
+import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandData;
+import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandDataStorage;
 import de.melanx.aiotbotania.util.CreativeTab;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -29,6 +31,7 @@ public class ModSetup {
 
     public void init(FMLCommonSetupEvent e) {
         // waiting for Botania LexiconData.init()
+        CapabilityManager.INSTANCE.register(ChunkMarker.class, new ChunkMarkerStorage(), ChunkMarker::new);
         CapabilityManager.INSTANCE.register(FarmlandData.class, new FarmlandDataStorage(), FarmlandData::new);
         getLogger().info("Setup method registered.");
     }
