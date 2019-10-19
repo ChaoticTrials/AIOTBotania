@@ -1,7 +1,5 @@
 package de.melanx.aiotbotania.util;
 
-import de.melanx.aiotbotania.blocks.ModBlocks;
-import de.melanx.aiotbotania.capabilities.FarmlandData;
 import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -110,19 +108,17 @@ public class ToolUtil {
 
                     Block block1 = Blocks.FARMLAND;
                     if (special) {
-//                        block1 = ModBlocks.superFarmland; // Don't use superfarmland anymore
-
-                        if(!world.isRemote()) {
+                        if (!world.isRemote()) {
                             world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP)
                                     .ifPresent(farmlandData -> farmlandData.add(pos));
                         }
                     }
                     return tiltBlock(player, world, pos, stack, block1, MPD);
-                } else if ((block == Blocks.FARMLAND) && !low_tier) {
-                    Block block1 = Blocks.DIRT;
-                    return tiltBlock(player, world, pos, stack, block1, MPD);
-                } else if ((block == Blocks.FARMLAND || block == ModBlocks.superFarmland) && special) {
+                } else if (block == Blocks.FARMLAND && special) {
                     Block block1 = Blocks.GRASS_BLOCK;
+                    return tiltBlock(player, world, pos, stack, block1, MPD);
+                } else if (block == Blocks.FARMLAND && !low_tier) {
+                    Block block1 = Blocks.DIRT;
                     return tiltBlock(player, world, pos, stack, block1, MPD);
                 }
             }
@@ -134,10 +130,10 @@ public class ToolUtil {
     public static ActionResultType pickUse(ItemUseContext ctx) {
         PlayerEntity player = ctx.getPlayer();
 
-        if(player != null) {
-            for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+        if (player != null) {
+            for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack stackAt = player.inventory.getStackInSlot(i);
-                if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
+                if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
                     ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
                     ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
                     return did;

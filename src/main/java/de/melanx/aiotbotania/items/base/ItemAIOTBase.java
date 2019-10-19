@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
@@ -37,7 +36,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
     private boolean special;
 
-    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special){
+    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.aiotItemGroup)
                 .addToolType(ToolType.AXE, mat.getHarvestLevel()).addToolType(ToolType.PICKAXE, mat.getHarvestLevel()).addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
 //        this.setHarvestLevels(mat.getHarvestLevel());
@@ -64,7 +63,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx){
+    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
         PlayerEntity player = ctx.getPlayer();
@@ -75,9 +74,9 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
-        if(hoemode) {
-            if(!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND || block == ModBlocks.superFarmland)) {
-                if (special){
+        if (hoemode) {
+            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND)) {
+                if (special) {
                     return ToolUtil.hoeUse(ctx, true, false, MANA_PER_DAMAGE);
                 } else {
                     return ToolUtil.hoeUse(ctx, false, false, MANA_PER_DAMAGE);
@@ -85,15 +84,15 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
                     return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
-                }else{
+                } else {
                     return ActionResultType.PASS;
                 }
             }
         } else {
-            if(!player.isSneaking()) {
+            if (!player.isSneaking()) {
                 return ToolUtil.pickUse(ctx);
             } else {
-                if(side == Direction.UP){
+                if (side == Direction.UP) {
                     return ToolUtil.axeUse(ctx);
                 }
                 return ActionResultType.PASS;
@@ -105,8 +104,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        if(!world.isRemote) {
-            if(player.isSneaking()) {
+        if (!world.isRemote) {
+            if (player.isSneaking()) {
 
                 ToolUtil.toggleMode(player, itemStack);
             }
@@ -115,8 +114,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     }
 
     @Override
-    public float getDestroySpeed(@Nonnull ItemStack stack, BlockState state){
-        if(state.getBlock() == Blocks.COBWEB){
+    public float getDestroySpeed(@Nonnull ItemStack stack, BlockState state) {
+        if (state.getBlock() == Blocks.COBWEB) {
             return 15.0F;
         } else {
             return state.getBlock().getHarvestTool(state) == null || this.getToolTypes(stack).contains(state.getBlock().getHarvestTool(state)) ? this.efficiency : 1.0F;
@@ -141,7 +140,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     // by Ellpeck (ItemAllToolAA.java by Actually Additions)
     @Override
-    public boolean canHarvestBlock(BlockState state){
+    public boolean canHarvestBlock(BlockState state) {
         return state.getMaterial().isToolNotRequired() || (state.getBlock() == Blocks.SNOW || state.getBlock() == Blocks.SNOW || (state.getBlock() == Blocks.OBSIDIAN ? this.getTier().getHarvestLevel() >= 3 : (state.getBlock() != Blocks.DIAMOND_BLOCK && state.getBlock() != Blocks.DIAMOND_ORE ? (state.getBlock() != Blocks.EMERALD_ORE && state.getBlock() != Blocks.EMERALD_BLOCK ? (state.getBlock() != Blocks.GOLD_BLOCK && state.getBlock() != Blocks.GOLD_ORE ? (state.getBlock() != Blocks.IRON_BLOCK && state.getBlock() != Blocks.IRON_ORE ? (state.getBlock() != Blocks.LAPIS_BLOCK && state.getBlock() != Blocks.LAPIS_ORE ? (state.getBlock() != Blocks.REDSTONE_ORE && state.getBlock() != Blocks.REDSTONE_ORE ? (state.getMaterial() == Material.ROCK || (state.getMaterial() == Material.IRON || state.getMaterial() == Material.ANVIL)) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2)));
     }
 

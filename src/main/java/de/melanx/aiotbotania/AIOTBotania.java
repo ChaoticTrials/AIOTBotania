@@ -1,13 +1,11 @@
 package de.melanx.aiotbotania;
 
-import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.capabilities.FarmlandData;
 import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
 import de.melanx.aiotbotania.capabilities.FarmlandDataStorage;
 import de.melanx.aiotbotania.config.ConfigHandler;
-import de.melanx.aiotbotania.handlers.MoistureHandler;
-import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.items.ModItems;
+import de.melanx.aiotbotania.lib.LibMisc;
 import de.melanx.aiotbotania.util.CreativeTab;
 import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
@@ -19,8 +17,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -68,30 +64,18 @@ public class AIOTBotania {
         @SubscribeEvent
         public static void registerItems(final RegistryEvent.Register<Item> event) {
             ModItems.init();
-            for(Item item : Registry.ITEMS_TO_REGISTER) {
+            for (Item item : Registry.ITEMS_TO_REGISTER) {
                 event.getRegistry().register(item);
                 LOGGER.info(item.getRegistryName());
             }
 
             LOGGER.info("Items registered.");
         }
-
-        @SubscribeEvent
-        public static void registerBlocks(final RegistryEvent.Register<Block> event)
-        {
-            ModBlocks.init();
-            for(Block block : Registry.BLOCKS_TO_REGISTER) {
-                event.getRegistry().register(block);
-                LOGGER.info(block.getRegistryName());
-            }
-
-            LOGGER.info("Blocks registered.");
-        }
     }
 
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<World> event) {
-        if(event.getObject() != null && !event.getObject().isRemote()) {
+        if (event.getObject() != null && !event.getObject().isRemote()) {
             event.addCapability(location("farmland_data"), new FarmlandDataProvider());
         }
     }
