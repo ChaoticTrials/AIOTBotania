@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -21,9 +20,8 @@ public class ItemPickaxeBase extends PickaxeItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
 
     public ItemPickaxeBase(String name, IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
-        super(mat, damage, speed, new Item.Properties().group(AIOTBotania.aiotItemGroup));
-        Registry.registerItem(this, name);
-        Registry.registerModel(this);
+        super(mat, damage, speed, new Item.Properties().group(AIOTBotania.setup.getTab()));
+        setRegistryName(AIOTBotania.MODID, name);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
     }

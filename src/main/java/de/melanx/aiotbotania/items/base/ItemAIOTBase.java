@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.util.Registry;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,14 +35,13 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
     private boolean special;
 
-    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
-        super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.aiotItemGroup)
+    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special){
+        super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.setup.getTab())
                 .addToolType(ToolType.AXE, mat.getHarvestLevel()).addToolType(ToolType.PICKAXE, mat.getHarvestLevel()).addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
 //        this.setHarvestLevels(mat.getHarvestLevel());
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
-        Registry.registerItem(this, name);
-        Registry.registerModel(this);
+        setRegistryName(AIOTBotania.MODID, name);
     }
 
     @Override

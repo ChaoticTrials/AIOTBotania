@@ -1,5 +1,6 @@
 package de.melanx.aiotbotania.util;
 
+import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.capabilities.FarmlandDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -109,6 +110,7 @@ public class ToolUtil {
                     Block block1 = Blocks.FARMLAND;
                     if (special) {
                         if (!world.isRemote()) {
+                            AIOTBotania.setup.getLogger().warn(world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP).isPresent());
                             world.getCapability(FarmlandDataProvider.FARMLAND_DATA_CAP)
                                     .ifPresent(farmlandData -> farmlandData.add(pos));
                         }

@@ -1,6 +1,6 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.util.Registry;
+import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -13,8 +13,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 
 import javax.annotation.Nonnull;
 
-import static de.melanx.aiotbotania.AIOTBotania.aiotItemGroup;
-
 public class ItemHoeBase extends HoeItem implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
@@ -22,9 +20,8 @@ public class ItemHoeBase extends HoeItem implements IManaUsingItem {
     private boolean low_tier;
 
     public ItemHoeBase(String name, IItemTier mat, int speed, int MANA_PER_DAMAGE, boolean special, boolean low_tier) {
-        super(mat, speed, new Item.Properties().group(aiotItemGroup));
-        Registry.registerItem(this, name);
-        Registry.registerModel(this);
+        super(mat, speed, new Item.Properties().group(AIOTBotania.setup.getTab()));
+        setRegistryName(AIOTBotania.MODID, name);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;

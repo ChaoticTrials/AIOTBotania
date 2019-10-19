@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class MoistureHandler {
+public class FarmlandHandler {
     private static int ticks = 0;
 
     // Maybe remove the tick check to reduce flickering when tilting soil (performance penalty?)

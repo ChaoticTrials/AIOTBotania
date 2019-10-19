@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.util.Registry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,9 +23,8 @@ public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
 
     public ItemShearsBase(String name, int MANA_PER_DAMAGE, int MAX_DMG) {
-        super(new Item.Properties().group(AIOTBotania.aiotItemGroup).maxStackSize(1).defaultMaxDamage(MAX_DMG));
-        Registry.registerItem(this, name);
-        Registry.registerModel(this);
+        super(new Item.Properties().group(AIOTBotania.setup.getTab()).maxStackSize(1).defaultMaxDamage(MAX_DMG));
+        setRegistryName(AIOTBotania.MODID, name);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
     }
