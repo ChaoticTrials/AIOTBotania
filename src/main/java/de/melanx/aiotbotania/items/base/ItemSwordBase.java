@@ -20,7 +20,7 @@ public class ItemSwordBase extends SwordItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
 
     public ItemSwordBase(String name, IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
-        super(mat, damage, speed, new Item.Properties().group(AIOTBotania.setup.getTab()));
+        super(mat, damage, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));
         setRegistryName(AIOTBotania.MODID, name);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;

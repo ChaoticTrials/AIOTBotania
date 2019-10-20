@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.setup;
+package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.items.ItemTiers;
@@ -53,7 +53,7 @@ public class Registration {
                 new ItemSwordBase("livingwood_sword", ItemTiers.LIVINGROCK_ITEM_TIER, 3, -2.5F, 30)
         );
 
-        AIOTBotania.setup.getLogger().info("Items registered.");
+        AIOTBotania.instance.getLogger().info("Items registered.");
     }
 
     @SubscribeEvent
@@ -62,7 +62,7 @@ public class Registration {
 //                new BlockCustomFarmland(Block.Properties.from(Blocks.FARMLAND))
         );
 
-        AIOTBotania.setup.getLogger().info("Blocks registered.");
+        AIOTBotania.instance.getLogger().info("Blocks registered.");
     }
 
 }

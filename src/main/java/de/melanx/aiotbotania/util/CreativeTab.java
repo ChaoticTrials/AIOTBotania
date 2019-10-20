@@ -1,7 +1,7 @@
 package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.config.ConfigHandler;
+import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.items.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

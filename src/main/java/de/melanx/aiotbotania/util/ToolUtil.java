@@ -1,10 +1,13 @@
 package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
+import de.melanx.aiotbotania.blocks.ModBlocks;
 import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -72,12 +75,12 @@ public class ToolUtil {
         player.sendStatusMessage(text, true);
     }
 
-    private static ActionResultType tiltBlock(PlayerEntity player, World world, BlockPos pos, ItemStack stack, Block block1, int MPD) {
+    private static ActionResultType tiltBlock(PlayerEntity player, World world, BlockPos pos, ItemStack stack, BlockState state, int MPD) {
 
         world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
         if (!world.isRemote) {
-            world.setBlockState(pos, block1.getDefaultState());
+            world.setBlockState(pos, state);
             ToolCommons.damageItem(stack, 1, player, MPD);
         }
         return ActionResultType.SUCCESS;
@@ -107,19 +110,19 @@ public class ToolUtil {
             if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
                 if (block == Blocks.GRASS_BLOCK || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
 
-                    Block block1 = Blocks.FARMLAND;
+                    BlockState farmland = ModBlocks.custom_farmland.getDefaultState();
                     if (special) {
-                        if (!world.isRemote()) {
-                            Util.addFarmlandBlockToBeMoistened(world, pos);
-                        }
+                        farmland = farmland
+                                .with(BlockCustomFarmland.MANA_INFUSED, true)
+                                .with(BlockCustomFarmland.MOISTURE,7);
                     }
-                    return tiltBlock(player, world, pos, stack, block1, MPD);
+                    return tiltBlock(player, world, pos, stack, farmland, MPD);
                 } else if (block == Blocks.FARMLAND && special) {
                     Block block1 = Blocks.GRASS_BLOCK;
-                    return tiltBlock(player, world, pos, stack, block1, MPD);
+                    return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
                 } else if (block == Blocks.FARMLAND && !low_tier) {
                     Block block1 = Blocks.DIRT;
-                    return tiltBlock(player, world, pos, stack, block1, MPD);
+                    return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
                 }
             }
             return ActionResultType.SUCCESS;
