@@ -15,10 +15,10 @@ public class FarmlandHandler {
 
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event) {
-        if (!event.world.isRemote()) {
-            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(event.world);
-            blocks.forEach(blockPos -> Util.moistenFarmland(event.world, blockPos));
-        }
+//        if (!event.world.isRemote()) {
+//            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(event.world);
+//            blocks.forEach(blockPos -> Util.moistenFarmland(event.world, blockPos));
+//        }
     }
 
     @SubscribeEvent

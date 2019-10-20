@@ -58,7 +58,11 @@ public class Registration {
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> e) {
-        // None
+        e.getRegistry().registerAll(
+//                new BlockCustomFarmland(Block.Properties.from(Blocks.FARMLAND))
+        );
+
+        AIOTBotania.setup.getLogger().info("Blocks registered.");
     }
 
 }
