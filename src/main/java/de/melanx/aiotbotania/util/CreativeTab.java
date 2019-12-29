@@ -43,6 +43,7 @@ public class CreativeTab extends ItemGroup {
             addItem(ModItems.livingwood_hoe);
             if (COMMON.LIVINGWOOD_AIOT.get())
                 addItem(ModItems.livingwood_aiot);
+            addItem(ModItems.livingwood_shears);
         }
 
         if (COMMON.LIVINGROCK_TOOLS.get()) {
@@ -53,6 +54,7 @@ public class CreativeTab extends ItemGroup {
             addItem(ModItems.livingrock_hoe);
             if (COMMON.LIVINGROCK_AIOT.get())
                 addItem(ModItems.livingrock_aiot);
+            addItem(ModItems.livingrock_shears);
         }
 
         addItem(ModItems.manasteel_hoe);
