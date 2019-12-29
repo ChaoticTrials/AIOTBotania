@@ -4,6 +4,7 @@ import de.melanx.aiotbotania.capabilities.chunkmarker.ChunkMarker;
 import de.melanx.aiotbotania.capabilities.chunkmarker.ChunkMarkerStorage;
 import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandData;
 import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandDataStorage;
+import de.melanx.aiotbotania.core.config.ConfigHandler;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class CommonProxy {
     public void start() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, de.melanx.aiotbotania.config.ConfigHandler.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         registerListeners(bus);

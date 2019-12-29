@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.config;
+package de.melanx.aiotbotania.core.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
