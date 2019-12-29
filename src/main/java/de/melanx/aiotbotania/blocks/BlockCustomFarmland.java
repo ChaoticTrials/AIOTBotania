@@ -1,9 +1,11 @@
 package de.melanx.aiotbotania.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -37,5 +39,11 @@ public class BlockCustomFarmland extends FarmlandBlock {
         } else {
             entityIn.fall(fallDistance, 1.0F);
         }
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(MOISTURE);
+        builder.add(MANA_INFUSED);
     }
 }

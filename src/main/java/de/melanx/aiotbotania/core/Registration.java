@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemSwordBase;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
@@ -10,6 +11,7 @@ import de.melanx.aiotbotania.items.livingwood.*;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -59,7 +61,7 @@ public class Registration {
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> e) {
         e.getRegistry().registerAll(
-//                new BlockCustomFarmland(Block.Properties.from(Blocks.FARMLAND))
+                new BlockCustomFarmland(Block.Properties.from(Blocks.FARMLAND))
         );
 
         AIOTBotania.instance.getLogger().info("Blocks registered.");
