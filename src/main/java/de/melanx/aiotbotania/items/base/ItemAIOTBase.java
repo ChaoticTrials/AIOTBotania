@@ -5,6 +5,7 @@ import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -73,7 +74,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
-            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.FARMLAND)) {
+            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
                 if (special) {
                     return ToolUtil.hoeUse(ctx, true, false, MANA_PER_DAMAGE);
                 } else {
