@@ -110,17 +110,17 @@ public class ToolUtil {
             if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
                 if (block == Blocks.GRASS_BLOCK || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
 
-                    BlockState farmland = ModBlocks.custom_farmland.getDefaultState();
+                    BlockState farmland;
                     if (special) {
-                        farmland = farmland
-                                .with(BlockCustomFarmland.MANA_INFUSED, true)
-                                .with(BlockCustomFarmland.MOISTURE,7);
+                        farmland = ModBlocks.custom_farmland.getDefaultState();
+                    } else {
+                        farmland = Blocks.FARMLAND.getDefaultState();
                     }
                     return tiltBlock(player, world, pos, stack, farmland, MPD);
-                } else if (block == Blocks.FARMLAND && special) {
+                } else if (block instanceof FarmlandBlock && special) {
                     Block block1 = Blocks.GRASS_BLOCK;
                     return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
-                } else if (block == Blocks.FARMLAND && !low_tier) {
+                } else if (block instanceof FarmlandBlock && !low_tier) {
                     Block block1 = Blocks.DIRT;
                     return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
                 }
