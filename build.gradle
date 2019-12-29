@@ -19,7 +19,7 @@ archivesBaseName = 'aiotbotania'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190801-1.14.3'
+    mappings channel: 'snapshot', version: '20191228-1.14.3'
 
     runs {
         client {
@@ -67,6 +67,14 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+    maven {
+        name = "botania"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "curios"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 dependencies {
@@ -99,9 +107,10 @@ def reobfArtifact = artifacts.add('default', reobfFile) {
 }
 
 dependencies {
-    compile fg.deobf(files("lib/Botania 1.14.3-unofficial-deobf.jar"))
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    compile fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}")
+    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") { transitive = false }
 }
 
 publishing {
