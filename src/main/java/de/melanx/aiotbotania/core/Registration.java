@@ -13,6 +13,8 @@ import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelHoe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -60,7 +62,7 @@ public class Registration {
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> e) {
-        e.getRegistry().register(new BlockCustomFarmland(Block.Properties.from(Blocks.FARMLAND)));
+        e.getRegistry().register(new BlockCustomFarmland(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND)));
 
         AIOTBotania.instance.getLogger().info("Blocks registered.");
     }
