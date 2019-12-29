@@ -9,36 +9,16 @@ public final class ConfigHandler {
     public static class Common {
         public final BooleanValue LIVINGWOOD_TOOLS;
         public final BooleanValue LIVINGROCK_TOOLS;
-        public final BooleanValue LIVINGWOOD_AIOT;
-        public final BooleanValue LIVINGROCK_AIOT;
-        public final BooleanValue MANASTEEL_AIOT;
-        public final BooleanValue ELEMENTIUM_AIOT;
 //        public final BooleanValue PARTICLES;
 
         public Common(ForgeConfigSpec.Builder builder) {
             LIVINGWOOD_TOOLS = builder
-                    .comment("If set to false, Livingwood tools will be disabled. Livingwood AIOT can only be enabled if the tools are enabled. [default: true]")
+                    .comment("If set to false, Livingwood tools will be disabled.")
                     .define("livingwood_tools.enabled", true);
 
             LIVINGROCK_TOOLS = builder
-                    .comment("If set to false, Livingrock tools will be disabled. Livingrock AIOT can only be enabled if the tools are enabled. [default: true]")
+                    .comment("If set to false, Livingrock tools will be disabled. [default: true]")
                     .define("livingrock_tools.enabled", true);
-
-            LIVINGWOOD_AIOT = builder
-                    .comment("If set to false, Livingwood AIOT will be disabled. [default: true]")
-                    .define("livingwood_aiot.enabled", true);
-
-            LIVINGROCK_AIOT = builder
-                    .comment("If set to false, Livingrock AIOT will be disabled. [default: true]")
-                    .define("livingrock_aiot.enabled", true);
-
-            MANASTEEL_AIOT = builder
-                    .comment("If set to false, Manasteel AIOT will be disabled. [default: true]")
-                    .define("manasteel_aiot.enabled", true);
-
-            ELEMENTIUM_AIOT = builder
-                    .comment("If set to false, Elementium AIOT will be disabled. [default: true]")
-                    .define("elementium_aiot.enabled", true);
 
 //            PARTICLES = builder
 //                    .comment("If set to false, particles will be disabled. [default: true]")
