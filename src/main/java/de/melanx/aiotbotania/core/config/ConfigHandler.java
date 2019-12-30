@@ -6,10 +6,26 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public final class ConfigHandler {
 
+    public static class Client {
+        public final BooleanValue PARTICLES;
+
+        public Client(ForgeConfigSpec.Builder builder) {
+            PARTICLES = builder.comment("If set to false, particles will be disabled. [default: true]")
+                    .define("particles.enabled", true);
+        }
+    }
+
+    public static final Client CLIENT;
+    public static final ForgeConfigSpec CLIENT_SPEC;
+    static {
+        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        CLIENT_SPEC = specPair.getRight();
+        CLIENT = specPair.getLeft();
+    }
+
     public static class Common {
         public final BooleanValue LIVINGWOOD_TOOLS;
         public final BooleanValue LIVINGROCK_TOOLS;
-//        public final BooleanValue PARTICLES;
 
         public Common(ForgeConfigSpec.Builder builder) {
             LIVINGWOOD_TOOLS = builder
@@ -19,10 +35,6 @@ public final class ConfigHandler {
             LIVINGROCK_TOOLS = builder
                     .comment("If set to false, Livingrock tools will be disabled. [default: true]")
                     .define("livingrock_tools.enabled", true);
-
-//            PARTICLES = builder
-//                    .comment("If set to false, particles will be disabled. [default: true]")
-//                    .define("particles.enabled", true);
         }
     }
 

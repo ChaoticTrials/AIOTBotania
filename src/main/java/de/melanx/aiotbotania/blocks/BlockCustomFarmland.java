@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania.blocks;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.core.config.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -31,11 +32,13 @@ public class BlockCustomFarmland extends FarmlandBlock {
 
     @Override
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        int r = 1;
-        float g = 0.078F;
-        float b = 0.576F;
-        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 3);
-        world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
+        if (ConfigHandler.CLIENT.PARTICLES.get()) {
+            int r = 1;
+            float g = 0.078F;
+            float b = 0.576F;
+            SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 3);
+            world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
+        }
     }
 
     @Override
