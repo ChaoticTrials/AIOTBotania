@@ -29,23 +29,23 @@
   "botania.entry.livingwoodTools": "Lebeholz Werkzeuge",
   "botania.entry.livingrockTools": "Lebestein Werkzeuge",
 
-  "botania.page.livingwoodTools1": "Das \u00a71Lebeholzschwert\u00a70",
-  "botania.page.livingwoodTools2": "Die \u00a71Lebeholzaxt\u00a70",
-  "botania.page.livingwoodTools3": "Die \u00a71Lebeholzspitzhacke\u00a70",
-  "botania.page.livingwoodTools4": "Die \u00a71Lebeholzschauefel\u00a70",
-  "botania.page.livingwoodTools5": "Die \u00a71Lebeholzaxt\u00a70",
-  "botania.page.livingwoodTools6": "Das \u00a71Lebeholz AIOT\u00a70",
+  "botania.page.livingwoodTools1": "Das $(1)Lebeholzschwert$(0)",
+  "botania.page.livingwoodTools2": "Die $(1)Lebeholzaxt$(0)",
+  "botania.page.livingwoodTools3": "Die $(1)Lebeholzspitzhacke$(0)",
+  "botania.page.livingwoodTools4": "Die $(1)Lebeholzschauefel$(0)",
+  "botania.page.livingwoodTools5": "Die $(1)Lebeholzaxt$(0)",
+  "botania.page.livingwoodTools6": "Das $(1)Lebeholz AIOT$(0)",
 
-  "botania.page.livingrockTools1": "Das \u00a71Lebesteinschwert\u00a70",
-  "botania.page.livingrockTools2": "Die \u00a71Lebesteinaxt\u00a70",
-  "botania.page.livingrockTools3": "Die \u00a71Lebesteinspitzhacke\u00a70",
-  "botania.page.livingrockTools4": "Die \u00a71Lebesteinschaufel\u00a70",
-  "botania.page.livingrockTools5": "Die \u00a71Lebesteinhacke\u00a70",
-  "botania.page.livingrockTools6": "Das \u00a71Lebestein AIOT\u00a70",
+  "botania.page.livingrockTools1": "Das $(1)Lebesteinschwert$(0)",
+  "botania.page.livingrockTools2": "Die $(1)Lebesteinaxt$(0)",
+  "botania.page.livingrockTools3": "Die $(1)Lebesteinspitzhacke$(0)",
+  "botania.page.livingrockTools4": "Die $(1)Lebesteinschaufel$(0)",
+  "botania.page.livingrockTools5": "Die $(1)Lebesteinhacke$(0)",
+  "botania.page.livingrockTools6": "Das $(1)Lebestein AIOT$(0)",
 
-  "botania.page.manaGear12": "Die \u00a71Manastahlhacke\u00a70",
-  "botania.page.manaGear13": "Das \u00a71Manastahl AIOT\u00a70",
+  "botania.page.manaGear12": "Die $(1)Manastahlhacke$(0)",
+  "botania.page.manaGear13": "Das $(1)Manastahl AIOT$(0)",
 
-  "botania.page.elfGear17": "Die \u00a71Elementiumhacke\u00a70",
-  "botania.page.elfGear19": "Das \u00a71Elementium AIOT\u00a70"
+  "botania.page.elfGear17": "Die $(1)Elementiumhacke$(0)",
+  "botania.page.elfGear19": "Das $(1)Elementium AIOT$(0)"
 }
