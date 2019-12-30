@@ -35,7 +35,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     private int MANA_PER_DAMAGE;
     private boolean special;
 
-    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special){
+    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
                 .addToolType(ToolType.AXE, mat.getHarvestLevel())
                 .addToolType(ToolType.PICKAXE, mat.getHarvestLevel())
@@ -43,6 +43,14 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
         setRegistryName(AIOTBotania.MODID, name);
+    }
+
+    public static boolean getBindMode(ItemStack stack) {
+        return ItemNBTHelper.getBoolean(stack, "hoemode", true);
+    }
+
+    public static String getModeString(ItemStack stack) {
+        return "aiotbotania." + (getBindMode(stack) ? "hoeMode" : "utilityMode");
     }
 
     @Override
@@ -75,7 +83,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
         if (hoemode) {
             if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
-                    return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
+                return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
                     return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
@@ -125,14 +133,6 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return super.canApplyAtEnchantingTable(stack, enchantment);
-    }
-
-    public static boolean getBindMode(ItemStack stack) {
-        return ItemNBTHelper.getBoolean(stack, "hoemode", true);
-    }
-
-    public static String getModeString(ItemStack stack) {
-        return "aiotbotania." + (getBindMode(stack) ? "hoeMode" : "utilityMode");
     }
 
     @OnlyIn(Dist.CLIENT)
