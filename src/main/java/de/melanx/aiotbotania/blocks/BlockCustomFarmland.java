@@ -2,10 +2,8 @@ package de.melanx.aiotbotania.blocks;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.config.ConfigHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -24,8 +22,8 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import java.util.Random;
 
 public class BlockCustomFarmland extends FarmlandBlock {
-    public BlockCustomFarmland(Properties builder) {
-        super(builder);
+    public BlockCustomFarmland() {
+        super(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND));
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(MOISTURE, 7)
         );

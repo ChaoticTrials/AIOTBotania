@@ -61,7 +61,7 @@ public class Registration {
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> e) {
-        e.getRegistry().register(new BlockCustomFarmland(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND)));
+        e.getRegistry().register(new BlockCustomFarmland());
 
         AIOTBotania.instance.getLogger().info("Blocks registered.");
     }
