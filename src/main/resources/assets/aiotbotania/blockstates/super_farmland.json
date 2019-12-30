@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "block/farmland_moist" }
+    "": { "model": "aiotbotania:block/super_farmland" }
   }
 }
