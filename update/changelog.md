@@ -1,3 +1,6 @@
+# 1.14.4-1.0.1
+- Fixed required Botania version
+
 # 1.14.4-1.0.0
 - Initial port to 1.14.4
 
