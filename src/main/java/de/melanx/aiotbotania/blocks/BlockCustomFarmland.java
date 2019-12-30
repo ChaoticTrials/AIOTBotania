@@ -45,8 +45,8 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-        entityIn.fall(fallDistance, 1.0F);
+    public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
+        entity.fall(fallDistance, 1.0F);
     }
 
     @Override

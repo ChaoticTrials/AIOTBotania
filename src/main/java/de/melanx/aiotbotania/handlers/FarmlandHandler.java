@@ -14,20 +14,20 @@ import java.util.List;
 public class FarmlandHandler {
 
     @SubscribeEvent
-    public static void worldTick(TickEvent.WorldTickEvent event) {
-//        if (!event.world.isRemote()) {
-//            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(event.world);
-//            blocks.forEach(blockPos -> Util.moistenFarmland(event.world, blockPos));
+    public static void worldTick(TickEvent.WorldTickEvent e) {
+//        if (!e.world.isRemote()) {
+//            List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(e.world);
+//            blocks.forEach(blockPos -> Util.moistenFarmland(e.world, blockPos));
 //        }
     }
 
     @SubscribeEvent
-    public static void preventFarmlandDestroy(BlockEvent.FarmlandTrampleEvent event) {
-        World world = event.getWorld().getWorld();
+    public static void preventFarmlandDestroy(BlockEvent.FarmlandTrampleEvent e) {
+        World world = e.getWorld().getWorld();
         if (!world.isRemote()) {
             List<BlockPos> blocks = Util.getAllFarmlandBlocksToBeMoistened(world);
-            if (blocks.contains(event.getPos())) {
-                event.setCanceled(true);
+            if (blocks.contains(e.getPos())) {
+                e.setCanceled(true);
             }
         }
     }

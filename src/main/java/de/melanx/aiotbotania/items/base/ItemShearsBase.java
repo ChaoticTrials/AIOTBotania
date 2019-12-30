@@ -30,11 +30,11 @@ public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         Block block = state.getBlock();
         if (state.isIn(BlockTags.LEAVES) || block == Blocks.COBWEB || block == Blocks.VINE || block == Blocks.GRASS) {
             ItemStack drop = new ItemStack(block);
-            worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), drop));
+            world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), drop));
             ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE);
         }
         return true;

@@ -40,15 +40,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
-            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
-                return ToolUtil.hoeUse(ctx, false, true, MANA_PER_DAMAGE);
-            } else {
-                if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
-                    return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
-                } else {
-                    return ActionResultType.PASS;
-                }
-            }
+            return ToolUtil.hoemodeUse(ctx, player, world, pos, side, block, MANA_PER_DAMAGE);
         } else {
             if (!player.isSneaking()) {
                 return ToolUtil.pickUse(ctx);

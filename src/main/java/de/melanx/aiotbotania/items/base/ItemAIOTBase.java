@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -38,8 +37,9 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special){
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
-                .addToolType(ToolType.AXE, mat.getHarvestLevel()).addToolType(ToolType.PICKAXE, mat.getHarvestLevel()).addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
-//        this.setHarvestLevels(mat.getHarvestLevel());
+                .addToolType(ToolType.AXE, mat.getHarvestLevel())
+                .addToolType(ToolType.PICKAXE, mat.getHarvestLevel())
+                .addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
         setRegistryName(AIOTBotania.MODID, name);
@@ -126,21 +126,9 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         return true;
     }
 
-//    private void setHarvestLevels(int amount){
-//        for(String s : this.getToolClasses(null)){
-//            this.setHarvestLevels(amount);
-//        }
-//    }
-
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return super.canApplyAtEnchantingTable(stack, enchantment);
-    }
-
-    // by Ellpeck (ItemAllToolAA.java by Actually Additions)
-    @Override
-    public boolean canHarvestBlock(BlockState state) {
-        return state.getMaterial().isToolNotRequired() || (state.getBlock() == Blocks.SNOW || state.getBlock() == Blocks.SNOW || (state.getBlock() == Blocks.OBSIDIAN ? this.getTier().getHarvestLevel() >= 3 : (state.getBlock() != Blocks.DIAMOND_BLOCK && state.getBlock() != Blocks.DIAMOND_ORE ? (state.getBlock() != Blocks.EMERALD_ORE && state.getBlock() != Blocks.EMERALD_BLOCK ? (state.getBlock() != Blocks.GOLD_BLOCK && state.getBlock() != Blocks.GOLD_ORE ? (state.getBlock() != Blocks.IRON_BLOCK && state.getBlock() != Blocks.IRON_ORE ? (state.getBlock() != Blocks.LAPIS_BLOCK && state.getBlock() != Blocks.LAPIS_ORE ? (state.getBlock() != Blocks.REDSTONE_ORE && state.getBlock() != Blocks.REDSTONE_ORE ? (state.getMaterial() == Material.ROCK || (state.getMaterial() == Material.IRON || state.getMaterial() == Material.ANVIL)) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 1) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2) : this.getTier().getHarvestLevel() >= 2)));
     }
 
     public static boolean getBindMode(ItemStack stack) {

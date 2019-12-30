@@ -1,9 +1,6 @@
 package de.melanx.aiotbotania.util;
 
-import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
 import de.melanx.aiotbotania.blocks.ModBlocks;
-import de.melanx.aiotbotania.capabilities.farmlanddata.FarmlandDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -84,6 +81,18 @@ public class ToolUtil {
             ToolCommons.damageItem(stack, 1, player, MPD);
         }
         return ActionResultType.SUCCESS;
+    }
+
+    public static ActionResultType hoemodeUse(@Nonnull ItemUseContext ctx, PlayerEntity player, World world, BlockPos pos, Direction side, Block block, int manaPerDamage) {
+        if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+            return ToolUtil.hoeUse(ctx, false, true, manaPerDamage);
+        } else {
+            if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
+                return ToolUtil.shovelUse(ctx, manaPerDamage);
+            } else {
+                return ActionResultType.PASS;
+            }
+        }
     }
 
     public static ActionResultType hoeUse(ItemUseContext ctx, boolean special, boolean low_tier, int MPD) {

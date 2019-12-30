@@ -69,42 +69,42 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
     }
 
-    private void onEntityDrops(LivingDropsEvent event) {
-        if (event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-            ItemStack weapon = ((PlayerEntity) event.getSource().getTrueSource()).getHeldItemMainhand();
+    private void onEntityDrops(LivingDropsEvent e) {
+        if (e.isRecentlyHit() && e.getSource().getTrueSource() != null && e.getSource().getTrueSource() instanceof PlayerEntity) {
+            ItemStack weapon = ((PlayerEntity) e.getSource().getTrueSource()).getHeldItemMainhand();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                Random rand = event.getEntityLiving().world.rand;
+                Random rand = e.getEntityLiving().world.rand;
                 int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
-                if (event.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting)
-                    addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-                else if (event.getEntityLiving() instanceof ZombieEntity && !(event.getEntityLiving() instanceof ZombiePigmanEntity) && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
-                else if (event.getEntityLiving() instanceof CreeperEntity && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(event, new ItemStack(Items.CREEPER_HEAD));
-                else if (event.getEntityLiving() instanceof PlayerEntity && rand.nextInt(11) <= 1 + looting) {
+                if (e.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting)
+                    addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                else if (e.getEntityLiving() instanceof ZombieEntity && !(e.getEntityLiving() instanceof ZombiePigmanEntity) && rand.nextInt(26) <= 2 + 2 * looting)
+                    addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
+                else if (e.getEntityLiving() instanceof CreeperEntity && rand.nextInt(26) <= 2 + 2 * looting)
+                    addDrop(e, new ItemStack(Items.CREEPER_HEAD));
+                else if (e.getEntityLiving() instanceof PlayerEntity && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-                    ItemNBTHelper.setString(stack, "SkullOwner", ((PlayerEntity) event.getEntityLiving()).getGameProfile().getName());
-                    addDrop(event, stack);
-                } else if (event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-                    addDrop(event, new ItemStack(ModBlocks.gaiaHead));
+                    ItemNBTHelper.setString(stack, "SkullOwner", ((PlayerEntity) e.getEntityLiving()).getGameProfile().getName());
+                    addDrop(e, stack);
+                } else if (e.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
+                    addDrop(e, new ItemStack(ModBlocks.gaiaHead));
             }
         }
     }
 
-    private void addDrop(LivingDropsEvent event, ItemStack drop) {
-        ItemEntity entityitem = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
+    private void addDrop(LivingDropsEvent e, ItemStack drop) {
+        ItemEntity entityitem = new ItemEntity(e.getEntityLiving().world, e.getEntityLiving().posX, e.getEntityLiving().posY, e.getEntityLiving().posZ, drop);
         entityitem.setPickupDelay(10);
-        event.getDrops().add(entityitem);
+        e.getDrops().add(entityitem);
     }
 
     @SubscribeEvent
-    public void onHarvestDrops(BlockEvent.HarvestDropsEvent event) {
-        if (event.getHarvester() != null) {
-            ItemStack stack = event.getHarvester().getHeldItemMainhand();
+    public void onHarvestDrops(BlockEvent.HarvestDropsEvent e) {
+        if (e.getHarvester() != null) {
+            ItemStack stack = e.getHarvester().getHeldItemMainhand();
             if (!stack.isEmpty() && (stack.getItem() == this)) {
-                event.getDrops().removeIf(s -> !s.isEmpty() && ((isDisposable(s)
-                        || isSemiDisposable(s)) && !event.getHarvester().isSneaking()));
+                e.getDrops().removeIf(s -> !s.isEmpty() && ((isDisposable(s)
+                        || isSemiDisposable(s)) && !e.getHarvester().isSneaking()));
             }
         }
     }
