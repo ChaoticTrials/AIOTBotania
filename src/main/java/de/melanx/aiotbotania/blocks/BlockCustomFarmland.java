@@ -3,11 +3,15 @@ package de.melanx.aiotbotania.blocks;
 import de.melanx.aiotbotania.AIOTBotania;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
@@ -51,5 +55,10 @@ public class BlockCustomFarmland extends FarmlandBlock {
             return true;
         }
         return super.canSustainPlant(state, world, pos, facing, plantable);
+    }
+
+    @Override
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+        return new ItemStack(Blocks.FARMLAND.asItem());
     }
 }
