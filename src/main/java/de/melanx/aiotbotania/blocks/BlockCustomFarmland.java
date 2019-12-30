@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -30,6 +32,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
         setRegistryName(AIOTBotania.MODID, "super_farmland");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         if (ConfigHandler.CLIENT.PARTICLES.get()) {
