@@ -11,5 +11,11 @@
   },
   "result": {
     "item": "aiotbotania:livingwood_shears"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "aiotbotania:livingwood_shears"
+    }
+  ]
 }

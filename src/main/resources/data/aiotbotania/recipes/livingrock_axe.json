@@ -15,5 +15,11 @@
   },
   "result": {
     "item": "aiotbotania:livingrock_axe"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "aiotbotania:livingrock_axe"
+    }
+  ]
 }
