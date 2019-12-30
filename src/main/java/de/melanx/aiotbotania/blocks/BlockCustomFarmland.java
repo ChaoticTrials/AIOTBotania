@@ -13,9 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.Random;
 
@@ -30,7 +27,11 @@ public class BlockCustomFarmland extends FarmlandBlock {
 
     @Override
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        // TODO add particle effects
+        int r = 1;
+        float g = 0.078F;
+        float b = 0.576F;
+        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 3);
+        world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
     }
 
     @Override
