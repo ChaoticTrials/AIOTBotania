@@ -1,3 +1,6 @@
+# 1.14.4-1.0.2
+- Fixed harvest level issue with AIOTs (closes #31)
+
 # 1.14.4-1.0.1
 - Fixed required Botania version
 

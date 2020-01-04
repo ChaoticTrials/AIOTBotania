@@ -32,8 +32,9 @@ import java.util.List;
 
 public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
-    private int MANA_PER_DAMAGE;
-    private boolean special;
+    private final int MANA_PER_DAMAGE;
+    private final boolean special;
+    private final IItemTier mat;
 
     public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
@@ -42,6 +43,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
                 .addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
+        this.mat = mat;
         setRegistryName(AIOTBotania.MODID, name);
     }
 
@@ -141,4 +143,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         list.add(new TranslationTextComponent(getModeString(stack)));
     }
 
+    @Override
+    public boolean canHarvestBlock(BlockState block) {
+        return block.getHarvestLevel() <= mat.getHarvestLevel();
+    }
 }
