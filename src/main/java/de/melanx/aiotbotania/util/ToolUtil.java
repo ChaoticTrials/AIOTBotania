@@ -20,9 +20,6 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
-import net.minecraftforge.eventbus.api.Event;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -105,15 +102,6 @@ public class ToolUtil {
         if (player == null || !player.canPlayerEdit(pos, side, stack)) {
             return ActionResultType.PASS;
         } else {
-            UseHoeEvent event = new UseHoeEvent(ctx);
-            if (MinecraftForge.EVENT_BUS.post(event))
-                return ActionResultType.FAIL;
-
-            if (event.getResult() == Event.Result.ALLOW) {
-                ToolCommons.damageItem(stack, 1, player, MPD);
-                return ActionResultType.SUCCESS;
-            }
-
             Block block = world.getBlockState(pos).getBlock();
 
             if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
@@ -182,15 +170,6 @@ public class ToolUtil {
         if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
             return ActionResultType.PASS;
         else {
-            UseHoeEvent event = new UseHoeEvent(ctx);
-            if (MinecraftForge.EVENT_BUS.post(event))
-                return ActionResultType.FAIL;
-
-            if (event.getResult() == Event.Result.ALLOW) {
-                ToolCommons.damageItem(stack, 1, player, MPD);
-                return ActionResultType.SUCCESS;
-            }
-
             Block block = world.getBlockState(pos).getBlock();
 
             if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
