@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class BlockCustomFarmland extends FarmlandBlock {
     public BlockCustomFarmland() {
-        super(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND));
+        super(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND).tickRandomly());
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(MOISTURE, 7)
         );
@@ -65,4 +65,15 @@ public class BlockCustomFarmland extends FarmlandBlock {
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
         return new ItemStack(Blocks.FARMLAND.asItem());
     }
+
+    @Override
+    public void tick(BlockState state, World world, BlockPos pos, Random random) {
+        BlockState above = world.getBlockState(pos.up());
+        if (above.getBlock() instanceof CropsBlock) {
+            CropsBlock crop = (CropsBlock) above.getBlock();
+            if (random.nextInt(30) <= 1)
+                crop.grow(world, pos.up(), above);
+        }
+    }
+
 }
