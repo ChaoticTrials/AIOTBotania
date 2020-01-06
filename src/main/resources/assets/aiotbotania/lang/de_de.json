@@ -1,7 +1,8 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
   "aiotbotania.toggleMode": "\u00A76Modus:",
-  "aiotbotania.hoeMode": "\u00A73Acker bestellen und Graswege erschaffen",
+  "aiotbotania.hoeMode": "\u00A73Acker bestellen",
+  "aiotbotania.hoeModePath": "§3Acker bestellen und Graswege erschaffen",
   "aiotbotania.utilityMode": "\u00A7eFackeln und Setzlinge platzieren",
 
   "item.aiotbotania.livingwood_shears": "Lebeholzschere",

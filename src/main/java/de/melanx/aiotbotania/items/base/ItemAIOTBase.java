@@ -1,6 +1,8 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
+import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -52,7 +54,10 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     }
 
     public static String getModeString(ItemStack stack) {
-        return "aiotbotania." + (getBindMode(stack) ? "hoeMode" : "utilityMode");
+        Item tool = stack.getItem();
+        if (tool instanceof ItemLivingrockAIOT || tool instanceof ItemLivingwoodAIOT)
+            return AIOTBotania.MODID + (getBindMode(stack) ? ".hoeMode" : ".utilityMode");
+        return AIOTBotania.MODID + (getBindMode(stack) ? ".hoeModePath" : ".utilityMode");
     }
 
     @Override

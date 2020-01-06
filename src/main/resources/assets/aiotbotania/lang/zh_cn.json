@@ -1,7 +1,7 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
   "aiotbotania.toggleMode": "\u00a76全能工具模式已更改:",
-  "aiotbotania.hoeMode": "\u00a7a开垦土地与草径",
+  "aiotbotania.hoeModePath": "\u00a7a开垦土地与草径",
   "aiotbotania.utilityMode": "\u00a7e放置火把与树苗",
 
   "item.manasteelHoe.name": "魔钢锄",

@@ -1,6 +1,8 @@
 package de.melanx.aiotbotania.util;
 
+import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.ModBlocks;
+import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -53,17 +55,22 @@ public class ToolUtil {
     }
 
     public static void toggleMode(PlayerEntity player, ItemStack stack) {
-        ITextComponent text;
+        Style dark_blue = new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true);
+        Style aqua = new Style().setColor(TextFormatting.AQUA).setItalic(true);
+        ITextComponent text = new TranslationTextComponent(AIOTBotania.MODID + ".toggleMode").appendText(" ").setStyle(dark_blue);
+        ITextComponent utilityMode = new TranslationTextComponent(AIOTBotania.MODID + ".utilityMode").setStyle(aqua);
+        ITextComponent hoeMode = new TranslationTextComponent(AIOTBotania.MODID + ".hoeMode").setStyle(aqua);
+        ITextComponent hoeModePath = new TranslationTextComponent(AIOTBotania.MODID + ".hoeModePath").setStyle(aqua);
 
         if (ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
-
-            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(" ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
-                    .appendSibling(new TranslationTextComponent("aiotbotania.utilityMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
+            text.appendSibling(utilityMode);
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
-            text = new TranslationTextComponent("aiotbotania.toggleMode").appendText(" ").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true))
-                    .appendSibling(new TranslationTextComponent("aiotbotania.hoeMode").setStyle(new Style().setColor(TextFormatting.AQUA).setItalic(true)));
+            if (stack.getItem() instanceof ItemLivingrockAIOT)
+                text = text.appendSibling(hoeMode);
+            else
+                text.appendSibling(hoeModePath);
         }
 
         player.sendStatusMessage(text, true);

@@ -1,7 +1,7 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
   "aiotbotania.toggleMode": "\u00A76Режим:",
-  "aiotbotania.hoeMode": "\u00A7aВспахивание земли и создание троп",
+  "aiotbotania.hoeModePath": "\u00A7aВспахивание земли и создание троп",
   "aiotbotania.utilityMode": "\u00A7eРазмещение факелов и саженцев",
 
   "item.livingwoodShears": "Ножницы из жизнедерева",
