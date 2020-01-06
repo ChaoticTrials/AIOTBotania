@@ -1,6 +1,11 @@
+# 1.14.4-1.1.0
+- Added growth boost on Super Farmland
+- Fixed wrong tooltip on Livingrock/Livingwood AIOT
+- Fixed minor text issues in lexicon
+
 # 1.14.4-1.0.3
-Fixed wrong lexicon entries
-Fixed Elementium tools sometimes don't create Super Farmland
+- Fixed wrong lexicon entries
+- Fixed Elementium tools sometimes don't create Super Farmland
 
 # 1.14.4-1.0.2
 - Fixed harvest level issue with AIOTs (closes #31)
