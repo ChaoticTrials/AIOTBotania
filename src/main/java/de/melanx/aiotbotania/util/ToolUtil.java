@@ -174,9 +174,7 @@ public class ToolUtil {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
 
-        if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
-            return ActionResultType.PASS;
-        else {
+        if (!(player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))) {
             Block block = world.getBlockState(pos).getBlock();
 
             if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
@@ -184,17 +182,15 @@ public class ToolUtil {
 
                 world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-                if (world.isRemote)
-                    return ActionResultType.SUCCESS;
-                else {
+                if (!world.isRemote) {
                     world.setBlockState(pos, block1.getDefaultState());
                     ToolCommons.damageItem(stack, 1, player, MPD);
-                    return ActionResultType.SUCCESS;
                 }
+                return ActionResultType.SUCCESS;
             }
 
-            return ActionResultType.PASS;
         }
+        return ActionResultType.PASS;
     }
 
 }
