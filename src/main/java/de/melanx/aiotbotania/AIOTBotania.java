@@ -2,6 +2,7 @@ package de.melanx.aiotbotania;
 
 import de.melanx.aiotbotania.core.proxy.ClientProxy;
 import de.melanx.aiotbotania.core.proxy.CommonProxy;
+import de.melanx.aiotbotania.core.proxy.IProxy;
 import de.melanx.aiotbotania.util.CreativeTab;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.DistExecutor;
@@ -17,7 +18,7 @@ public class AIOTBotania {
     private final ItemGroup creativeTab;
 
     public static AIOTBotania instance;
-    public static CommonProxy proxy;
+    public static IProxy proxy;
 
     public AIOTBotania() {
         instance = this;
@@ -27,6 +28,7 @@ public class AIOTBotania {
 
         proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
         proxy.start();
+        proxy.registerHandlers();
     }
 
     public Logger getLogger() {
