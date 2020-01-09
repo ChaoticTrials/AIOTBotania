@@ -2,7 +2,6 @@ package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
-import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
@@ -26,26 +25,22 @@ public class Registration {
         IForgeRegistry<Item> registry = e.getRegistry();
 
         // Livingwood
-        if (ConfigHandler.COMMON.LIVINGWOOD_TOOLS.get()) {
-            registry.register(new ItemShearsBase("livingwood_shears", 10, 60));
-            registry.register(new ItemSwordBase("livingwood_sword", ItemTiers.LIVINGROCK_ITEM_TIER, 3, -2.5F, 30));
-            registry.register(new ItemAxeBase("livingwood_axe", ItemTiers.LIVINGWOOD_ITEM_TIER, 30, 6.0F, -3.2F));
-            registry.register(new ItemPickaxeBase("livingwood_pickaxe", ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -2.8F, 30));
-            registry.register(new ItemShovelBase("livingwood_shovel", ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -3.0F, 30));
-            registry.register(new ItemHoeBase("livingwood_hoe", ItemTiers.LIVINGWOOD_ITEM_TIER, -3, 30, false, true));
-            registry.register(new ItemLivingwoodAIOT());
-        }
+        registry.register(new ItemShearsBase("livingwood_shears", 10, 60));
+        registry.register(new ItemSwordBase("livingwood_sword", ItemTiers.LIVINGROCK_ITEM_TIER, 3, -2.5F, 30));
+        registry.register(new ItemAxeBase("livingwood_axe", ItemTiers.LIVINGWOOD_ITEM_TIER, 30, 6.0F, -3.2F));
+        registry.register(new ItemPickaxeBase("livingwood_pickaxe", ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -2.8F, 30));
+        registry.register(new ItemShovelBase("livingwood_shovel", ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -3.0F, 30));
+        registry.register(new ItemHoeBase("livingwood_hoe", ItemTiers.LIVINGWOOD_ITEM_TIER, -3, 30, false, true));
+        registry.register(new ItemLivingwoodAIOT());
 
         // Livingrock
-        if (ConfigHandler.COMMON.LIVINGROCK_TOOLS.get()) {
-            registry.register(new ItemShearsBase("livingrock_shears", 10, 119));
-            registry.register(new ItemSwordBase("livingrock_sword", ItemTiers.LIVINGROCK_ITEM_TIER, 2, -2.4F, 40));
-            registry.register(new ItemLivingrockAxe());
-            registry.register(new ItemLivingrockPickaxe());
-            registry.register(new ItemLivingrockShovel());
-            registry.register(new ItemHoeBase("livingrock_hoe", ItemTiers.LIVINGROCK_ITEM_TIER, -2, 40, false, true));
-            registry.register(new ItemLivingrockAIOT());
-        }
+        registry.register(new ItemShearsBase("livingrock_shears", 10, 119));
+        registry.register(new ItemSwordBase("livingrock_sword", ItemTiers.LIVINGROCK_ITEM_TIER, 2, -2.4F, 40));
+        registry.register(new ItemLivingrockAxe());
+        registry.register(new ItemLivingrockPickaxe());
+        registry.register(new ItemLivingrockShovel());
+        registry.register(new ItemHoeBase("livingrock_hoe", ItemTiers.LIVINGROCK_ITEM_TIER, -2, 40, false, true));
+        registry.register(new ItemLivingrockAIOT());
 
         // Manasteel
         registry.register(new ItemHoeBase("manasteel_hoe", BotaniaAPI.MANASTEEL_ITEM_TIER, -1, 60, false, false));

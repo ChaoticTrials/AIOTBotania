@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.items.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -27,25 +26,21 @@ public class CreativeTab extends ItemGroup {
     public void fill(@Nonnull NonNullList<ItemStack> list) {
         this.list = list;
 
-        if (ConfigHandler.COMMON.LIVINGWOOD_TOOLS.get()) {
-            addItem(ModItems.livingwood_shovel);
-            addItem(ModItems.livingwood_pickaxe);
-            addItem(ModItems.livingwood_axe);
-            addItem(ModItems.livingwood_sword);
-            addItem(ModItems.livingwood_hoe);
-            addItem(ModItems.livingwood_aiot);
-            addItem(ModItems.livingwood_shears);
-        }
+        addItem(ModItems.livingwood_shovel);
+        addItem(ModItems.livingwood_pickaxe);
+        addItem(ModItems.livingwood_axe);
+        addItem(ModItems.livingwood_sword);
+        addItem(ModItems.livingwood_hoe);
+        addItem(ModItems.livingwood_aiot);
+        addItem(ModItems.livingwood_shears);
 
-        if (ConfigHandler.COMMON.LIVINGROCK_TOOLS.get()) {
-            addItem(ModItems.livingrock_shovel);
-            addItem(ModItems.livingrock_pickaxe);
-            addItem(ModItems.livingrock_axe);
-            addItem(ModItems.livingrock_sword);
-            addItem(ModItems.livingrock_hoe);
-            addItem(ModItems.livingrock_aiot);
-            addItem(ModItems.livingrock_shears);
-        }
+        addItem(ModItems.livingrock_shovel);
+        addItem(ModItems.livingrock_pickaxe);
+        addItem(ModItems.livingrock_axe);
+        addItem(ModItems.livingrock_sword);
+        addItem(ModItems.livingrock_hoe);
+        addItem(ModItems.livingrock_aiot);
+        addItem(ModItems.livingrock_shears);
 
         addItem(ModItems.manasteel_hoe);
         addItem(ModItems.manasteel_aiot);
