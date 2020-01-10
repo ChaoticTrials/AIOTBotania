@@ -1,7 +1,7 @@
 package de.melanx.aiotbotania.util;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.blocks.ModBlocks;
+import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -116,7 +116,7 @@ public class ToolUtil {
 
                     BlockState farmland;
                     if (special) {
-                        farmland = ModBlocks.custom_farmland.getDefaultState();
+                        farmland = Registration.custom_farmland.get().getDefaultState();
                     } else {
                         farmland = Blocks.FARMLAND.getDefaultState();
                     }

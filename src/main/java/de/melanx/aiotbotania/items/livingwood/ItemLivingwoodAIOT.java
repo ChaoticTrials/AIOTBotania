@@ -23,7 +23,7 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
     private static final float SPEED = -2.4F;
 
     public ItemLivingwoodAIOT() {
-        super("livingwood_aiot", ItemTiers.LIVINGWOOD_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
+        super(ItemTiers.LIVINGWOOD_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);
     }
 
     @Nonnull

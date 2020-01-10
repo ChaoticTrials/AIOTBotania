@@ -27,7 +27,6 @@ public class BlockCustomFarmland extends FarmlandBlock {
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(MOISTURE, 7)
         );
-        setRegistryName(AIOTBotania.MODID, "super_farmland");
     }
 
     @OnlyIn(Dist.CLIENT)

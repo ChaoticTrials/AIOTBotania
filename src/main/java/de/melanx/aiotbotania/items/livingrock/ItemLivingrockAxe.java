@@ -24,7 +24,7 @@ public class ItemLivingrockAxe extends ItemAxeBase {
     private static final float ATTACK_SPEED = -3.1F;
 
     public ItemLivingrockAxe() {
-        super("livingrock_axe", ItemTiers.LIVINGROCK_ITEM_TIER, MANA_PER_DAMAGE, ATTACK_DAMAGE, ATTACK_SPEED);
+        super(ItemTiers.LIVINGROCK_ITEM_TIER, MANA_PER_DAMAGE, ATTACK_DAMAGE, ATTACK_SPEED);
     }
 
     @Nonnull

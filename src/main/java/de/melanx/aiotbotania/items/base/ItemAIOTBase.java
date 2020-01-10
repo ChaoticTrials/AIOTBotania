@@ -38,7 +38,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     private final boolean special;
     private final IItemTier mat;
 
-    public ItemAIOTBase(String name, IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
+    public ItemAIOTBase(IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
                 .addToolType(ToolType.AXE, mat.getHarvestLevel())
                 .addToolType(ToolType.PICKAXE, mat.getHarvestLevel())
@@ -46,7 +46,6 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
         this.mat = mat;
-        setRegistryName(AIOTBotania.MODID, name);
     }
 
     public static boolean getBindMode(ItemStack stack) {

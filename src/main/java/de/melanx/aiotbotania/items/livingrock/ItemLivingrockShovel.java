@@ -20,7 +20,7 @@ public class ItemLivingrockShovel extends ItemShovelBase {
     private static final float SPEED = -3.0F;
 
     public ItemLivingrockShovel() {
-        super("livingrock_shovel", ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
+        super(ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
     }
 
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {

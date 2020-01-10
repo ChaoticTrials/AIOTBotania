@@ -39,7 +39,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     private static final float SPEED = -2.2F;
 
     public ItemElementiumAIOT() {
-        super("elementium_aiot", ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
+        super(ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
         MinecraftForge.EVENT_BUS.addListener(this::onHarvestDrops);
     }

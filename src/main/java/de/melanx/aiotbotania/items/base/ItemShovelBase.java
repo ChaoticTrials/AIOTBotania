@@ -19,9 +19,8 @@ public class ItemShovelBase extends ShovelItem implements IManaUsingItem {
 
     private int MANA_PER_DAMAGE;
 
-    public ItemShovelBase(String name, IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
+    public ItemShovelBase(IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
         super(mat, damage, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));
-        setRegistryName(AIOTBotania.MODID, name);
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
     }

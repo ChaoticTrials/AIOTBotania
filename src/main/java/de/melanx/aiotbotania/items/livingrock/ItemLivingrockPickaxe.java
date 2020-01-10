@@ -16,7 +16,7 @@ public class ItemLivingrockPickaxe extends ItemPickaxeBase {
     private static final float SPEED = -2.8F;
 
     public ItemLivingrockPickaxe() {
-        super("livingrock_pickaxe", ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
+        super(ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
     }
 
     @Nonnull

@@ -1,5 +1,6 @@
 package de.melanx.aiotbotania;
 
+import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.proxy.ClientProxy;
 import de.melanx.aiotbotania.core.proxy.CommonProxy;
@@ -36,6 +37,7 @@ public class AIOTBotania {
 
         proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
         proxy.registerHandlers();
+        Registration.init();
     }
 
     public Logger getLogger() {

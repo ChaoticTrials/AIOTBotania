@@ -2,7 +2,7 @@ package de.melanx.aiotbotania.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.items.ModItems;
+import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
@@ -85,13 +85,13 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
     private static ItemStack getIcon(int i) {
         switch (i) {
             case 0:
-                return getItem(ModItems.livingwood_aiot);
+                return getItem(Registration.livingwood_aiot.get());
             case 1:
-                return getItem(ModItems.livingrock_aiot);
+                return getItem(Registration.livingrock_aiot.get());
             case 2:
-                return getItem(ModItems.manasteel_aiot);
+                return getItem(Registration.manasteel_aiot.get());
             case 3:
-                return getItem(ModItems.elementium_aiot);
+                return getItem(Registration.elementium_aiot.get());
             default:
                 return getItem(vazkii.botania.common.item.ModItems.grassSeeds);
         }
