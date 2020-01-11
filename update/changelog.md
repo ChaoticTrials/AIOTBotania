@@ -1,5 +1,6 @@
 # 1.14.4-1.1.1
 - Added feature of rendering an icon for contributors
+- Removed common config
 - A lot of internal changes
 
 # 1.14.4-1.1.0
