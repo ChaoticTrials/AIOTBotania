@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.blocks;
 
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.config.ConfigHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
