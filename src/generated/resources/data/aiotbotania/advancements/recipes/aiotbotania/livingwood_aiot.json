@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "aiotbotania:livingwood_aiot"
+    ]
+  },
+  "criteria": {
+    "has_sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aiotbotania:livingwood_sword"
+          }
+        ]
+      }
+    },
+    "has_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aiotbotania:livingwood_axe"
+          }
+        ]
+      }
+    },
+    "has_shovel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aiotbotania:livingwood_shovel"
+          }
+        ]
+      }
+    },
+    "has_pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aiotbotania:livingwood_pickaxe"
+          }
+        ]
+      }
+    },
+    "has_hoe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aiotbotania:livingwood_hoe"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "aiotbotania:livingwood_aiot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sword",
+      "has_axe",
+      "has_shovel",
+      "has_pickaxe",
+      "has_hoe",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM",
+    " T",
+    " T"
+  ],
+  "key": {
+    "M": {
+      "item": "botania:elementium_ingot"
+    },
+    "T": {
+      "item": "botania:dreamwood_twig"
+    }
+  },
+  "result": {
+    "item": "aiotbotania:elementium_hoe"
+  }
+}

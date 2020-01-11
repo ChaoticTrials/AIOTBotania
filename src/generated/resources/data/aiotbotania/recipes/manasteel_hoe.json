@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM",
+    " T",
+    " T"
+  ],
+  "key": {
+    "M": {
+      "item": "botania:manasteel_ingot"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "result": {
+    "item": "aiotbotania:manasteel_hoe"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:elementium_sword"
+    },
+    {
+      "item": "botania:elementium_axe"
+    },
+    {
+      "item": "botania:elementium_pickaxe"
+    },
+    {
+      "item": "botania:elementium_shovel"
+    },
+    {
+      "item": "aiotbotania:elementium_hoe"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:elementium_aiot"
+  }
+}
