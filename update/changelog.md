@@ -1,3 +1,7 @@
+# 1.14.4-1.1.1
+- Added feature of rendering an icon for contributors
+- A lot of internal changes
+
 # 1.14.4-1.1.0
 - Added growth boost on Super Farmland
 - Fixed wrong tooltip on Livingrock/Livingwood AIOT
