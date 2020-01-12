@@ -41,12 +41,10 @@ import org.apache.logging.log4j.Logger;
 @Mod(AIOTBotania.MODID)
 public class AIOTBotania {
     public static final String MODID = "aiotbotania";
-
-    private final Logger logger;
-    private final ItemGroup creativeTab;
-
     public static AIOTBotania instance;
     public static IProxy proxy;
+    private final Logger logger;
+    private final ItemGroup creativeTab;
 
     public AIOTBotania() {
         instance = this;

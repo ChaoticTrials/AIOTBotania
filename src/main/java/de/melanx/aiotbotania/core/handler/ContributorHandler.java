@@ -58,29 +58,6 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         super(renderer);
     }
 
-    @Override
-    public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (player.isInvisible()) return;
-
-        String name = player.getDisplayName().getString();
-
-        GlStateManager.pushMatrix();
-        AccessoryRenderHelper.translateToChest();
-
-        firstStart();
-
-        name = name.toLowerCase();
-        if (player.isWearing(PlayerModelPart.JACKET) && contributorMap.containsKey(name))
-            renderIcon(player, contributorMap.get(name));
-
-        GlStateManager.popMatrix();
-    }
-
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
-    }
-
     public static void firstStart() {
         if (!startedLoading) {
             new ThreadContributorListLoader();
@@ -139,6 +116,29 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
 
         Minecraft.getInstance().getItemRenderer().renderItem(stack, player, ItemCameraTransforms.TransformType.NONE, false);
         GlStateManager.popMatrix();
+    }
+
+    @Override
+    public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        if (player.isInvisible()) return;
+
+        String name = player.getDisplayName().getString();
+
+        GlStateManager.pushMatrix();
+        AccessoryRenderHelper.translateToChest();
+
+        firstStart();
+
+        name = name.toLowerCase();
+        if (player.isWearing(PlayerModelPart.JACKET) && contributorMap.containsKey(name))
+            renderIcon(player, contributorMap.get(name));
+
+        GlStateManager.popMatrix();
+    }
+
+    @Override
+    public boolean shouldCombineTextures() {
+        return false;
     }
 
     private static class ThreadContributorListLoader extends Thread {

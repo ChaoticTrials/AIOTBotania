@@ -33,18 +33,18 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 
 public class BlockStates extends BlockStateProvider {
-        public BlockStates(DataGenerator gen, ExistingFileHelper helper) {
-            super(gen, AIOTBotania.MODID, helper);
-        }
+    public BlockStates(DataGenerator gen, ExistingFileHelper helper) {
+        super(gen, AIOTBotania.MODID, helper);
+    }
 
-        @Override
-        protected void registerStatesAndModels() {
-            Block block = Registration.custom_farmland.get();
-            ModelFile model = getBuilder(block.getRegistryName().getPath())
-                    .parent(getExistingFile(mcLoc("block/template_farmland")))
-                    .texture("top", mcLoc("block/farmland_moist"))
-                    .texture("dirt", mcLoc("block/dirt"))
-                    .texture("particles", mcLoc("block/farmland_moist"));
-            getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
-        }
+    @Override
+    protected void registerStatesAndModels() {
+        Block block = Registration.custom_farmland.get();
+        ModelFile model = getBuilder(block.getRegistryName().getPath())
+                .parent(getExistingFile(mcLoc("block/template_farmland")))
+                .texture("top", mcLoc("block/farmland_moist"))
+                .texture("dirt", mcLoc("block/dirt"))
+                .texture("particles", mcLoc("block/farmland_moist"));
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
+    }
 }
