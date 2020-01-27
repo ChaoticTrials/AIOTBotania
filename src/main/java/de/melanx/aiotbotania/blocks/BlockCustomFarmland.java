@@ -35,6 +35,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -65,7 +66,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-        entity.fall(fallDistance, 1.0F);
+        entity.handleFallDamage(fallDistance, 1.0F);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BlockState above = world.getBlockState(pos.up());
         if (above.getBlock() instanceof CropsBlock) {
             CropsBlock crop = (CropsBlock) above.getBlock();
@@ -96,5 +97,4 @@ public class BlockCustomFarmland extends FarmlandBlock {
                 crop.grow(world, pos.up(), above);
         }
     }
-
 }

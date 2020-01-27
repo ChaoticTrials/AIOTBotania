@@ -142,7 +142,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
                 ToolUtil.toggleMode(player, itemStack);
             }
         }
-        return ActionResult.newResult(ActionResultType.SUCCESS, itemStack);
+        return ActionResult.success(itemStack);
     }
 
     @Override

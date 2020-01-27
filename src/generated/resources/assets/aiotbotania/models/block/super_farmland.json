@@ -3,6 +3,6 @@
   "textures": {
     "top": "block/farmland_moist",
     "dirt": "block/dirt",
-    "particles": "block/farmland_moist"
+    "particle": "block/farmland_moist"
   }
 }

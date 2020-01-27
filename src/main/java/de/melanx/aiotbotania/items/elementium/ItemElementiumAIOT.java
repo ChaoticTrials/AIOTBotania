@@ -116,7 +116,8 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     }
 
     private void addDrop(LivingDropsEvent e, ItemStack drop) {
-        ItemEntity entityitem = new ItemEntity(e.getEntityLiving().world, e.getEntityLiving().posX, e.getEntityLiving().posY, e.getEntityLiving().posZ, drop);
+        ItemEntity entityitem = new ItemEntity(e.getEntityLiving().world, e.getEntityLiving().lastTickPosX,
+                e.getEntityLiving().lastTickPosY, e.getEntityLiving().lastTickPosZ, drop);
         entityitem.setPickupDelay(10);
         e.getDrops().add(entityitem);
     }

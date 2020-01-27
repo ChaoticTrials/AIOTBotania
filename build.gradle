@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url 'https://files.minecraftforge.net/maven' }
         maven { url "https://plugins.gradle.org/m2/" }
         jcenter()
         mavenCentral()
@@ -23,7 +23,7 @@ archivesBaseName = 'aiotbotania'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200110-1.14.3'
+    mappings channel: 'snapshot', version: '20200115-mixed-1.15.1'
 
     runs {
         client {
@@ -63,7 +63,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'aiotbotania', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'aiotbotania', '--all', '--output', "\"" + file('src/generated/resources/') + "\"", '--existing', "\"" + file('src/main/resources/') + "\""
 
             mods {
                 aiotbotania {
@@ -79,6 +79,10 @@ sourceSets.main.resources {
 }
 
 repositories {
+    maven {
+        name "yarn2mcp"
+        url "https://maven.tterrag.com/"
+    }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -107,28 +111,38 @@ license {
     ext.project = "AIOT Botania"
     ignoreFailures = true
     mapping {
-        java='SLASHSTAR_STYLE'
+        java = 'SLASHSTAR_STYLE'
     }
 }
 
 jar {
     manifest {
         attributes([
-            "Specification-Title": "aiotbotania",
-            "Specification-Vendor": "aiotbotania",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"aiotbotania",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "aiotbotania",
+                "Specification-Vendor"    : "aiotbotania",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "aiotbotania",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+// TODO remove this when Botania is officially released for 1.15.1
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile fg.deobf("vazkii:Botania-r1.11-377")
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compile fg.deobf("vazkii.botania:Botania:${botania_version}")
+//    compile fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}")
     compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") { transitive = false }
