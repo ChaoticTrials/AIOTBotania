@@ -107,8 +107,7 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         ms.push();
 
         Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        ms.translate(0.15, 1.35, 0.98);
-        ms.translate(0, 1.68, 0);
+        ms.translate(0.15, 3.03, 0.98);
         ms.scale(0.15F, 0.15F, 0.15F);
 
         if (player.isCrouching()) {
