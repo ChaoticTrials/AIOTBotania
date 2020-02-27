@@ -23,7 +23,7 @@ archivesBaseName = 'aiotbotania'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200115-mixed-1.15.1'
+    mappings channel: 'snapshot', version: '20200226-1.15.1'
 
     runs {
         client {
@@ -80,10 +80,6 @@ sourceSets.main.resources {
 
 repositories {
     maven {
-        name "yarn2mcp"
-        url "https://maven.tterrag.com/"
-    }
-    maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
@@ -129,20 +125,10 @@ jar {
     }
 }
 
-// TODO remove this when Botania is officially released for 1.15.1
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
-dependencies {
-    compile fg.deobf("vazkii:Botania-r1.11-377")
-}
-
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-//    compile fg.deobf("vazkii.botania:Botania:${botania_version}")
+    compile fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}")
     compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") { transitive = false }

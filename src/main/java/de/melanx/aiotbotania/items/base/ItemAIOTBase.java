@@ -111,7 +111,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
-            if (!player.isSneaking() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
+            if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
                 return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
@@ -121,7 +121,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
                 }
             }
         } else {
-            if (!player.isSneaking()) {
+            if (!player.isCrouching()) {
                 return ToolUtil.pickUse(ctx);
             } else {
                 if (side == Direction.UP) {
@@ -137,12 +137,12 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
         if (!world.isRemote) {
-            if (player.isSneaking()) {
+            if (player.isCrouching()) {
 
                 ToolUtil.toggleMode(player, itemStack);
             }
         }
-        return ActionResult.success(itemStack);
+        return ActionResult.resultSuccess(itemStack);
     }
 
     @Override

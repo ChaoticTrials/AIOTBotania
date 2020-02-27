@@ -23,6 +23,7 @@
  */
 package de.melanx.aiotbotania.items.elementium;
 
+import com.google.common.collect.Multimap;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.block.Block;
@@ -30,9 +31,11 @@ import net.minecraft.block.FallingBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,16 +49,17 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
+public class ItemElementiumAIOT extends ItemAIOTBase {
 
     private static final int MANA_PER_DAMAGE = 66;
     private static final float DAMAGE = 6.0F;
@@ -69,9 +73,14 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
 
+    @Nonnull
     @Override
-    public float getPixieChance(ItemStack stack) {
-        return 0.1F;
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot) {
+        Multimap<String, AttributeModifier> ret = super.getAttributeModifiers(slot);
+        if (slot == EquipmentSlotType.MAINHAND) {
+            ret.put(PixieHandler.PIXIE_SPAWN_CHANCE.getName(), PixieHandler.makeModifier(slot, "AIOT modifier", 0.1));
+        }
+        return ret;
     }
 
     @Override
@@ -128,7 +137,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
             ItemStack stack = e.getHarvester().getHeldItemMainhand();
             if (!stack.isEmpty() && (stack.getItem() == this)) {
                 e.getDrops().removeIf(s -> !s.isEmpty() && ((isDisposable(s)
-                        || isSemiDisposable(s)) && !e.getHarvester().isSneaking()));
+                        || isSemiDisposable(s)) && !e.getHarvester().isCrouching()));
             }
         }
     }

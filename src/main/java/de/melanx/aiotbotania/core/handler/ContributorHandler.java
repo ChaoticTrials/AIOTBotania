@@ -111,11 +111,11 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         ms.scale(0.15F, 0.15F, 0.15F);
 
         if (player.isCrouching()) {
-            ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(30));
+            ms.rotate(Vector3f.XP.rotationDegrees(30));
             ms.translate(0, -1.76, 0.2);
         }
 
-        RenderHelper.renderItemCustomColor(player, stack, -1, ms, buffers, 15728880, OverlayTexture.DEFAULT_UV);
+        RenderHelper.renderItemCustomColor(player, stack, -1, ms, buffers, 15728880, OverlayTexture.NO_OVERLAY);
         ms.pop();
     }
 

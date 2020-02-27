@@ -64,7 +64,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
         if (hoemode) {
             return ToolUtil.hoemodeUse(ctx, player, world, pos, side, block, MANA_PER_DAMAGE);
         } else {
-            if (!player.isSneaking()) {
+            if (!player.isCrouching()) {
                 return ToolUtil.pickUse(ctx);
             } else {
                 if (side == Direction.UP) {

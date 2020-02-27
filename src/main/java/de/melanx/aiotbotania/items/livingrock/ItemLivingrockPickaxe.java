@@ -47,7 +47,7 @@ public class ItemLivingrockPickaxe extends ItemPickaxeBase {
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         PlayerEntity player = ctx.getPlayer();
 
-        if (!player.isSneaking()) {
+        if (!player.isCrouching()) {
             return ToolUtil.pickUse(ctx);
         }
         return ActionResultType.PASS;

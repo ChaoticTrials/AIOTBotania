@@ -17,14 +17,14 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
 [[dependencies.aiotbotania]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.1]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.aiotbotania]]
     modId="forge"
     mandatory=true
-    versionRange="[30,)"
+    versionRange="[31.1.18,)"
     ordering="NONE"
     side="BOTH"
 

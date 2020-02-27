@@ -66,7 +66,7 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        return ActionResult.fail(itemStack);
+        return ActionResult.resultFail(itemStack);
     }
 
 }

@@ -66,7 +66,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-        entity.handleFallDamage(fallDistance, 1.0F);
+        entity.onLivingFall(fallDistance, 1.0F);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BlockState above = world.getBlockState(pos.up());
         if (above.getBlock() instanceof CropsBlock) {
             CropsBlock crop = (CropsBlock) above.getBlock();
