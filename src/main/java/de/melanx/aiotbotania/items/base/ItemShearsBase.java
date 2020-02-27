@@ -27,6 +27,8 @@ import de.melanx.aiotbotania.AIOTBotania;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -35,11 +37,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import java.util.List;
 
 public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
 
@@ -60,6 +66,28 @@ public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
             ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE);
         }
         return true;
+    }
+
+    @Override
+    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+        if (entity.world.isRemote) return false;
+
+        if (entity instanceof IShearable) {
+            IShearable target = (IShearable) entity;
+            if (target.isShearable(stack, entity.world, new BlockPos(entity))) {
+                List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+
+                for (ItemStack itemstack : drops) {
+                    entity.entityDropItem(itemstack, 1.0F);
+                }
+
+                ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     @Override
