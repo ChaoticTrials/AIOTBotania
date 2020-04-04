@@ -16,9 +16,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "${minecraft_version}-${mod_version}"
+version = mod_version
 group = 'de.melanx.aiotbotania'
-archivesBaseName = 'aiotbotania'
+archivesBaseName = "aiotbotania-${minecraft_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
