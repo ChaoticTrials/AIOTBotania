@@ -6,10 +6,15 @@
     "1.12.2-latest": "0.7.1",
     "1.12.2-recommended": "0.7.1",
     "1.14.4-latest": "1.1.1",
-    "1.14.4-recommended": "1.1.1"
+    "1.14.4-recommended": "1.1.1",
+    "1.15.2-latest": "1.2",
+    "1.15.2-recommended": "1.2"
 
   },
 
+  "1.15.2": {
+    "1.2": "Initial port to 1.15.2"
+  },
   "1.14.4": {
     "1.1.1": "Added feature of rendering an icon for contributors\nRemoved common config\nA lot of internal changes",
     "1.1.0": "Added growth boost on Super Farmland\nFixed wrong tooltip on Livingrock/Livingwood AIOT\nFixed minor text issues in lexicon",

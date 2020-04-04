@@ -107,7 +107,8 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         ms.push();
 
         Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        ms.translate(0.15, 3.03, 0.98);
+        ms.rotate(Vector3f.XP.rotationDegrees(180));
+        ms.translate(0.15F, -0.17F, 0.13F);
         ms.scale(0.15F, 0.15F, 0.15F);
 
         if (player.isCrouching()) {
@@ -124,8 +125,6 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         if (player.isInvisible()) return;
 
         String name = player.getDisplayName().getString();
-
-        AccessoryRenderHelper.translateToChest(ms);
 
         firstStart();
 

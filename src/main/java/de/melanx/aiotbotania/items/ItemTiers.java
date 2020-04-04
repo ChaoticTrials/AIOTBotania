@@ -167,64 +167,64 @@ public class ItemTiers {
     public static final IItemTier MANASTEEL_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getMaxUses() * 5;
+            return BotaniaAPI.instance().getManasteelItemTier().getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getEfficiency();
+            return BotaniaAPI.instance().getManasteelItemTier().getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getAttackDamage();
+            return BotaniaAPI.instance().getManasteelItemTier().getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getHarvestLevel();
+            return BotaniaAPI.instance().getManasteelItemTier().getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getEnchantability();
+            return BotaniaAPI.instance().getManasteelItemTier().getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            return BotaniaAPI.MANASTEEL_ITEM_TIER.getRepairMaterial();
+            return BotaniaAPI.instance().getManasteelItemTier().getRepairMaterial();
         }
     };
 
     public static final IItemTier ELEMENTIUM_AIOT_ITEM_TIER = new IItemTier() {
         @Override
         public int getMaxUses() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getMaxUses() * 5;
+            return BotaniaAPI.instance().getElementiumItemTier().getMaxUses() * 5;
         }
 
         @Override
         public float getEfficiency() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getEfficiency();
+            return BotaniaAPI.instance().getElementiumItemTier().getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getAttackDamage();
+            return BotaniaAPI.instance().getElementiumItemTier().getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getHarvestLevel();
+            return BotaniaAPI.instance().getElementiumItemTier().getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getEnchantability();
+            return BotaniaAPI.instance().getElementiumItemTier().getEnchantability();
         }
 
         @Override
         public Ingredient getRepairMaterial() {
-            return BotaniaAPI.ELEMENTIUM_ITEM_TIER.getRepairMaterial();
+            return BotaniaAPI.instance().getElementiumItemTier().getRepairMaterial();
         }
     };
 
