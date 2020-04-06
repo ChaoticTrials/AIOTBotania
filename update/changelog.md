@@ -1,3 +1,9 @@
+# 1.15.2-1.2.1
+- Fixed a crash when placing torch/sapling with AIOT
+
+# 1.15.2-1.2
+- Initial port to 1.15.2
+
 # 1.14.4-1.1.1
 - Added feature of rendering an icon for contributors
 - Removed common config
