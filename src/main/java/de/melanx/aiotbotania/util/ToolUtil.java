@@ -165,7 +165,8 @@ public class ToolUtil {
                 ItemStack stackAt = player.inventory.getStackInSlot(i);
                 if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
                     ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
-                    ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
+                    if (did == ActionResultType.SUCCESS && !ctx.getWorld().isRemote())
+                        ItemsRemainingRenderHandler.send(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
                     return did;
                 }
             }
@@ -182,7 +183,8 @@ public class ToolUtil {
                 ItemStack stackAt = player.inventory.getStackInSlot(i);
                 if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
                     ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
-                    ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.OAK_SAPLING), SAPLING_PATTERN);
+                    if (did == ActionResultType.SUCCESS && !ctx.getWorld().isRemote())
+                        ItemsRemainingRenderHandler.send(player, new ItemStack(Blocks.OAK_SAPLING), SAPLING_PATTERN);
                     return did;
                 }
             }
