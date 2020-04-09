@@ -143,6 +143,14 @@ artifacts {
     archives deobfJar
 }
 
+publishing {
+    repositories {
+        maven {
+            url "/var/www/maven"
+        }
+    }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
