@@ -136,7 +136,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-task deobfJar(type:Jar) {
+task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier 'deobf'
 }
