@@ -24,10 +24,7 @@
 package de.melanx.aiotbotania.core.handler;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.handler.data.BlockStates;
-import de.melanx.aiotbotania.core.handler.data.ItemModels;
-import de.melanx.aiotbotania.core.handler.data.LootTables;
-import de.melanx.aiotbotania.core.handler.data.Recipes;
+import de.melanx.aiotbotania.core.handler.data.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,6 +42,7 @@ public class DataHandler {
         if (e.includeServer()) {
             gen.addProvider(new Recipes(gen));
             gen.addProvider(new LootTables(gen));
+            gen.addProvider(new ModTags.ModItemTags(gen));
         }
         if (e.includeClient()) {
             gen.addProvider(new BlockStates(gen, helper));
