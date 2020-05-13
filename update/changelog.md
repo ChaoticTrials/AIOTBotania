@@ -1,3 +1,8 @@
+# 1.15.2-1.2.2
+- Added disposable support to aiot
+- Added shears to forge:shears tag
+- Added zh_tw.json (yappy2000d)
+
 # 1.15.2-1.2.1
 - Fixed a crash when placing torch/sapling with AIOT
 

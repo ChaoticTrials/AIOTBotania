@@ -27,7 +27,7 @@ archivesBaseName = "aiotbotania-${minecraft_version}"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200226-1.15.1'
+    mappings channel: 'snapshot', version: '20200513-1.15.1'
 
     runs {
         client {
