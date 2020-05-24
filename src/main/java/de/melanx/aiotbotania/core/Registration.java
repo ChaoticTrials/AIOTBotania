@@ -25,6 +25,7 @@ package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
+import de.melanx.aiotbotania.core.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
@@ -35,6 +36,8 @@ import de.melanx.aiotbotania.items.livingrock.ItemLivingrockShovel;
 import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -46,6 +49,7 @@ public class Registration {
 
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, AIOTBotania.MODID);
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, AIOTBotania.MODID);
+    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER = new DeferredRegister<>(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
 
     public static final RegistryObject<Item> livingwood_shears = ITEMS.register("livingwood_shears", () -> new ItemShearsBase(10, 60));
     public static final RegistryObject<Item> livingwood_sword = ITEMS.register("livingwood_sword", () -> new ItemSwordBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 3, -2.5F, 30));
@@ -71,12 +75,16 @@ public class Registration {
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
+    public static final RegistryObject<GlobalLootModifierSerializer<?>> dispose = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
+
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        Registration.ITEMS.register(bus);
+        ITEMS.register(bus);
         AIOTBotania.instance.getLogger().info("Items registered.");
-        Registration.BLOCKS.register(bus);
+        BLOCKS.register(bus);
         AIOTBotania.instance.getLogger().info("Blocks registered.");
+        LOOT_MODIFIER.register(bus);
+        AIOTBotania.instance.getLogger().info("Global loot modifiers registered.");
     }
 
 }
