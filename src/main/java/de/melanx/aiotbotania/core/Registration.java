@@ -26,6 +26,7 @@ package de.melanx.aiotbotania.core;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
 import de.melanx.aiotbotania.core.handler.lootmodifier.DisposeModifier;
+import de.melanx.aiotbotania.core.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
@@ -37,7 +38,6 @@ import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -76,6 +76,7 @@ public class Registration {
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
     public static final RegistryObject<GlobalLootModifierSerializer<?>> dispose = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
+    public static final RegistryObject<GlobalLootModifierSerializer<?>> sapling_modifier = LOOT_MODIFIER.register("grass", GrassModifier.Serializer::new);
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

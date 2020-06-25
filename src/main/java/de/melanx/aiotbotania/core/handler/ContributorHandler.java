@@ -40,7 +40,6 @@ import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import net.minecraft.util.IItemProvider;
-import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.io.IOException;
