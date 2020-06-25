@@ -24,7 +24,7 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
 [[dependencies.aiotbotania]]
     modId="forge"
     mandatory=true
-    versionRange="[31.1.18,)"
+    versionRange="[31.2.26,)"
     ordering="NONE"
     side="BOTH"
 

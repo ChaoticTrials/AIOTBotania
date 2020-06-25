@@ -1,3 +1,8 @@
+# 1.15.2-1.2.3
+- Added seed drop feature for livingwood/livingrock shears
+    - Shears used on tall grass will always drop a random seed
+    - Shears can be enchanted with silk touch to drop normal grass
+
 # 1.15.2-1.2.2
 - Added disposable support to aiot
 - Added shears to forge:shears tag

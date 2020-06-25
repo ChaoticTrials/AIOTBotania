@@ -7,12 +7,13 @@
     "1.12.2-recommended": "0.7.1",
     "1.14.4-latest": "1.1.1",
     "1.14.4-recommended": "1.1.1",
-    "1.15.2-latest": "1.2.1",
-    "1.15.2-recommended": "1.2.1"
+    "1.15.2-latest": "1.2.3",
+    "1.15.2-recommended": "1.2.3"
 
   },
 
   "1.15.2": {
+    "1.2.3": "Added seed drop feature for livingwood/livingrock shears",
     "1.2.2": "Added disposable support to aiot\nAdded shears to forge:shears tag\nAdded zh_tw.json (yappy2000d)",
     "1.2.1": "Fixed crash when placing torch/sapling with AIOT",
     "1.2": "Initial port to 1.15.2"
