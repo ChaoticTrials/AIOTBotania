@@ -1,10 +1,26 @@
 # General
-itemGroup.aiotbotania=AIOT Botania
+itemGroup.aiotbotania=植魔全能工具
 aiotbotania.toggleMode=§6全能工具模式已更改:
 aiotbotania.hoeMode=§a开垦土地与草径
 aiotbotania.utilityMode=§e放置火把与树苗
 
 # Tools
+item.livingwoodShears.name=活木剪刀
+item.livingwoodSword.name=活木剑
+item.livingwoodAxe.name=活木斧头
+item.livingwoodPickaxe.name=活木镐
+item.livingwoodShovel.name=活木铲
+item.livingwoodHoe.name=活木锄
+item.livingwoodAIOT.name=活木全能工具
+
+item.livingrockShears.name=活石剪刀
+item.livingrockSword.name=活石剑
+item.livingrockAxe.name=活石斧
+item.livingrockPickaxe.name=活石镐
+item.livingrockShovel.name=活石铲
+item.livingrockHoe.name=活石锄
+item.livingrockAIOT.name=活石全能工具
+
 item.manasteelHoe.name=魔钢锄
 item.manasteelAIOT.name=魔钢全能工具
 
@@ -12,7 +28,28 @@ item.elementiumHoe.name=源质钢锄
 item.elementiumAIOT.name=源质钢全能工具
 
 # Lexica Botania
-botania.page.manaGear11=若安装&2AIOT Botania&0模组还增加了两样工具。&1锄&0用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗&4魔力&0。<br>而&1全能工具&0则融合了魔钢&1剑&0，&1斧&0，&1镐&0，&1铲&0与&1锄&0的所有功能。
+botania.entry.livingwoodTools=活木工具
+botania.entry.livingrockTools=活石工具
+
+botania.page.livingwoodTools0=若安装植魔全能工具模组，&1活木&0可以被制造成工具。<br>这些工具有着&1木头工具&0的属性，不过在附魔和耐久上有较大优势。&1活木&0工具将会消耗4魔力来破坏方块，如果在背包中有&4储魔物品&0(就比如一块&1魔力石板&0)，就会优先消耗石板中的魔力。<br>除了伤害以外，他们和原版工具没什么两样。
+botania.page.livingwoodTools1=The &1活木镐&0
+botania.page.livingwoodTools2=The &1活木铲&0
+botania.page.livingwoodTools3=The &1活木斧头&0
+botania.page.livingwoodTools4=The &1活木剪刀&0
+botania.page.livingwoodTools5=The &1活木剑&0
+botania.page.livingwoodTools6=The &1活木锄&0
+botania.page.livingwoodTools7=The &1活木全能工具&0
+
+botania.page.livingrockTools0=若安装植魔全能工具模组，&1活石&0可以被制造成工具。<br>这些工具有着&1石头工具&0的属性，不过在附魔，耐久以及一些小操作上有较大优势。&1活石&0工具将会消耗4魔力来破坏方块，如果在背包中有&4储魔物品&0(就比如一块&1魔力石板&0)，就会优先消耗石板中的魔力。<br>活石工具也就只是升级过的原版工具。
+botania.page.livingrockTools1=The &1活石镐&0
+botania.page.livingrockTools2=The &1活石铲&0
+botania.page.livingrockTools3=The &1活石斧&0
+botania.page.livingrockTools4=The &1活石剪刀&0
+botania.page.livingrockTools5=The &1活石剑&0
+botania.page.livingrockTools6=The &1活石锄&0
+botania.page.livingrockTools7=The &1活石全能工具&0
+
+botania.page.manaGear11=&2植魔全能工具&0模组还增加了两样工具。&1锄&0用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗&4魔力&0。<br>而&1全能工具&0则融合了魔钢&1剑&0，&1斧&0，&1镐&0，&1铲&0与&1锄&0的所有功能。
 botania.page.manaGear12=&1魔钢锄&0
 botania.page.manaGear13=&1魔钢全能工具&0
 
