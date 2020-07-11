@@ -4,4 +4,10 @@ This mod adds a few new items! That is Hoes and AIOTs (All In One Tool), each as
 
 More information about the single items can be found on the [wiki](https://github.com/MelanX/aiotbotania/wiki/) page.
 
+Here you can see all the items which are included at the moment:
+[![Item Overview](/images/item_overview.png)]
+
+Here you see the glimmering *Super Farmland* block:
+[![Super Farmland](/images/super_farmland.GIF)]
+
 Feel free to use this mod in any of your modpacks and please tell me what you think about this mod! <3
