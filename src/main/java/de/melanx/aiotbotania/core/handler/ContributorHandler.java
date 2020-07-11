@@ -29,7 +29,6 @@ import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
@@ -40,6 +39,7 @@ import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.math.vector.Vector3f;
 import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.io.IOException;

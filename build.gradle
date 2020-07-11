@@ -1,3 +1,6 @@
+import net.minecraftforge.gradle.common.util.ModConfig
+import net.minecraftforge.gradle.common.util.RunConfig
+
 buildscript {
     repositories {
         maven { url 'https://files.minecraftforge.net/maven' }
@@ -27,55 +30,24 @@ archivesBaseName = "aiotbotania-${minecraft_version}"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200513-1.15.1'
+    mappings channel: 'snapshot', version: mappings_version
 
-    runs {
-        client {
-            workingDirectory project.file('run')
+    createRunConfig("client")
+    createRunConfig("server")
+    createRunConfig("data", { RunConfig run ->
+        run.args "--mod", "aiotbotania", "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources")
+    })
+}
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                aiotbotania {
-                    source sourceSets.main
-                }
-            }
+def createRunConfig(String name, Closure extra = {}) {
+    minecraft.runs.create(name) { RunConfig run ->
+        run.workingDirectory project.file("run_" + name)
+        run.property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+        run.property "forge.logging.console.level", "debug"
+        run.mods.create("aiotbotania") { ModConfig mod ->
+            source sourceSets.main
         }
-
-        server {
-            workingDirectory project.file('run_server')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                aiotbotania {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run_data')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'aiotbotania', '--all', '--output', "\"" + file('src/generated/resources/') + "\"", '--existing', "\"" + file('src/main/resources/') + "\""
-
-            mods {
-                aiotbotania {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+    }.with(extra)
 }
 
 sourceSets.main.resources {
@@ -174,5 +146,5 @@ dependencies {
     compile fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}")
-    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") { transitive = false }
+    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 }

@@ -40,10 +40,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -78,22 +75,22 @@ public class ToolUtil {
     }
 
     public static void toggleMode(PlayerEntity player, ItemStack stack) {
-        Style dark_blue = new Style().setColor(TextFormatting.DARK_BLUE).setItalic(true);
-        Style aqua = new Style().setColor(TextFormatting.AQUA).setItalic(true);
-        ITextComponent text = new TranslationTextComponent(AIOTBotania.MODID + ".toggleMode").appendText(" ").setStyle(dark_blue);
-        ITextComponent utilityMode = new TranslationTextComponent(AIOTBotania.MODID + ".utilityMode").setStyle(aqua);
-        ITextComponent hoeMode = new TranslationTextComponent(AIOTBotania.MODID + ".hoeMode").setStyle(aqua);
-        ITextComponent hoeModePath = new TranslationTextComponent(AIOTBotania.MODID + ".hoeModePath").setStyle(aqua);
+        Style dark_blue = Style.EMPTY.setFormatting(TextFormatting.DARK_BLUE).setItalic(true);
+        Style aqua = Style.EMPTY.setFormatting(TextFormatting.AQUA).setItalic(true);
+        IFormattableTextComponent text = new TranslationTextComponent(AIOTBotania.MODID + ".toggleMode").func_240702_b_(" ").func_240703_c_(dark_blue);
+        IFormattableTextComponent utilityMode = new TranslationTextComponent(AIOTBotania.MODID + ".utilityMode").func_240703_c_(aqua);
+        IFormattableTextComponent hoeMode = new TranslationTextComponent(AIOTBotania.MODID + ".hoeMode").func_240703_c_(aqua);
+        IFormattableTextComponent hoeModePath = new TranslationTextComponent(AIOTBotania.MODID + ".hoeModePath").func_240703_c_(aqua);
 
         if (ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
-            text.appendSibling(utilityMode);
+            text.func_230529_a_(utilityMode);
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
             if (stack.getItem() instanceof ItemLivingrockAIOT)
-                text = text.appendSibling(hoeMode);
+                text = text.func_230529_a_(hoeMode);
             else
-                text.appendSibling(hoeModePath);
+                text.func_230529_a_(hoeModePath);
         }
 
         player.sendStatusMessage(text, true);

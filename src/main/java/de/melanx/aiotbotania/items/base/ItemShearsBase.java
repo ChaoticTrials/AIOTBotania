@@ -30,19 +30,22 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IShearable;
+import net.minecraftforge.common.IForgeShearable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.List;
+import java.util.Random;
 
 public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
 
@@ -61,21 +64,25 @@ public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-        if (entity.world.isRemote) return false;
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+        if (entity.world.isRemote) return ActionResultType.PASS;
 
-        if (entity instanceof IShearable) {
-            IShearable target = (IShearable) entity;
-            if (target.isShearable(stack, entity.world, new BlockPos(entity))) {
-                List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
-                for (ItemStack itemstack : drops) {
-                    entity.entityDropItem(itemstack, 1.0F);
-                }
+        if (entity instanceof IForgeShearable) {
+            IForgeShearable target = (IForgeShearable) entity;
+            BlockPos pos = new BlockPos(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+            if (target.isShearable(stack, entity.world, pos)) {
+                List<ItemStack> drops = target.onSheared(player, stack, entity.world, pos,
+                        EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+                Random rand = new Random();
+                drops.forEach(d -> {
+                    ItemEntity entity1 = entity.entityDropItem(d, 1.0F);
+                    entity1.setMotion(entity1.getMotion().add((rand.nextFloat() - rand.nextFloat() * 0.1F), rand.nextFloat() * 0.05F, rand.nextFloat() - rand.nextFloat() * 0.1F));
+                });
                 ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.PASS;
     }
 
     @Override

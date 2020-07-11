@@ -77,7 +77,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
         PlantType plantType = plantable.getPlantType(world, pos.up());
-        if (plantType == PlantType.Crop) {
+        if (plantType == PlantType.CROP) {
             return true;
         }
         return super.canSustainPlant(state, world, pos, facing, plantable);
@@ -96,5 +96,10 @@ public class BlockCustomFarmland extends FarmlandBlock {
             if (random.nextInt(30) <= 1)
                 crop.grow(world, pos.up(), above);
         }
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        // no, thank you
     }
 }

@@ -47,9 +47,9 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class Registration {
 
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, AIOTBotania.MODID);
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, AIOTBotania.MODID);
-    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER = new DeferredRegister<>(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AIOTBotania.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AIOTBotania.MODID);
+    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
 
     public static final RegistryObject<Item> livingwood_shears = ITEMS.register("livingwood_shears", () -> new ItemShearsBase(10, 60));
     public static final RegistryObject<Item> livingwood_sword = ITEMS.register("livingwood_sword", () -> new ItemSwordBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 3, -2.5F, 30));

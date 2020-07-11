@@ -42,7 +42,6 @@ public class DataHandler {
         if (e.includeServer()) {
             gen.addProvider(new Recipes(gen));
             gen.addProvider(new LootTables(gen));
-            gen.addProvider(new ModTags.ModItemTags(gen));
         }
         if (e.includeClient()) {
             gen.addProvider(new BlockStates(gen, helper));

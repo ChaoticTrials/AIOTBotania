@@ -43,7 +43,7 @@ public class ItemHoeBase extends HoeItem implements IManaUsingItem {
     private boolean low_tier;
 
     public ItemHoeBase(IItemTier mat, int speed, int MANA_PER_DAMAGE, boolean special, boolean low_tier) {
-        super(mat, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));
+        super(mat, 1, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));
 
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
