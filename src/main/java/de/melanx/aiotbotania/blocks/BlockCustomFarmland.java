@@ -96,5 +96,4 @@ public class BlockCustomFarmland extends FarmlandBlock {
                 crop.grow(world, pos.up(), above);
         }
     }
-
 }

@@ -33,25 +33,18 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Random;
 
@@ -64,7 +57,6 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
     public ItemElementiumAIOT() {
         super(ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
-        MinecraftForge.EVENT_BUS.addListener(this::onHarvestDrops);
     }
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
@@ -120,35 +112,5 @@ public class ItemElementiumAIOT extends ItemAIOTBase implements IPixieSpawner {
         entityitem.setPickupDelay(10);
         e.getDrops().add(entityitem);
     }
-
-    @SubscribeEvent
-    public void onHarvestDrops(BlockEvent.HarvestDropsEvent e) {
-        if (e.getHarvester() != null) {
-            ItemStack stack = e.getHarvester().getHeldItemMainhand();
-            if (!stack.isEmpty() && (stack.getItem() == this)) {
-                e.getDrops().removeIf(s -> !s.isEmpty() && ((isDisposable(s)
-                        || isSemiDisposable(s)) && !e.getHarvester().isSneaking()));
-            }
-        }
-    }
-
-    private static final Tag<Item> DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "disposable"));
-    private static final Tag<Item> SEMI_DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "semi_disposable"));
-
-    public static boolean isDisposable(Block block) {
-        return DISPOSABLE.contains(block.asItem());
-    }
-
-    private static boolean isDisposable(ItemStack stack) {
-        if (stack.isEmpty())
-            return false;
-
-        return DISPOSABLE.contains(stack.getItem());
-    }
-
-    private static boolean isSemiDisposable(ItemStack stack) {
-        return SEMI_DISPOSABLE.contains(stack.getItem());
-    }
-
 }
 

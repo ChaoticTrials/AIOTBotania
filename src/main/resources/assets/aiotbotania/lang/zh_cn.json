@@ -4,11 +4,11 @@
   "aiotbotania.hoeModePath": "\u00a7a开垦土地与草径",
   "aiotbotania.utilityMode": "\u00a7e放置火把与树苗",
 
-  "item.manasteelHoe.name": "魔钢锄",
-  "item.manasteelAIOT.name": "魔钢全能工具",
+  "item.aiotbotania.manasteel_hoe": "魔钢锄",
+  "item.aiotbotania.manasteel_aiot": "魔钢全能工具",
 
-  "item.elementiumHoe.name": "源质钢锄",
-  "item.elementiumAIOT.name": "源质钢全能工具",
+  "item.aiotbotania.elementium_hoe": "源质钢锄",
+  "item.aiotbotania.elementium_aiot": "源质钢全能工具",
 
   "botania.page.manaGear11": "若安装$(2)AIOT Botania$(0)模组还增加了两样工具。$(1)锄$(0)用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗$(4)魔力$(0)。<br>而$(1)全能工具$(0)则融合了魔钢$(1)剑$(0)，$(1)斧$(0)，$(1)镐$(0)，$(1)铲$(0)与$(1)锄$(0)的所有功能。",
   "botania.page.manaGear12": "$(1)魔钢锄$(0)",
