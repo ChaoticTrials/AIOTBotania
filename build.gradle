@@ -12,9 +12,6 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-plugins {
-    id "com.github.hierynomus.license" version "0.15.0"
-}
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -72,18 +69,6 @@ repositories {
     maven {
         name = "curios"
         url = "https://maven.theillusivec4.top/"
-    }
-}
-
-license {
-    header rootProject.file('HEADER')
-    include "**/*.java"
-    ext.year = Calendar.getInstance().get(Calendar.YEAR)
-    ext.name = 'MelanX'
-    ext.project = "AIOT Botania"
-    ignoreFailures = true
-    mapping {
-        java = 'SLASHSTAR_STYLE'
     }
 }
 
