@@ -30,7 +30,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.BotaniaAPI;
 
+import javax.annotation.Nonnull;
+
 public class ItemTiers {
+    private static final BotaniaAPI botaniaAPI = BotaniaAPI.instance();
+
+    private ItemTiers() { }
 
     // basic tiers
     public static final IItemTier LIVINGWOOD_ITEM_TIER = new IItemTier() {
@@ -100,132 +105,73 @@ public class ItemTiers {
     };
 
     // AIOT tiers
-    public static final IItemTier LIVINGWOOD_AIOT_ITEM_TIER = new IItemTier() {
+    public static final IItemTier LIVINGWOOD_AIOT_ITEM_TIER = new DelegatedItemTier(LIVINGWOOD_ITEM_TIER) {
         @Override
         public int getMaxUses() {
-            return LIVINGWOOD_ITEM_TIER.getMaxUses() * 5;
+            return super.getMaxUses() * 5;
+        }
+    };
+
+    public static final IItemTier LIVINGROCK_AIOT_ITEM_TIER = new DelegatedItemTier(LIVINGROCK_ITEM_TIER) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    };
+
+    public static final IItemTier MANASTEEL_AIOT_ITEM_TIER = new DelegatedItemTier(botaniaAPI.getManasteelItemTier()) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    };
+
+    public static final IItemTier ELEMENTIUM_AIOT_ITEM_TIER = new DelegatedItemTier(botaniaAPI.getElementiumItemTier()) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    };
+
+    /**
+     * Helper class to delegate values to another IItemTier
+     */
+    private static class DelegatedItemTier implements IItemTier {
+        protected IItemTier delegate;
+
+        protected DelegatedItemTier(IItemTier delegate) {
+            this.delegate = delegate;
+        }
+
+        @Override
+        public int getMaxUses() {
+            return delegate.getMaxUses();
         }
 
         @Override
         public float getEfficiency() {
-            return LIVINGWOOD_ITEM_TIER.getEfficiency();
+            return delegate.getEfficiency();
         }
 
         @Override
         public float getAttackDamage() {
-            return LIVINGWOOD_ITEM_TIER.getAttackDamage();
+            return delegate.getAttackDamage();
         }
 
         @Override
         public int getHarvestLevel() {
-            return LIVINGWOOD_ITEM_TIER.getHarvestLevel();
+            return delegate.getHarvestLevel();
         }
 
         @Override
         public int getEnchantability() {
-            return LIVINGWOOD_ITEM_TIER.getEnchantability();
+            return delegate.getEnchantability();
         }
 
         @Override
+        @Nonnull
         public Ingredient getRepairMaterial() {
-            return LIVINGWOOD_ITEM_TIER.getRepairMaterial();
+            return delegate.getRepairMaterial();
         }
-    };
-
-    public static final IItemTier LIVINGROCK_AIOT_ITEM_TIER = new IItemTier() {
-        @Override
-        public int getMaxUses() {
-            return LIVINGROCK_ITEM_TIER.getMaxUses() * 5;
-        }
-
-        @Override
-        public float getEfficiency() {
-            return LIVINGROCK_ITEM_TIER.getEfficiency();
-        }
-
-        @Override
-        public float getAttackDamage() {
-            return LIVINGROCK_ITEM_TIER.getAttackDamage();
-        }
-
-        @Override
-        public int getHarvestLevel() {
-            return LIVINGROCK_ITEM_TIER.getHarvestLevel();
-        }
-
-        @Override
-        public int getEnchantability() {
-            return LIVINGROCK_ITEM_TIER.getEnchantability();
-        }
-
-        @Override
-        public Ingredient getRepairMaterial() {
-            return LIVINGROCK_ITEM_TIER.getRepairMaterial();
-        }
-    };
-
-    public static final IItemTier MANASTEEL_AIOT_ITEM_TIER = new IItemTier() {
-        @Override
-        public int getMaxUses() {
-            return BotaniaAPI.instance().getManasteelItemTier().getMaxUses() * 5;
-        }
-
-        @Override
-        public float getEfficiency() {
-            return BotaniaAPI.instance().getManasteelItemTier().getEfficiency();
-        }
-
-        @Override
-        public float getAttackDamage() {
-            return BotaniaAPI.instance().getManasteelItemTier().getAttackDamage();
-        }
-
-        @Override
-        public int getHarvestLevel() {
-            return BotaniaAPI.instance().getManasteelItemTier().getHarvestLevel();
-        }
-
-        @Override
-        public int getEnchantability() {
-            return BotaniaAPI.instance().getManasteelItemTier().getEnchantability();
-        }
-
-        @Override
-        public Ingredient getRepairMaterial() {
-            return BotaniaAPI.instance().getManasteelItemTier().getRepairMaterial();
-        }
-    };
-
-    public static final IItemTier ELEMENTIUM_AIOT_ITEM_TIER = new IItemTier() {
-        @Override
-        public int getMaxUses() {
-            return BotaniaAPI.instance().getElementiumItemTier().getMaxUses() * 5;
-        }
-
-        @Override
-        public float getEfficiency() {
-            return BotaniaAPI.instance().getElementiumItemTier().getEfficiency();
-        }
-
-        @Override
-        public float getAttackDamage() {
-            return BotaniaAPI.instance().getElementiumItemTier().getAttackDamage();
-        }
-
-        @Override
-        public int getHarvestLevel() {
-            return BotaniaAPI.instance().getElementiumItemTier().getHarvestLevel();
-        }
-
-        @Override
-        public int getEnchantability() {
-            return BotaniaAPI.instance().getElementiumItemTier().getEnchantability();
-        }
-
-        @Override
-        public Ingredient getRepairMaterial() {
-            return BotaniaAPI.instance().getElementiumItemTier().getRepairMaterial();
-        }
-    };
-
+    }
 }
