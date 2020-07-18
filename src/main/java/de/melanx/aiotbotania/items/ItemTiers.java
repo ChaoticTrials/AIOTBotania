@@ -11,10 +11,20 @@ import java.util.function.Supplier;
 public enum ItemTiers implements IItemTier {
     LIVINGWOOD_ITEM_TIER(68, 2.0F, 0.5F, 0, 18, () -> Ingredient.fromTag(ModTags.Items.LIVINGWOOD)),
     LIVINGROCK_ITEM_TIER(191, 4.5F, 2.5F, 1, 10, () -> Ingredient.fromTag(ModTags.Items.LIVINGROCK)),
-    LIVINGWOOD_AIOT_ITEM_TIER(LIVINGWOOD_ITEM_TIER.getMaxUses() * 5, LIVINGWOOD_ITEM_TIER.getEfficiency(), LIVINGWOOD_ITEM_TIER.getAttackDamage(), LIVINGWOOD_ITEM_TIER.getHarvestLevel(), LIVINGWOOD_ITEM_TIER.getEnchantability(), LIVINGWOOD_ITEM_TIER::getRepairMaterial),
-    LIVINGROCK_AIOT_ITEM_TIER(LIVINGROCK_ITEM_TIER.getMaxUses() * 5, LIVINGROCK_ITEM_TIER.getEfficiency(), LIVINGROCK_ITEM_TIER.getAttackDamage(), LIVINGROCK_ITEM_TIER.getHarvestLevel(), LIVINGROCK_ITEM_TIER.getEnchantability(), LIVINGROCK_ITEM_TIER::getRepairMaterial),
-    MANASTEEL_AIOT_ITEM_TIER(BotaniaAPI.instance().getManasteelItemTier().getMaxUses(), BotaniaAPI.instance().getManasteelItemTier().getEfficiency(), BotaniaAPI.instance().getManasteelItemTier().getAttackDamage(), BotaniaAPI.instance().getManasteelItemTier().getHarvestLevel(), BotaniaAPI.instance().getManasteelItemTier().getEnchantability(), () -> BotaniaAPI.instance().getManasteelItemTier().getRepairMaterial()),
-    ELEMENTIUM_AIOT_ITEM_TIER(BotaniaAPI.instance().getElementiumItemTier().getMaxUses(), BotaniaAPI.instance().getElementiumItemTier().getEfficiency(), BotaniaAPI.instance().getElementiumItemTier().getAttackDamage(), BotaniaAPI.instance().getElementiumItemTier().getHarvestLevel(), BotaniaAPI.instance().getElementiumItemTier().getEnchantability(), () -> BotaniaAPI.instance().getElementiumItemTier().getRepairMaterial());
+    LIVINGWOOD_AIOT_ITEM_TIER(LIVINGWOOD_ITEM_TIER) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    },
+    LIVINGROCK_AIOT_ITEM_TIER(LIVINGROCK_ITEM_TIER) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    },
+    MANASTEEL_AIOT_ITEM_TIER(BotaniaAPI.instance().getManasteelItemTier()),
+    ELEMENTIUM_AIOT_ITEM_TIER(BotaniaAPI.instance().getElementiumItemTier());
 
     private final int durability;
     private final float efficiency;
@@ -30,6 +40,15 @@ public enum ItemTiers implements IItemTier {
         this.harvestLevel = harvestLevel;
         this.enchantability = enchantability;
         this.repairMaterial = new LazyValue<>(repairMaterial);
+    }
+
+    ItemTiers(IItemTier delegate) {
+        durability = delegate.getMaxUses();
+        efficiency = delegate.getEfficiency();
+        attackDamage = delegate.getAttackDamage();
+        harvestLevel = delegate.getHarvestLevel();
+        enchantability = delegate.getEnchantability();
+        repairMaterial = new LazyValue<>(delegate::getRepairMaterial);
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class BlockCustomFarmland extends FarmlandBlock {
     public BlockCustomFarmland() {
-        super(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.6F).sound(SoundType.GROUND).tickRandomly());
+        super(AbstractBlock.Properties.from(Blocks.FARMLAND));
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(MOISTURE, 7)
         );
