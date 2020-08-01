@@ -39,13 +39,13 @@ public class ToolUtil {
     }
 
     public static boolean hitEntity(ItemStack stack, LivingEntity entity, int MPD) {
-        ToolCommons.damageItem(stack, 1, entity, MPD);
+        ToolCommons.damageItemIfPossible(stack, 1, entity, MPD);
         return true;
     }
 
     public static boolean onBlockDestroyed(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity entity, int MPD) {
         if (state.getBlockHardness(world, pos) != 0F) {
-            ToolCommons.damageItem(stack, 1, entity, MPD);
+            ToolCommons.damageItemIfPossible(stack, 1, entity, MPD);
         }
 
         return true;
@@ -79,7 +79,7 @@ public class ToolUtil {
 
         if (!world.isRemote) {
             world.setBlockState(pos, state);
-            ToolCommons.damageItem(stack, 1, player, MPD);
+            ToolCommons.damageItemIfPossible(stack, 1, player, MPD);
         }
         return ActionResultType.SUCCESS;
     }
@@ -183,7 +183,7 @@ public class ToolUtil {
 
                 if (!world.isRemote) {
                     world.setBlockState(pos, block1.getDefaultState());
-                    ToolCommons.damageItem(stack, 1, player, MPD);
+                    ToolCommons.damageItemIfPossible(stack, 1, player, MPD);
                 }
                 return ActionResultType.SUCCESS;
             }
