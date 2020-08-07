@@ -15,11 +15,26 @@ public final class ConfigHandler {
         }
     }
 
+    public static class Common {
+        public final BooleanValue TERRA_AIOT;
+
+        public Common(ForgeConfigSpec.Builder builder) {
+            TERRA_AIOT = builder.comment("If set to false, the recipes for the Terrasteel AIOT will be disabled. [default: true]")
+                    .define("terra_aiot.enabled", true);
+        }
+    }
+
     public static final Client CLIENT;
+    public static final Common COMMON;
     public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final ForgeConfigSpec COMMON_SPEC;
     static {
-        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-        CLIENT_SPEC = specPair.getRight();
-        CLIENT = specPair.getLeft();
+        final Pair<Client, ForgeConfigSpec> specPairClient = new ForgeConfigSpec.Builder().configure(Client::new);
+        CLIENT_SPEC = specPairClient.getRight();
+        CLIENT = specPairClient.getLeft();
+
+        final Pair<Common, ForgeConfigSpec> specPairCommon = new ForgeConfigSpec.Builder().configure(Common::new);
+        COMMON_SPEC = specPairCommon.getRight();
+        COMMON = specPairCommon.getLeft();
     }
 }

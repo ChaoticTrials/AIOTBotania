@@ -30,6 +30,7 @@ public class AIOTBotania {
         creativeTab = new CreativeTab();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 
         MinecraftForge.EVENT_BUS.register(this);
 

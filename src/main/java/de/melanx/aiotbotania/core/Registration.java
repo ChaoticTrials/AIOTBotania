@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
+import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.core.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
@@ -12,6 +13,7 @@ import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAxe;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockPickaxe;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockShovel;
 import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
+import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -49,6 +51,8 @@ public class Registration {
 
     public static final RegistryObject<Item> elementium_hoe = ITEMS.register("elementium_hoe", () -> new ItemHoeBase(BotaniaAPI.instance().getElementiumItemTier(), -1, 60, true, false));
     public static final RegistryObject<Item> elementium_aiot = ITEMS.register("elementium_aiot", ItemElementiumAIOT::new);
+
+    public static final RegistryObject<Item> terrasteel_aiot = ITEMS.register("terra_aiot", ItemTerraSteelAIOT::new);
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
