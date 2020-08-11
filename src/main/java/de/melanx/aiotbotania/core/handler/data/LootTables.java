@@ -36,7 +36,7 @@ public class LootTables extends LootTableProvider {
         map.forEach((name, table) -> LootTableManager.func_227508_a_(validationtracker, name, table));
     }
 
-    private class BlockTable extends BlockLootTables {
+    private static class BlockTable extends BlockLootTables {
         @Override
         protected void addTables() {
             registerDropping(Registration.custom_farmland.get(), Blocks.DIRT);

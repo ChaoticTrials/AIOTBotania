@@ -34,9 +34,9 @@ import java.util.List;
 
 public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
-    private final int MANA_PER_DAMAGE;
-    private final boolean special;
-    private final IItemTier mat;
+    protected final int MANA_PER_DAMAGE;
+    protected final boolean special;
+    protected final IItemTier mat;
 
     public ItemAIOTBase(IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())

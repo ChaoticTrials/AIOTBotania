@@ -34,6 +34,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
+        ItemModelsProperties.func_239418_a_(Registration.terrasteel_hoe.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.func_239418_a_(Registration.terrasteel_shovel.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
         ItemModelsProperties.func_239418_a_(Registration.terrasteel_aiot.get(), new ResourceLocation(AIOTBotania.MODID, "tipped"), (stack, world, entity) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
         ItemModelsProperties.func_239418_a_(Registration.terrasteel_aiot.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
     }

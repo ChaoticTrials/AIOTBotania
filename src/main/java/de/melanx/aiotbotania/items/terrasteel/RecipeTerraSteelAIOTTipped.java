@@ -34,7 +34,6 @@ public class RecipeTerraSteelAIOTTipped extends ShapelessRecipe {
     public boolean matches(CraftingInventory inv, @Nonnull World worldIn) {
         boolean foundTerra = false;
         boolean foundElementium = false;
-
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack stack = inv.getStackInSlot(j);
             if (!stack.isEmpty()) {
@@ -47,21 +46,18 @@ public class RecipeTerraSteelAIOTTipped extends ShapelessRecipe {
                 }
             }
         }
-
         return foundTerra && foundElementium;
     }
 
     @Nonnull
     public ItemStack getCraftingResult(CraftingInventory inv) {
         ItemStack stack = new ItemStack(Registration.terrasteel_aiot.get());
-
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack ingredient = inv.getStackInSlot(j);
             if (!ingredient.isEmpty() && INGREDIENT_TERRA.test(ingredient)) {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
         }
-
         ItemNBTHelper.setBoolean(stack, "tipped", true);
         return stack;
     }

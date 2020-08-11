@@ -16,8 +16,10 @@ public class ItemModels extends ItemModelProvider {
     @Override
     protected void registerModels() {
         for (RegistryObject<Item> item : Registration.ITEMS.getEntries())
-            if (item.get() != Registration.terrasteel_aiot.get())
-                // The terra AIOT has a custom model to display it's tipped and AOE-active state.
+            if (item.get() != Registration.terrasteel_aiot.get()
+                    && item.get() != Registration.terrasteel_shovel.get()
+                    && item.get() != Registration.terrasteel_hoe.get())
+                // The terra tools have a custom model to display it's tipped and AOE-active state.
                 generateItem(item.get());
     }
 

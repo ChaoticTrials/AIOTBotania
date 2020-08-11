@@ -44,9 +44,7 @@ public class ItemLivingrockAxe extends ItemAxeBase {
                 if (!world.isRemote) {
                     world.setBlockState(pos, block.getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)), 11);
                     if (player != null) {
-                        ctx.getItem().damageItem(1, player, (consumer) -> {
-                            consumer.sendBreakAnimation(ctx.getHand());
-                        });
+                        ctx.getItem().damageItem(1, player, (consumer) -> consumer.sendBreakAnimation(ctx.getHand()));
                     }
                 }
 

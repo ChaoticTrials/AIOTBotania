@@ -2,7 +2,6 @@ package de.melanx.aiotbotania.blocks;
 
 import de.melanx.aiotbotania.core.config.ConfigHandler;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

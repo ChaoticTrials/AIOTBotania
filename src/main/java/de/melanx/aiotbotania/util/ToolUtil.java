@@ -130,6 +130,42 @@ public class ToolUtil {
         }
     }
 
+    public static ActionResultType hoeUseAOE(ItemUseContext ctx, boolean special, boolean low_tier, int MPD, int radius) {
+        ItemStack stack = ctx.getItem();
+        PlayerEntity player = ctx.getPlayer();
+        World world = ctx.getWorld();
+        Direction side = ctx.getFace();
+        BlockPos basePos = new BlockPos(ctx.getPos()); // We need to make it immutable
+        if (player == null || !player.canPlayerEdit(basePos, side, stack))
+            return ActionResultType.PASS;
+        for (int xd = -radius; xd <= radius; xd++) {
+            for (int zd = -radius; zd <= radius; zd++) {
+                if (xd == 0 && zd == 0)
+                    continue;
+                BlockPos pos = basePos.add(xd, 0, zd);
+                Block block = world.getBlockState(pos).getBlock();
+                if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
+                    if (block == Blocks.GRASS_BLOCK || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
+                        BlockState farmland;
+                        if (special) {
+                            farmland = Registration.custom_farmland.get().getDefaultState();
+                        } else {
+                            farmland = Blocks.FARMLAND.getDefaultState();
+                        }
+                        tiltBlock(player, world, pos, stack, farmland, MPD);
+                    } else if (block instanceof FarmlandBlock && special) {
+                        Block block1 = Blocks.GRASS_BLOCK;
+                        tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                    } else if (block instanceof FarmlandBlock && !low_tier) {
+                        Block block1 = Blocks.DIRT;
+                        tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                    }
+                }
+            }
+        }
+        return hoeUse(ctx, special, low_tier, MPD);
+    }
+
     @Nonnull
     public static ActionResultType pickUse(ItemUseContext ctx) {
         PlayerEntity player = ctx.getPlayer();
@@ -191,5 +227,4 @@ public class ToolUtil {
         }
         return ActionResultType.PASS;
     }
-
 }

@@ -4,7 +4,6 @@ import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.data.*;
 import net.minecraft.util.IItemProvider;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;

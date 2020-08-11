@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
 
 public class ItemHoeBase extends HoeItem implements IManaUsingItem {
 
-    private int MANA_PER_DAMAGE;
-    private boolean special;
-    private boolean low_tier;
+    protected final int MANA_PER_DAMAGE;
+    protected final boolean special;
+    protected final boolean low_tier;
 
     public ItemHoeBase(IItemTier mat, int speed, int MANA_PER_DAMAGE, boolean special, boolean low_tier) {
         super(mat, -mat.getHarvestLevel(), speed, new Item.Properties().group(AIOTBotania.instance.getTab()));

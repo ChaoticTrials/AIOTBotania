@@ -35,7 +35,6 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
         boolean foundSword = false;
         boolean foundAxe = false;
         boolean foundPick = false;
-
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack stack = inv.getStackInSlot(j);
             if (!stack.isEmpty()) {
@@ -50,21 +49,18 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
                 }
             }
         }
-
         return foundSword && foundAxe && foundPick;
     }
 
     @Nonnull
     public ItemStack getCraftingResult(CraftingInventory inv) {
         ItemStack stack = new ItemStack(Registration.terrasteel_aiot.get());
-
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack ingredient = inv.getStackInSlot(j);
             if (!ingredient.isEmpty() && INGREDIENT_PICK.test(ingredient)) {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
         }
-
         return stack;
     }
 

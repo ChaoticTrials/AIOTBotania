@@ -20,7 +20,7 @@ public final class ConfigHandler {
 
         public Common(ForgeConfigSpec.Builder builder) {
             TERRA_AIOT = builder.comment("If set to false, the recipes for the Terrasteel AIOT will be disabled. [default: true]")
-                    .define("terra_aiot.enabled", true);
+                    .define("terra_tier.enabled", true);
         }
     }
 
