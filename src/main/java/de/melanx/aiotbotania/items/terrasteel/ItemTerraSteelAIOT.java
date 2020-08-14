@@ -106,7 +106,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 this.breakOtherBlock(player, stack, pos, pos, face);
             }
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
-            ToolUtil.onBlockDestroyed(stack, player.getEntityWorld(), player.getEntityWorld().getBlockState(raycast.getPos()), raycast.getPos(), player, MANA_PER_DAMAGE);
         }
         return false;
     }

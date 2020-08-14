@@ -54,7 +54,6 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
             Direction face = raycast.getFace();
             this.breakOtherBlock(player, stack, pos, pos, face);
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
-            ToolUtil.onBlockDestroyed(stack, player.getEntityWorld(), player.getEntityWorld().getBlockState(raycast.getPos()), raycast.getPos(), player, MANA_PER_DAMAGE);
         }
         return false;
     }
