@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.items.terrasteel;
 
 import com.google.common.collect.ImmutableSet;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
+import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -53,6 +54,7 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
             Direction face = raycast.getFace();
             this.breakOtherBlock(player, stack, pos, pos, face);
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
+            ToolUtil.onBlockDestroyed(stack, player.getEntityWorld(), player.getEntityWorld().getBlockState(raycast.getPos()), raycast.getPos(), player, MANA_PER_DAMAGE);
         }
         return false;
     }
