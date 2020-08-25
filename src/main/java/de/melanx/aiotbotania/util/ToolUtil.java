@@ -54,20 +54,20 @@ public class ToolUtil {
     public static void toggleMode(PlayerEntity player, ItemStack stack) {
         Style dark_blue = Style.EMPTY.setFormatting(TextFormatting.DARK_BLUE).setItalic(true);
         Style aqua = Style.EMPTY.setFormatting(TextFormatting.AQUA).setItalic(true);
-        IFormattableTextComponent text = new TranslationTextComponent(AIOTBotania.MODID + ".toggleMode").func_240702_b_(" ").func_240703_c_(dark_blue);
-        IFormattableTextComponent utilityMode = new TranslationTextComponent(AIOTBotania.MODID + ".utilityMode").func_240703_c_(aqua);
-        IFormattableTextComponent hoeMode = new TranslationTextComponent(AIOTBotania.MODID + ".hoeMode").func_240703_c_(aqua);
-        IFormattableTextComponent hoeModePath = new TranslationTextComponent(AIOTBotania.MODID + ".hoeModePath").func_240703_c_(aqua);
+        IFormattableTextComponent text = new TranslationTextComponent(AIOTBotania.MODID + ".toggleMode").appendString(" ").mergeStyle(dark_blue);
+        IFormattableTextComponent utilityMode = new TranslationTextComponent(AIOTBotania.MODID + ".utilityMode").mergeStyle(aqua);
+        IFormattableTextComponent hoeMode = new TranslationTextComponent(AIOTBotania.MODID + ".hoeMode").mergeStyle(aqua);
+        IFormattableTextComponent hoeModePath = new TranslationTextComponent(AIOTBotania.MODID + ".hoeModePath").mergeStyle(aqua);
 
         if (ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
-            text.func_230529_a_(utilityMode);
+            text.append(utilityMode);
         } else {
             ItemNBTHelper.setBoolean(stack, "hoemode", true);
             if (stack.getItem() instanceof ItemLivingrockAIOT)
-                text = text.func_230529_a_(hoeMode);
+                text = text.append(hoeMode);
             else
-                text.func_230529_a_(hoeModePath);
+                text.append(hoeModePath);
         }
 
         player.sendStatusMessage(text, true);
