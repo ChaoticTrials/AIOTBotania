@@ -442,7 +442,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
         list.add(rankFormat);
         if (this.getMana(stack) == 2147483647) {
-            list.add((new TranslationTextComponent("botaniamisc.getALife")));
+            list.add((new TranslationTextComponent("botaniamisc.getALife"))/*.func_240699_a_(TextFormatting.RED)*/);
         }
     }
 
