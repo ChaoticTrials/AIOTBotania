@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 
 public class ItemAxeBase extends AxeItem implements IManaUsingItem {
 
-    private int MANA_PER_DAMAGE;
+    protected final int MANA_PER_DAMAGE;
 
     public ItemAxeBase(IItemTier mat, int MANA_PER_DAMAGE, float ATTACK_DAMAGE, float ATTACK_SPEED) {
         super(mat, ATTACK_DAMAGE, ATTACK_SPEED, new Item.Properties().group(AIOTBotania.instance.getTab()));

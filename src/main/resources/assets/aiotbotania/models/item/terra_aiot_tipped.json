@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "aiotbotania:item/terra_aiot_tipped"
+  }
+}

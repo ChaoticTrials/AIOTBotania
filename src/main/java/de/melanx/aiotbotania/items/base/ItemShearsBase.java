@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
 
-    private final int MANA_PER_DAMAGE;
+    protected final int MANA_PER_DAMAGE;
 
     public ItemShearsBase(int MANA_PER_DAMAGE, int MAX_DMG) {
         super(new Item.Properties().group(AIOTBotania.instance.getTab()).maxStackSize(1).defaultMaxDamage(MAX_DMG));

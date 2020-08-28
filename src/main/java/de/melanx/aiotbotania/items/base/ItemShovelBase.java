@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 
 public class ItemShovelBase extends ShovelItem implements IManaUsingItem {
 
-    private int MANA_PER_DAMAGE;
+    protected final int MANA_PER_DAMAGE;
 
     public ItemShovelBase(IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
         super(mat, damage, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));

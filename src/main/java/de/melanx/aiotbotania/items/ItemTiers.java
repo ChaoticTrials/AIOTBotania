@@ -24,7 +24,13 @@ public enum ItemTiers implements IItemTier {
         }
     },
     MANASTEEL_AIOT_ITEM_TIER(BotaniaAPI.instance().getManasteelItemTier()),
-    ELEMENTIUM_AIOT_ITEM_TIER(BotaniaAPI.instance().getElementiumItemTier());
+    ELEMENTIUM_AIOT_ITEM_TIER(BotaniaAPI.instance().getElementiumItemTier()),
+    TERRASTEEL_AIOT_ITEM_TIER(BotaniaAPI.instance().getTerrasteelItemTier()) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
+    };
 
     private final int durability;
     private final float efficiency;

@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 
 public class ItemPickaxeBase extends PickaxeItem implements IManaUsingItem {
 
-    private int MANA_PER_DAMAGE;
+    protected final int MANA_PER_DAMAGE;
 
     public ItemPickaxeBase(IItemTier mat, int damage, float speed, int MANA_PER_DAMAGE) {
         super(mat, damage, speed, new Item.Properties().group(AIOTBotania.instance.getTab()));
