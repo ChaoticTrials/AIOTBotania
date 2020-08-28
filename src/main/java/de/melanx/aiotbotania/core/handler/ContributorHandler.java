@@ -18,6 +18,7 @@ import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.vector.Vector3f;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.item.ModItems;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -70,8 +71,10 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
                 return getItem(Registration.manasteel_aiot.get());
             case 3:
                 return getItem(Registration.elementium_aiot.get());
+            case 4:
+                return getItem(Registration.terrasteel_aiot.get());
             default:
-                return getItem(vazkii.botania.common.item.ModItems.grassSeeds);
+                return getItem(ModItems.grassSeeds);
         }
     }
 
@@ -82,6 +85,7 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
     private void renderIcon(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack stack) {
         ms.push();
 
+        //noinspection deprecation
         Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
         ms.rotate(Vector3f.XP.rotationDegrees(180));
         ms.translate(0.15F, -0.17F, 0.13F);
