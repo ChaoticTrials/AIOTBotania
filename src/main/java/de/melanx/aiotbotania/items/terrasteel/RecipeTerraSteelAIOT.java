@@ -19,10 +19,13 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     private static final Ingredient INGREDIENT_SWORD = Ingredient.fromItems(ModItems.terraSword);
     private static final Ingredient INGREDIENT_AXE = Ingredient.fromItems(ModItems.terraAxe);
     private static final Ingredient INGREDIENT_PICK = Ingredient.fromItems(ModItems.terraPick);
+    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.fromItems(Registration.terrasteel_shovel.get());
+    private static final Ingredient INGREDIENT_HOE = Ingredient.fromItems(Registration.terrasteel_hoe.get());
 
     public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
         super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.from(Ingredient.fromItems(Blocks.BARRIER),
-                Ingredient.fromItems(ModItems.terraSword), Ingredient.fromItems(ModItems.terraAxe), Ingredient.fromItems(ModItems.terraPick)));
+                Ingredient.fromItems(ModItems.terraSword), Ingredient.fromItems(ModItems.terraAxe), Ingredient.fromItems(ModItems.terraPick),
+                Ingredient.fromItems(Registration.terrasteel_shovel.get()), Ingredient.fromItems(Registration.terrasteel_hoe.get())));
     }
 
     @Override
@@ -35,6 +38,8 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
         boolean foundSword = false;
         boolean foundAxe = false;
         boolean foundPick = false;
+        boolean foundShovel = false;
+        boolean foundHoe = false;
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack stack = inv.getStackInSlot(j);
             if (!stack.isEmpty()) {
@@ -44,6 +49,10 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
                     foundAxe = true;
                 } else if (INGREDIENT_PICK.test(stack) && !foundPick) {
                     foundPick = true;
+                } else if (INGREDIENT_SHOVEL.test(stack) && !foundShovel) {
+                    foundShovel = true;
+                } else if (INGREDIENT_HOE.test(stack) && !foundHoe) {
+                    foundHoe = true;
                 } else {
                     return false;
                 }
