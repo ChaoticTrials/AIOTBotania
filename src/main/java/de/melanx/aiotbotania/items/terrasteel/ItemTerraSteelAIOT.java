@@ -486,7 +486,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 }
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
-                    return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
+                    return ToolUtil.shovelUse(ctx);
                 } else {
                     return ActionResultType.PASS;
                 }

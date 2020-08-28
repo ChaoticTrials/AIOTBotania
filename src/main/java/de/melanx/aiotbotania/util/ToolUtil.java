@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -17,13 +16,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.regex.Pattern;
@@ -36,18 +37,6 @@ public class ToolUtil {
         if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, MPD * 2, true)) {
             stack.setDamage(stack.getDamage() - 1);
         }
-    }
-
-    public static boolean hitEntity(ItemStack stack, LivingEntity entity, int MPD) {
-        ToolCommons.damageItemIfPossible(stack, 1, entity, MPD);
-        return true;
-    }
-
-    public static boolean onBlockDestroyed(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity entity, int MPD) {
-        if (state.getBlockHardness(world, pos) != 0F) {
-            ToolCommons.damageItemIfPossible(stack, 1, entity, MPD);
-        }
-        return true;
     }
 
     public static void toggleMode(PlayerEntity player, ItemStack stack) {
@@ -72,13 +61,11 @@ public class ToolUtil {
         player.sendStatusMessage(text, true);
     }
 
-    private static ActionResultType tiltBlock(PlayerEntity player, World world, BlockPos pos, ItemStack stack, BlockState state, int MPD) {
-
+    private static ActionResultType tiltBlock(PlayerEntity player, World world, BlockPos pos, BlockState state) {
         world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
         if (!world.isRemote) {
             world.setBlockState(pos, state);
-            ToolCommons.damageItemIfPossible(stack, 1, player, MPD);
         }
         return ActionResultType.SUCCESS;
     }
@@ -88,7 +75,7 @@ public class ToolUtil {
             return ToolUtil.hoeUse(ctx, false, true, manaPerDamage);
         } else {
             if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
-                return ToolUtil.shovelUse(ctx, manaPerDamage);
+                return ToolUtil.shovelUse(ctx);
             } else {
                 return ActionResultType.PASS;
             }
@@ -116,13 +103,13 @@ public class ToolUtil {
                     } else {
                         farmland = Blocks.FARMLAND.getDefaultState();
                     }
-                    return tiltBlock(player, world, pos, stack, farmland, MPD);
+                    return tiltBlock(player, world, pos, farmland);
                 } else if (block instanceof FarmlandBlock && special) {
                     Block block1 = Blocks.GRASS_BLOCK;
-                    return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                    return tiltBlock(player, world, pos, block1.getDefaultState());
                 } else if (block instanceof FarmlandBlock && !low_tier) {
                     Block block1 = Blocks.DIRT;
-                    return tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                    return tiltBlock(player, world, pos, block1.getDefaultState());
                 }
             }
             return ActionResultType.SUCCESS;
@@ -156,13 +143,13 @@ public class ToolUtil {
                             } else {
                                 farmland = Blocks.FARMLAND.getDefaultState();
                             }
-                            tiltBlock(player, world, pos, stack, farmland, MPD);
+                            tiltBlock(player, world, pos, farmland);
                         } else if (block instanceof FarmlandBlock && special && placedBlock == Blocks.GRASS_BLOCK) {
                             Block block1 = Blocks.GRASS_BLOCK;
-                            tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                            tiltBlock(player, world, pos, block1.getDefaultState());
                         } else if (block instanceof FarmlandBlock && !low_tier && placedBlock == Blocks.DIRT) {
                             Block block1 = Blocks.DIRT;
-                            tiltBlock(player, world, pos, stack, block1.getDefaultState(), MPD);
+                            tiltBlock(player, world, pos, block1.getDefaultState());
                         }
                     }
                 }
@@ -208,7 +195,7 @@ public class ToolUtil {
         return ActionResultType.PASS;
     }
 
-    public static ActionResultType shovelUse(ItemUseContext ctx, int MPD) {
+    public static ActionResultType shovelUse(ItemUseContext ctx) {
         ItemStack stack = ctx.getItem();
         PlayerEntity player = ctx.getPlayer();
         World world = ctx.getWorld();
@@ -219,16 +206,13 @@ public class ToolUtil {
 
             if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
                 Block block1 = Blocks.GRASS_PATH;
-
                 world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                 if (!world.isRemote) {
                     world.setBlockState(pos, block1.getDefaultState());
-                    ToolCommons.damageItemIfPossible(stack, 1, player, MPD);
                 }
                 return ActionResultType.SUCCESS;
             }
-
         }
         return ActionResultType.PASS;
     }

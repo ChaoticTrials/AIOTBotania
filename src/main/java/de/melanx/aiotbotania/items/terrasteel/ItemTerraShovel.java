@@ -2,7 +2,6 @@ package de.melanx.aiotbotania.items.terrasteel;
 
 import com.google.common.collect.ImmutableSet;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
-import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

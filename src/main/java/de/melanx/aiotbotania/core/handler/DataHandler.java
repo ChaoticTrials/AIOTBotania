@@ -1,7 +1,10 @@
 package de.melanx.aiotbotania.core.handler;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.handler.data.*;
+import de.melanx.aiotbotania.core.handler.data.BlockStates;
+import de.melanx.aiotbotania.core.handler.data.ItemModels;
+import de.melanx.aiotbotania.core.handler.data.LootTables;
+import de.melanx.aiotbotania.core.handler.data.Recipes;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

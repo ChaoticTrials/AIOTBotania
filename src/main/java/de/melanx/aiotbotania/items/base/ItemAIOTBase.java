@@ -27,10 +27,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
@@ -65,13 +67,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     }
 
     @Override
-    public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
-        return ToolUtil.hitEntity(par1ItemStack, par3EntityLivingBase, MANA_PER_DAMAGE);
-    }
-
-    @Override
-    public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
-        return ToolUtil.onBlockDestroyed(stack, world, state, pos, entity, MANA_PER_DAMAGE);
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
     }
 
     @Nonnull
@@ -92,7 +89,7 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
                 return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
-                    return ToolUtil.shovelUse(ctx, MANA_PER_DAMAGE);
+                    return ToolUtil.shovelUse(ctx);
                 } else {
                     return ActionResultType.PASS;
                 }
