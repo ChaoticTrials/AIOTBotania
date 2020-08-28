@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.core.network.TerrasteelCreateBurstMesssage;
+import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
@@ -76,7 +77,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
 
     public ItemTerraSteelAIOT() {
-        super(BotaniaAPI.instance().getTerrasteelItemTier(), DAMAGE, SPEED, MANA_PER_DAMAGE, true);
+        super(ItemTiers.TERRASTEEL_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
         MinecraftForge.EVENT_BUS.addListener(this::leftClick);
         MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
@@ -442,7 +443,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
         list.add(rankFormat);
         if (this.getMana(stack) == 2147483647) {
-            list.add((new TranslationTextComponent("botaniamisc.getALife"))/*.func_240699_a_(TextFormatting.RED)*/);
+            list.add((new TranslationTextComponent("botaniamisc.getALife")).mergeStyle(TextFormatting.RED));
         }
     }
 
@@ -461,7 +462,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     @Nonnull
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-         World world = ctx.getWorld();
+        World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
         PlayerEntity player = ctx.getPlayer();
         ItemStack stack = ctx.getItem();

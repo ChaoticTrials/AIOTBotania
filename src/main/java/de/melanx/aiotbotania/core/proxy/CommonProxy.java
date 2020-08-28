@@ -29,7 +29,6 @@ public class CommonProxy implements IProxy {
     public static final ResourceLocation TERRA_RECIPE_ID_SHOVEL = new ResourceLocation(AIOTBotania.MODID, "recipe_terrasteel_shovel");
     public static final ResourceLocation TERRA_RECIPE_ID_HOE = new ResourceLocation(AIOTBotania.MODID, "recipe_terrasteel_hoe");
 
-
     public CommonProxy() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.addListener(this::startServer);
