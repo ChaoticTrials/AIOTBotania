@@ -2,7 +2,6 @@ package de.melanx.aiotbotania.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -13,12 +12,13 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.item.ModItems;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,10 +27,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
-    public static final Map<String, ItemStack> contributorMap = new HashMap<>();
+    public static final Map<UUID, ItemStack> contributorMap = new HashMap<>();
     private static boolean startedLoading = false;
 
     public ContributorHandler(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer) {
@@ -49,36 +50,19 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         for (String key : props.stringPropertyNames()) {
             String value = props.getProperty(key);
 
-            try {
-                int i = Integer.parseInt(value);
-                if (i < 0 || i >= 5)
-                    throw new NumberFormatException();
-                ItemStack stack = getIcon(i);
-                contributorMap.put(key, stack);
-            } catch (NumberFormatException e) {
-                AIOTBotania.instance.getLogger().info("Oops, a wrong number at {}. Please report on GitHub. https://www.github.com/MelanX/aiotbotania/issues", key);
+            ItemStack stack = getItem(value);
+            if (stack.isEmpty()) {
+                AIOTBotania.instance.getLogger().info("Oops, a wrong item at {}. Please report on GitHub. https://www.github.com/MelanX/aiotbotania/issues", key);
+                continue;
             }
+            UUID uuid = UUID.fromString(key);
+            contributorMap.put(uuid, stack);
         }
     }
 
-    private static ItemStack getIcon(int i) {
-        switch (i) {
-            case 0:
-                return getItem(Registration.livingwood_aiot.get());
-            case 1:
-                return getItem(Registration.livingrock_aiot.get());
-            case 2:
-                return getItem(Registration.manasteel_aiot.get());
-            case 3:
-                return getItem(Registration.elementium_aiot.get());
-            case 4:
-                return getItem(Registration.terrasteel_aiot.get());
-            default:
-                return getItem(ModItems.grassSeeds);
-        }
-    }
-
-    private static ItemStack getItem(IItemProvider item) {
+    private static ItemStack getItem(String id) {
+        ResourceLocation location = new ResourceLocation(AIOTBotania.MODID, id);
+        Item item = ForgeRegistries.ITEMS.getValue(location);
         return new ItemStack(item);
     }
 
@@ -104,13 +88,11 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
     public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (player.isInvisible()) return;
 
-        String name = player.getDisplayName().getString();
-
         firstStart();
 
-        name = name.toLowerCase();
-        if (player.isWearing(PlayerModelPart.JACKET) && contributorMap.containsKey(name))
-            renderIcon(ms, buffers, player, contributorMap.get(name));
+        UUID uuid = player.getGameProfile().getId();
+        if (player.isWearing(PlayerModelPart.JACKET) && contributorMap.containsKey(uuid))
+            renderIcon(ms, buffers, player, contributorMap.get(uuid));
     }
 
     private static class ThreadContributorListLoader extends Thread {
@@ -125,7 +107,7 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
         @Override
         public void run() {
             try {
-                URL url = new URL("https://raw.githubusercontent.com/MelanX/aiotbotania/master/contributors.properties");
+                URL url = new URL("https://github.com/MelanX/mod-updatechecker-files/raw/master/contributors/aiotbotania.properties");
                 Properties props = new Properties();
                 try (InputStreamReader reader = new InputStreamReader(url.openStream(), StandardCharsets.UTF_8)) {
                     props.load(reader);
