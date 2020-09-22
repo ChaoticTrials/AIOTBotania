@@ -51,7 +51,7 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
 
             try {
                 int i = Integer.parseInt(value);
-                if (i < 0 || i >= 4)
+                if (i < 0 || i >= 5)
                     throw new NumberFormatException();
                 ItemStack stack = getIcon(i);
                 contributorMap.put(key, stack);
