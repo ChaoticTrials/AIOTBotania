@@ -323,7 +323,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     private void onTickEnd(TickEvent.WorldTickEvent event) {
         if (!event.world.isRemote) {
             if (event.phase == TickEvent.Phase.END) {
-                RegistryKey<World> dim = event.world.func_234923_W_();
+                RegistryKey<World> dim = event.world.getDimensionKey();
                 if (blockSwappers.containsKey(dim)) {
                     Set<BlockSwapper> swappers = blockSwappers.get(dim);
                     swappers.removeIf((next) -> next == null || !next.tick());
@@ -335,7 +335,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     private static void addBlockSwapper(World world, PlayerEntity player, ItemStack stack, BlockPos origCoords, @SuppressWarnings("SameParameterValue") int steps, @SuppressWarnings("SameParameterValue") boolean leaves) {
         BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
         if (!world.isRemote) {
-            RegistryKey<World> dim = world.func_234923_W_();
+            RegistryKey<World> dim = world.getDimensionKey();
             (blockSwappers.computeIfAbsent(dim, (d) -> new HashSet<>())).add(swapper);
         }
     }

@@ -42,5 +42,10 @@ public class GrassModifier extends LootModifier {
         public GrassModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
             return new GrassModifier(conditions);
         }
+
+        @Override
+        public JsonObject write(GrassModifier instance) {
+            return null;
+        }
     }
 }

@@ -6,7 +6,7 @@ import de.melanx.aiotbotania.core.handler.data.ItemModels;
 import de.melanx.aiotbotania.core.handler.data.LootTables;
 import de.melanx.aiotbotania.core.handler.data.Recipes;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
