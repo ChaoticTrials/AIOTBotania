@@ -44,7 +44,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
                 .addToolType(ToolType.AXE, mat.getHarvestLevel())
                 .addToolType(ToolType.PICKAXE, mat.getHarvestLevel())
-                .addToolType(ToolType.SHOVEL, mat.getHarvestLevel()));
+                .addToolType(ToolType.SHOVEL, mat.getHarvestLevel())
+                .addToolType(ToolType.HOE, mat.getHarvestLevel()));
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
         this.mat = mat;
