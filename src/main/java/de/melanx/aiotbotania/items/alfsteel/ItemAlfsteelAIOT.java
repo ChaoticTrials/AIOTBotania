@@ -48,7 +48,6 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
 
     public ItemAlfsteelAIOT() {
         super(ItemTiers.ALFSTEEL_AIOT_ITEM_TIER);
-        MinecraftForge.EVENT_BUS.addListener(this::leftClick);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getAttackDamage(), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 2.4, AttributeModifier.Operation.ADDITION));
@@ -75,12 +74,6 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
             }
         }
         return super.onItemRightClick(world, player, hand);
-    }
-
-    private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
-        if (!evt.getItemStack().isEmpty() && evt.getItemStack().getItem() == this) {
-            mythicbotany.MythicBotany.getNetwork().instance.sendToServer(new mythicbotany.network.AlfSwordLeftClickSerializer.AlfSwordLeftClickMessage());
-        }
     }
 
     @Override
