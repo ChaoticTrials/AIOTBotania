@@ -43,8 +43,19 @@ public class ItemAlfsteelShovel extends ItemTerraShovel implements MythicBotany,
     }
 
     @Override
+    public boolean canRepairPylon(ItemStack stack) {
+        return stack.getDamage() > 0;
+    }
+
+    @Override
     public int getRepairManaPerTick(ItemStack stack) {
-        return MANA_PER_DAMAGE / 2; // Alftools need half on the mana required normally on the pylon.
+        return (int) (2.5 * MANA_PER_DAMAGE);
+    }
+
+    @Override
+    public ItemStack repairOneTick(ItemStack stack) {
+        stack.setDamage(Math.max(0, stack.getDamage() - 5));
+        return stack;
     }
 
     @Override
