@@ -4,7 +4,7 @@ import mythicbotany.pylon.PylonRepairable;
 import mythicbotany.pylon.PylonRepairables;
 import net.minecraft.item.ItemStack;
 
-public class Bla {
+public class CustomPylonRepairable {
     public static Runnable pylonRepairable() {
         return () -> {
             PylonRepairable pylonRepairable = new PylonRepairable() {

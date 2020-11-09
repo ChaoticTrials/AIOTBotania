@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
-import de.melanx.aiotbotania.items.alfsteel.Bla;
+import de.melanx.aiotbotania.items.alfsteel.CustomPylonRepairable;
 import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOT;
 import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOTTipped;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
@@ -39,7 +39,7 @@ public class CommonProxy implements IProxy {
         AIOTBotaniaNetwork.registerPackets();
 
         if (ModList.get().isLoaded("mythicbotany")) {
-            Bla.pylonRepairable().run();
+            CustomPylonRepairable.pylonRepairable().run();
         }
     }
 
