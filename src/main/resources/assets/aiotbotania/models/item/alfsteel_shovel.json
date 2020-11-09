@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "aiotbotania:item/alfsteel_shovel"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "aiotbotania:active": 1.0
+      },
+      "model": "aiotbotania:item/alfsteel_shovel_active"
+    }
+  ]
+}

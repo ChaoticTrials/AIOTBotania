@@ -16,6 +16,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import java.util.Map;
 
 public class ClientProxy extends CommonProxy {
+    private static final ResourceLocation active = new ResourceLocation(AIOTBotania.MODID, "active");
+    private static final ResourceLocation tipped = new ResourceLocation(AIOTBotania.MODID, "tipped");
 
     @Override
     public void registerHandlers() {
@@ -34,10 +36,14 @@ public class ClientProxy extends CommonProxy {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        ItemModelsProperties.registerProperty(Registration.terrasteel_hoe.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(Registration.terrasteel_shovel.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(Registration.terrasteel_aiot.get(), new ResourceLocation(AIOTBotania.MODID, "tipped"), (stack, world, entity) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(Registration.terrasteel_aiot.get(), new ResourceLocation(AIOTBotania.MODID, "active"), (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.terrasteel_hoe.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.terrasteel_shovel.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.terrasteel_aiot.get(), tipped, (stack, world, entity) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.terrasteel_aiot.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.alfsteel_hoe.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.alfsteel_shovel.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.alfsteel_aiot.get(), tipped, (stack, world, entity) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(Registration.alfsteel_aiot.get(), active, (stack, world, entity) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
     }
 
 

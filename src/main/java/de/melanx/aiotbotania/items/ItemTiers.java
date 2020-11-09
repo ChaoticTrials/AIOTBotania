@@ -30,6 +30,19 @@ public enum ItemTiers implements IItemTier {
         public int getMaxUses() {
             return super.getMaxUses() * 5;
         }
+    },
+
+    ALFSTEEL_ITEM_TIER(BotaniaAPI.instance().getTerrasteelItemTier()) {
+        @Override
+        public int getMaxUses() {
+            return 4600;
+        }
+    },
+    ALFSTEEL_AIOT_ITEM_TIER(ALFSTEEL_ITEM_TIER) {
+        @Override
+        public int getMaxUses() {
+            return super.getMaxUses() * 5;
+        }
     };
 
     private final int durability;

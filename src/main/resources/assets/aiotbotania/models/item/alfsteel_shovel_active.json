@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "aiotbotania:item/alfsteel_shovel",
+    "layer1": "aiotbotania:item/alfsteel_shovel_active"
+  }
+}

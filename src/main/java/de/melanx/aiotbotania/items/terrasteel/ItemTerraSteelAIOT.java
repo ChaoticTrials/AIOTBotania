@@ -21,10 +21,7 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -71,13 +68,17 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
     private static final List<Material> AXE_MATERIALS = Arrays.asList(Material.WOOD, Material.LEAVES, Material.BAMBOO);
     public static final int[] LEVELS = new int[]{0, 10000, 1000000, 10000000, 100000000, 1000000000};
-    private static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, 2147483646};
+    private static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
     private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
 
     public ItemTerraSteelAIOT() {
-        super(ItemTiers.TERRASTEEL_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
+        this(ItemTiers.TERRASTEEL_AIOT_ITEM_TIER);
+    }
+
+    public ItemTerraSteelAIOT(IItemTier mat) {
+        super(mat, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
         MinecraftForge.EVENT_BUS.addListener(this::leftClick);
         MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
@@ -142,11 +143,15 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     public void trySpawnBurst(PlayerEntity player) {
         if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == this && player.getCooledAttackStrength(0.0F) == 1.0F) {
-            EntityManaBurst burst = ((ItemTerraSword) ModItems.terraSword).getBurst(player, new ItemStack(ModItems.terraSword));
+            EntityManaBurst burst = this.getBurst(player, new ItemStack(ModItems.terraSword));
             player.world.addEntity(burst);
             player.getHeldItemMainhand().damageItem(1, player, (p) -> p.sendBreakAnimation(Hand.MAIN_HAND));
             player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
         }
+    }
+
+    public EntityManaBurst getBurst(PlayerEntity player, ItemStack stack) {
+        return ((ItemTerraSword) ModItems.terraSword).getBurst(player, stack);
     }
 
     private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
@@ -178,7 +183,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public int getEntityLifespan(ItemStack itemStack, World world) {
-        return 2147483647;
+        return Integer.MAX_VALUE;
     }
 
     public static boolean isTipped(ItemStack stack) {
@@ -222,12 +227,12 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public int getMaxMana(ItemStack stack) {
-        return 2147483647;
+        return Integer.MAX_VALUE;
     }
 
     @Override
     public void addMana(ItemStack stack, int mana) {
-        setMana(stack, Math.min(this.getMana(stack) + mana, 2147483647));
+        setMana(stack, Math.min(this.getMana(stack) + mana, Integer.MAX_VALUE));
     }
 
     @Override

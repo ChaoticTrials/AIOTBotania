@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M",
+    "M",
+    "T"
+  ],
+  "key": {
+    "M": {
+      "item": "botania:terrasteel_ingot"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "result": {
+    "item": "aiotbotania:terra_shovel"
+  },
+  "conditions": [
+    {
+      "value": true,
+      "type": "aiotbotania:terrasteel_enabled"
+    }
+  ]
+}

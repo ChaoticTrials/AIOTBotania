@@ -77,6 +77,10 @@ repositories {
         name = "curios"
         url = "https://maven.theillusivec4.top/"
     }
+    maven {
+        name = 'MelanX Maven'
+        url = 'https://maven.melanx.de/'
+    }
 }
 
 jar {
@@ -129,6 +133,9 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
     compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+
+    compile fg.deobf("io.github.noeppi_noeppi.mods:LibX:${minecraft_version}-${libx_version}")
+    compile fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:${minecraft_version}-${mythicbotany_version}")
 }
 
 private static String getVersion(String group, String artifact, String baseVersion) {

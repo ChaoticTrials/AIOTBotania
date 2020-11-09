@@ -1,6 +1,7 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
   "aiotbotania.toggleMode": "\u00A76Modus:",
+  "aiotbotania.mythicbotany.disabled": "Bitte installiere MythicBotany!",
   "aiotbotania.hoeMode": "\u00A73Acker bestellen",
   "aiotbotania.hoeModePath": "§3Acker bestellen und Graswege erschaffen",
   "aiotbotania.utilityMode": "\u00A7eFackeln und Setzlinge platzieren",
@@ -30,6 +31,10 @@
   "item.aiotbotania.terra_shovel": "Terra-Löffel",
   "item.aiotbotania.terra_hoe": "Terra-Hacke",
   "item.aiotbotania.terra_aiot": "Terrasteel AIOT",
+
+  "item.aiotbotania.alfsteel_shovel": "Alf-Löffel",
+  "item.aiotbotania.alfsteel_hoe": "Alf-Hacke",
+  "item.aiotbotania.alfsteel_aiot": "Alfstahl AIOT",
 
   "botania.entry.livingwoodTools": "Lebeholz Werkzeuge",
   "botania.entry.livingrockTools": "Lebestein Werkzeuge",

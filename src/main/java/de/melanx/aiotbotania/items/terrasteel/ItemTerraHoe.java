@@ -3,6 +3,7 @@ package de.melanx.aiotbotania.items.terrasteel;
 import de.melanx.aiotbotania.items.base.ItemHoeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
@@ -18,7 +19,11 @@ import javax.annotation.Nonnull;
 public class ItemTerraHoe extends ItemHoeBase {
 
     public ItemTerraHoe() {
-        super(BotaniaAPI.instance().getTerrasteelItemTier(), 15, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
+        this(BotaniaAPI.instance().getTerrasteelItemTier());
+    }
+
+    public ItemTerraHoe(IItemTier mat) {
+        super(mat, 15, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
     }
 
     @Override

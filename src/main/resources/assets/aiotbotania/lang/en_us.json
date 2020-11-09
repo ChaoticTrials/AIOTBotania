@@ -1,5 +1,6 @@
 {
   "itemGroup.aiotbotania": "AIOT Botania",
+  "aiotbotania.mythicbotany.disabled": "Please install MythicBotany!",
   "aiotbotania.toggleMode": "\u00A76Mode:",
   "aiotbotania.hoeMode": "\u00A73Till soil",
   "aiotbotania.hoeModePath": "\u00A73Till soil and create grass paths",
@@ -30,6 +31,10 @@
   "item.aiotbotania.terra_shovel": "Terra Spade",
   "item.aiotbotania.terra_hoe": "Terra Hoe",
   "item.aiotbotania.terra_aiot": "Terrasteel AIOT",
+
+  "item.aiotbotania.alfsteel_shovel": "Alfsteel Shovel",
+  "item.aiotbotania.alfsteel_hoe": "Alfsteel Hoe",
+  "item.aiotbotania.alfsteel_aiot": "Alfsteel AIOT",
 
   "botania.entry.livingwoodTools": "Livingwood Tools",
   "botania.entry.livingrockTools": "Livingrock Tools",

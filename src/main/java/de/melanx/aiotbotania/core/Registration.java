@@ -2,9 +2,14 @@ package de.melanx.aiotbotania.core;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
+import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
+import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import de.melanx.aiotbotania.core.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.core.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelHoe;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelShovel;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
@@ -15,8 +20,11 @@ import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
+import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -57,6 +65,10 @@ public class Registration {
     public static final RegistryObject<Item> terrasteel_hoe = ITEMS.register("terra_hoe", ItemTerraHoe::new);
     public static final RegistryObject<Item> terrasteel_aiot = ITEMS.register("terra_aiot", ItemTerraSteelAIOT::new);
 
+    public static final RegistryObject<Item> alfsteel_shovel = ITEMS.register("alfsteel_shovel", ItemAlfsteelShovel::new);
+    public static final RegistryObject<Item> alfsteel_hoe = ITEMS.register("alfsteel_hoe", ItemAlfsteelHoe::new);
+    public static final RegistryObject<Item> alfsteel_aiot = ITEMS.register("alfsteel_aiot", ItemAlfsteelAIOT::new);
+
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
     public static final RegistryObject<GlobalLootModifierSerializer<?>> dispose = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
@@ -70,6 +82,9 @@ public class Registration {
         AIOTBotania.instance.getLogger().info("Blocks registered.");
         LOOT_MODIFIER.register(bus);
         AIOTBotania.instance.getLogger().info("Global loot modifiers registered.");
+
+        CraftingHelper.register(MythicBotanyCondition.SERIALIZER);
+        CraftingHelper.register(TerrasteelCondition.SERIALIZER);
     }
 
 }

@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "aiotbotania:item/alfsteel_aiot"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "aiotbotania:active": 1.0
+      },
+      "model": "aiotbotania:item/alfsteel_aiot_active"
+    },
+    {
+      "predicate": {
+        "aiotbotania:tipped": 1.0
+      },
+      "model": "aiotbotania:item/alfsteel_aiot_tipped"
+    },
+    {
+      "predicate": {
+        "aiotbotania:tipped": 1.0,
+        "aiotbotania:active": 1.0
+      },
+      "model": "aiotbotania:item/alfsteel_aiot_tipped_active"
+    }
+  ]
+}

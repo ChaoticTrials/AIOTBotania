@@ -1,6 +1,7 @@
-package de.melanx.aiotbotania.items.terrasteel;
+package de.melanx.aiotbotania.items.alfsteel;
 
 import de.melanx.aiotbotania.core.Registration;
+import mythicbotany.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -10,22 +11,21 @@ import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class RecipeTerraSteelAIOT extends ShapelessRecipe {
+public class RecipeAlfsteelAIOT extends ShapelessRecipe {
 
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.fromItems(ModItems.terraSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.fromItems(ModItems.terraAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.fromItems(ModItems.terraPick);
-    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.fromItems(Registration.terrasteel_shovel.get());
-    private static final Ingredient INGREDIENT_HOE = Ingredient.fromItems(Registration.terrasteel_hoe.get());
+    private static final Ingredient INGREDIENT_SWORD = Ingredient.fromItems(ModItems.alfsteelSword);
+    private static final Ingredient INGREDIENT_AXE = Ingredient.fromItems(ModItems.alfsteelAxe);
+    private static final Ingredient INGREDIENT_PICK = Ingredient.fromItems(ModItems.alfsteelPick);
+    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.fromItems(Registration.alfsteel_shovel.get());
+    private static final Ingredient INGREDIENT_HOE = Ingredient.fromItems(Registration.alfsteel_hoe.get());
 
-    public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.from(Ingredient.fromItems(Blocks.BARRIER),
-                Ingredient.fromItems(ModItems.terraSword), Ingredient.fromItems(ModItems.terraAxe), Ingredient.fromItems(ModItems.terraPick),
-                Ingredient.fromItems(Registration.terrasteel_shovel.get()), Ingredient.fromItems(Registration.terrasteel_hoe.get())));
+    public RecipeAlfsteelAIOT(ResourceLocation idIn, String groupIn) {
+        super(idIn, groupIn, new ItemStack(Registration.alfsteel_aiot.get()), NonNullList.from(Ingredient.fromItems(Blocks.BARRIER),
+                Ingredient.fromItems(ModItems.alfsteelSword), Ingredient.fromItems(ModItems.alfsteelAxe), Ingredient.fromItems(ModItems.alfsteelPick),
+                Ingredient.fromItems(Registration.alfsteel_shovel.get()), Ingredient.fromItems(Registration.alfsteel_hoe.get())));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
 
     @Nonnull
     public ItemStack getCraftingResult(CraftingInventory inv) {
-        ItemStack stack = new ItemStack(Registration.terrasteel_aiot.get());
+        ItemStack stack = new ItemStack(Registration.alfsteel_aiot.get());
         for(int j = 0; j < inv.getSizeInventory(); ++j) {
             ItemStack ingredient = inv.getStackInSlot(j);
             if (!ingredient.isEmpty() && INGREDIENT_PICK.test(ingredient)) {
@@ -76,4 +76,5 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     public boolean canFit(int width, int height) {
         return width * height >= 3;
     }
+
 }
