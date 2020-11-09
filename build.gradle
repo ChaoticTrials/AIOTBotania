@@ -186,7 +186,7 @@ curseforge {
                         }
 
                         if (project.hasProperty('curse_optionals')) {
-                            def optionals = "${curse_optionals}".split(',')
+                            def optionals = "${curse_optionals}".split(', ')
                             optionals.each {
 
                                 optionalLibrary "${it}"
