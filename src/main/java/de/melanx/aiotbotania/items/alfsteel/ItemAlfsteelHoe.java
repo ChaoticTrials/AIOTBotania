@@ -38,13 +38,15 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
 
     @Override
     public int getRepairManaPerTick(ItemStack stack) {
-        return MANA_PER_DAMAGE;
+        return MANA_PER_DAMAGE / 2;  // Alftools need half on the mana required normally on the pylon.
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (!ModList.get().isLoaded("mythicbotany")) {
             tooltip.add(new TranslationTextComponent(AIOTBotania.MODID + ".mythicbotany.disabled").mergeStyle(TextFormatting.DARK_RED));
+        } else {
+            super.addInformation(stack, world, tooltip, flag);
         }
     }
 }

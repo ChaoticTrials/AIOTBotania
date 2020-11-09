@@ -65,7 +65,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
     public static final float SPEED = -2.2F;
-    private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
+    protected static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
     private static final List<Material> AXE_MATERIALS = Arrays.asList(Material.WOOD, Material.LEAVES, Material.BAMBOO);
     public static final int[] LEVELS = new int[]{0, 10000, 1000000, 10000000, 100000000, 1000000000};
     private static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
