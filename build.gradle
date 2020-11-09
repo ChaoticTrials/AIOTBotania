@@ -184,6 +184,14 @@ curseforge {
                                 requiredLibrary "${it}"
                             }
                         }
+
+                        if (project.hasProperty('curse_optionals')) {
+                            def optionals = "${curse_optionals}".split(',')
+                            optionals.each {
+
+                                optionalLibrary "${it}"
+                            }
+                        }
                     }
                 }
             }
