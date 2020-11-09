@@ -16,13 +16,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
+import net.minecraftforge.common.ToolType;
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import java.util.Random;
 
 public class BlockCustomFarmland extends FarmlandBlock {
     public BlockCustomFarmland() {
-        super(AbstractBlock.Properties.from(Blocks.FARMLAND));
+        super(AbstractBlock.Properties.from(Blocks.FARMLAND).harvestTool(ToolType.SHOVEL));
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(MOISTURE, 7)
         );
