@@ -37,14 +37,27 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
     }
 
     @Override
-    public int getRepairManaPerTick(ItemStack stack) {
-        return MANA_PER_DAMAGE;
+    public boolean canRepairPylon(ItemStack stack) {
+        return stack.getDamage() > 0;
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public int getRepairManaPerTick(ItemStack stack) {
+        return (int) (2.5 * MANA_PER_DAMAGE);
+    }
+
+    @Override
+    public ItemStack repairOneTick(ItemStack stack) {
+        stack.setDamage(Math.max(0, stack.getDamage() - 5));
+        return stack;
+    }
+
+    @Override
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (!ModList.get().isLoaded("mythicbotany")) {
             tooltip.add(new TranslationTextComponent(AIOTBotania.MODID + ".mythicbotany.disabled").mergeStyle(TextFormatting.DARK_RED));
+        } else {
+            super.addInformation(stack, world, tooltip, flag);
         }
     }
 }
