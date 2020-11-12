@@ -2,7 +2,8 @@ package de.melanx.aiotbotania.core.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.core.Registration;
-import net.minecraft.block.Block;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
+import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
@@ -22,13 +23,11 @@ public class DisposeModifier extends LootModifier {
     }
 
     public static void filterDisposable(List<ItemStack> drops, Entity entity, ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() == Registration.elementium_aiot.get()) {
+        if (!stack.isEmpty() && (stack.getItem() == Registration.elementium_aiot.get()
+                || (stack.getItem() == Registration.terrasteel_aiot.get() && ItemTerraSteelAIOT.isTipped(stack))
+                || (stack.getItem() == Registration.alfsteel_aiot.get() && ItemAlfsteelAIOT.isTipped(stack)))) {
             drops.removeIf(s -> !s.isEmpty() && (isDisposable(s) || isSemiDisposable(s) && !entity.isCrouching()));
         }
-    }
-
-    public static boolean isDisposable(Block block) {
-        return ModTags.Items.DISPOSABLE.contains(block.asItem());
     }
 
     private static boolean isDisposable(ItemStack stack) {
