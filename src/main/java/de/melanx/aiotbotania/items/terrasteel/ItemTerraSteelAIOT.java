@@ -55,6 +55,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.relic.ItemThorRing;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
@@ -242,7 +243,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-        return !(otherStack.getItem() instanceof IManaGivingItem);
+        return !otherStack.getItem().isIn(ModTags.Items.TERRA_PICK_BLACKLIST);
     }
 
     @Override
