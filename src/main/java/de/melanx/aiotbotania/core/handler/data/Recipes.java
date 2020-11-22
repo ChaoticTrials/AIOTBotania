@@ -148,7 +148,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getAxes(IItemProvider result, IItemProvider material) {
-        return getSwords(result, material, ModItems.livingwoodTwig);
+        return getAxes(result, material, ModItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getAxes(IItemProvider result, IItemProvider material, IItemProvider twig) {
@@ -162,7 +162,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getPickaxes(IItemProvider result, IItemProvider material) {
-        return getSwords(result, material, ModItems.livingwoodTwig);
+        return getPickaxes(result, material, ModItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getPickaxes(IItemProvider result, IItemProvider material, IItemProvider twig) {
@@ -176,7 +176,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getShovels(IItemProvider result, IItemProvider material) {
-        return getSwords(result, material, ModItems.livingwoodTwig);
+        return getShovels(result, material, ModItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getShovels(IItemProvider result, IItemProvider material, IItemProvider twig) {
@@ -190,7 +190,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getHoes(IItemProvider result, IItemProvider material) {
-        return getSwords(result, material, ModItems.livingwoodTwig);
+        return getHoes(result, material, ModItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getHoes(IItemProvider result, IItemProvider material, IItemProvider twig) {
