@@ -26,8 +26,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.ModList;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -38,7 +36,6 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.List;
 
 public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany, ModPylonRepairable {
@@ -142,7 +139,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
                 if (range != 0 || level == 1) {
                     Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
                     Vector3i endDiff = new Vector3i(doX ? range : rangeDepth * -side.getXOffset(), doY ? rangeY * 2 - 1 : 0, doZ ? range : rangeDepth * -side.getZOffset());
-                    ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, (state) -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
+                    ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, (state) -> MATERIALS.contains(state.getMaterial()));
                     if (origLevel == 5) {
                         PlayerHelper.grantCriterion((ServerPlayerEntity)player, ResourceLocationHelper.prefix("challenge/rank_ss_pick"), "code_triggered");
                     }

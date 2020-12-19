@@ -225,6 +225,6 @@ public class ToolUtil {
         boolean doZ = side.getZOffset() == 0;
         Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
         Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? range * 2 - 1 : 0, doZ ? range : 0);
-        ToolCommons.removeBlocksInIteration(context.getPlayer(), context.getItem(), context.getWorld(), context.getPos(), beginDiff, endDiff, context::isEffectiveOn, false);
+        ToolCommons.removeBlocksInIteration(context.getPlayer(), context.getItem(), context.getWorld(), context.getPos(), beginDiff, endDiff, context::isEffectiveOn);
     }
 }

@@ -40,7 +40,6 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.block.ModBlocks;
@@ -310,7 +309,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                     if (range != 0 || level == 1) {
                         Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
                         Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
-                        ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, (state) -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
+                        ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, (state) -> MATERIALS.contains(state.getMaterial()));
                         if (origLevel == 5) {
                             PlayerHelper.grantCriterion((ServerPlayerEntity) player, ResourceLocationHelper.prefix("challenge/rank_ss_pick"), "code_triggered");
                         }
@@ -373,7 +372,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 while (remainingSwaps > 0 && !this.candidateQueue.isEmpty()) {
                     SwapCandidate cand = this.candidateQueue.poll();
                     if (!this.completedCoords.contains(cand.coordinates) && cand.range > 0) {
-                        ToolCommons.removeBlockWithDrops(this.player, this.truncator, this.world, cand.coordinates, (state) -> ToolCommons.materialsAxe.contains(state.getMaterial()), false, this.treatLeavesSpecial);
+                        ToolCommons.removeBlockWithDrops(this.player, this.truncator, this.world, cand.coordinates, (state) -> ToolCommons.materialsAxe.contains(state.getMaterial()));
                         --remainingSwaps;
                         this.completedCoords.add(cand.coordinates);
                         Iterator<BlockPos> var3 = this.adjacent(cand.coordinates).iterator();
