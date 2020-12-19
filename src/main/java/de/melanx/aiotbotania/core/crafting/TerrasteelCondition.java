@@ -6,7 +6,6 @@ import de.melanx.aiotbotania.core.config.ConfigHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
-import net.minecraftforge.fml.ModList;
 
 public class TerrasteelCondition implements ICondition {
     public static final ResourceLocation KEY = new ResourceLocation(AIOTBotania.MODID, "terrasteel_enabled");

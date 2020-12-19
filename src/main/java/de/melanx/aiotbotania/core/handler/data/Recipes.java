@@ -5,7 +5,6 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.data.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;

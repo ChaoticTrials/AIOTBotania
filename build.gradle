@@ -134,8 +134,8 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
     compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
-    compile fg.deobf("io.github.noeppi_noeppi.mods:LibX:${minecraft_version}-${libx_version}")
-    compile fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:${minecraft_version}-${mythicbotany_version}")
+    compile fg.deobf("io.github.noeppi_noeppi.mods:LibX:${libx_version}")
+    compile fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:${mythicbotany_version}")
 }
 
 private static String getVersion(String group, String artifact, String baseVersion) {
@@ -162,7 +162,7 @@ curseforge {
     project {
         if (project.hasProperty('curse_project')) {
             id = "${curse_project}"
-            releaseType = 'beta'
+            releaseType = 'release'
             changelog = getGitChangelog()
             println(changelog)
             changelogType = 'markdown'
