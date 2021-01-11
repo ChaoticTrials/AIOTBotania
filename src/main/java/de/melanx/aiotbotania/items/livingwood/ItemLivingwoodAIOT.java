@@ -1,9 +1,11 @@
 package de.melanx.aiotbotania.items.livingwood;
 
+import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -17,7 +19,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public class ItemLivingwoodAIOT extends ItemAIOTBase {
-
     private static final int MANA_PER_DAMAGE = 33;
     private static final float DAMAGE = 6.0F;
     private static final float SPEED = -2.4F;
@@ -46,5 +47,9 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
         return ActionResult.resultFail(itemStack);
     }
 
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Registration.livingwood_sword.get());
+    }
 }
 

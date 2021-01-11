@@ -1,9 +1,11 @@
 package de.melanx.aiotbotania.items.livingrock;
 
+import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -16,6 +18,10 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 
 public class ItemLivingrockAIOT extends ItemAIOTBase {
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Registration.livingrock_sword.get());
+    }
 
     private static final int MANA_PER_DAMAGE = 44;
     private static final float DAMAGE = 6.0F;
