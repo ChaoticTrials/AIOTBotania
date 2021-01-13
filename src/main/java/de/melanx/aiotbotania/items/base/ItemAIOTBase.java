@@ -80,8 +80,9 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         PlayerEntity player = ctx.getPlayer();
         ItemStack stack = ctx.getItem();
         Direction side = ctx.getFace();
-
         Block block = world.getBlockState(pos).getBlock();
+
+        if (player == null) return ActionResultType.PASS;
 
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
@@ -113,11 +114,11 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         ItemStack itemStack = player.getHeldItem(hand);
         if (!world.isRemote) {
             if (player.isCrouching()) {
-
                 ToolUtil.toggleMode(player, itemStack);
+                return ActionResult.resultSuccess(itemStack);
             }
         }
-        return ActionResult.resultSuccess(itemStack);
+        return super.onItemRightClick(world, player, hand);
     }
 
     @Override
