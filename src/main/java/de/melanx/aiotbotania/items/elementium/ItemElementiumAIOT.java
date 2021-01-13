@@ -7,6 +7,7 @@ import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -26,12 +27,12 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.Random;
 
 public class ItemElementiumAIOT extends ItemAIOTBase {
-
     private static final int MANA_PER_DAMAGE = 66;
     private static final float DAMAGE = 6.0F;
     private static final float SPEED = -2.2F;
@@ -41,6 +42,11 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
     public ItemElementiumAIOT() {
         super(ItemTiers.ELEMENTIUM_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(ModItems.elementiumSword);
     }
 
     @Override
