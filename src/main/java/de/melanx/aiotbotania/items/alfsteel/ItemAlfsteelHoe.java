@@ -30,9 +30,9 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         if (ItemTerraSteelAIOT.isEnabled(ctx.getItem())) {
-            return ToolUtil.hoeUseAOE(ctx, special, low_tier, MANA_PER_DAMAGE, 2);
+            return ToolUtil.hoeUseAOE(ctx, special, low_tier, 2);
         } else {
-            return ToolUtil.hoeUse(ctx, special, low_tier, MANA_PER_DAMAGE);
+            return ToolUtil.hoeUse(ctx, special, low_tier);
         }
     }
 

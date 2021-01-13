@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.world.BlockEvent;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -88,14 +89,11 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
         if (hoemode) {
             if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
-                return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
-            } else {
-                if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
-                    return ToolUtil.shovelUse(ctx);
-                } else {
-                    return ActionResultType.PASS;
-                }
+                return ToolUtil.hoeUse(ctx, special, false);
+            } else if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
+                return ToolUtil.shovelUse(ctx);
             }
+            return ToolUtil.stripLog(ctx);
         } else {
             if (!player.isCrouching()) {
                 return ToolUtil.pickUse(ctx);

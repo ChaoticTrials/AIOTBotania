@@ -40,7 +40,7 @@ public class ItemHoeBase extends HoeItem implements IManaUsingItem {
     @Nonnull
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        return ToolUtil.hoeUse(ctx, special, low_tier, MANA_PER_DAMAGE);
+        return ToolUtil.hoeUse(ctx, special, low_tier);
     }
 
     @Override

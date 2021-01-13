@@ -485,15 +485,15 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             int range = level - 1;
             if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
                 if (isEnabled(stack)) {
-                    return ToolUtil.hoeUseAOE(ctx, special, false, MANA_PER_DAMAGE, range);
+                    return ToolUtil.hoeUseAOE(ctx, special, false, range);
                 } else {
-                    return ToolUtil.hoeUse(ctx, special, false, MANA_PER_DAMAGE);
+                    return ToolUtil.hoeUse(ctx, special, false);
                 }
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
                     return ToolUtil.shovelUse(ctx);
                 } else {
-                    return ActionResultType.PASS;
+                    return ToolUtil.stripLog(ctx);
                 }
             }
         } else {

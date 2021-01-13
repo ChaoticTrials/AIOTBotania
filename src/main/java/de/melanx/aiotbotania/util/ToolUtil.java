@@ -22,6 +22,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -63,18 +64,9 @@ public class ToolUtil {
         player.sendStatusMessage(text, true);
     }
 
-    private static ActionResultType tiltBlock(PlayerEntity player, World world, BlockPos pos, BlockState state) {
-        world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-        if (!world.isRemote) {
-            world.setBlockState(pos, state);
-        }
-        return ActionResultType.SUCCESS;
-    }
-
-    public static ActionResultType hoemodeUse(@Nonnull ItemUseContext ctx, PlayerEntity player, World world, BlockPos pos, Direction side, Block block, int manaPerDamage) {
+    public static ActionResultType hoemodeUse(@Nonnull ItemUseContext ctx, PlayerEntity player, World world, BlockPos pos, Direction side, Block block) {
         if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
-            return ToolUtil.hoeUse(ctx, false, true, manaPerDamage);
+            return ToolUtil.hoeUse(ctx, false, true);
         } else {
             if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
                 return ToolUtil.shovelUse(ctx);
@@ -84,7 +76,7 @@ public class ToolUtil {
         }
     }
 
-    public static ActionResultType hoeUse(ItemUseContext ctx, boolean special, boolean low_tier, int MPD) {
+    public static ActionResultType hoeUse(ItemUseContext ctx, boolean special, boolean low_tier) {
         ItemStack stack = ctx.getItem();
         PlayerEntity player = ctx.getPlayer();
         World world = ctx.getWorld();
@@ -94,31 +86,37 @@ public class ToolUtil {
         if (player == null || !player.canPlayerEdit(pos, side, stack)) {
             return ActionResultType.PASS;
         } else {
-            Block block = world.getBlockState(pos).getBlock();
-
-            if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
-                if (block == Blocks.GRASS_BLOCK || block == Blocks.GRASS_PATH || block == Blocks.DIRT) {
-
-                    BlockState farmland;
-                    if (special) {
-                        farmland = Registration.custom_farmland.get().getDefaultState();
-                    } else {
-                        farmland = Blocks.FARMLAND.getDefaultState();
+            if (ctx.getFace() != Direction.DOWN && world.isAirBlock(pos.up())) {
+                BlockState blockstate = world.getBlockState(pos).getToolModifiedState(world, pos, ctx.getPlayer(), ctx.getItem(), ToolType.HOE);
+                if (blockstate != null) {
+                    if (blockstate.getBlock() == Blocks.FARMLAND) blockstate = Registration.custom_farmland.get().getDefaultState();
+                    world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    if (!world.isRemote) {
+                        world.setBlockState(pos, blockstate, 11);
+                        ctx.getItem().damageItem(1, player, (playerEntity) -> {
+                            playerEntity.sendBreakAnimation(ctx.getHand());
+                        });
                     }
-                    return tiltBlock(player, world, pos, farmland);
-                } else if (block instanceof FarmlandBlock && special) {
-                    Block block1 = Blocks.GRASS_BLOCK;
-                    return tiltBlock(player, world, pos, block1.getDefaultState());
-                } else if (block instanceof FarmlandBlock && !low_tier) {
-                    Block block1 = Blocks.DIRT;
-                    return tiltBlock(player, world, pos, block1.getDefaultState());
+
+                    return ActionResultType.func_233537_a_(world.isRemote);
+                } else if (world.getBlockState(pos).getBlock() instanceof FarmlandBlock) {
+                    Block block = null;
+                    if (special) {
+                        block = Blocks.GRASS_BLOCK;
+                    } else if (!low_tier) {
+                        block = Blocks.DIRT;
+                    }
+                    if (block != null) {
+                        world.setBlockState(pos, block.getDefaultState());
+                        return ActionResultType.func_233537_a_(world.isRemote);
+                    }
                 }
             }
-            return ActionResultType.SUCCESS;
+            return ActionResultType.PASS;
         }
     }
 
-    public static ActionResultType hoeUseAOE(ItemUseContext ctx, boolean special, boolean low_tier, int MPD, int radius) {
+    public static ActionResultType hoeUseAOE(ItemUseContext ctx, boolean special, boolean low_tier, int radius) {
         ItemStack stack = ctx.getItem();
         PlayerEntity player = ctx.getPlayer();
         World world = ctx.getWorld();
@@ -127,31 +125,39 @@ public class ToolUtil {
         if (player == null || !player.canPlayerEdit(basePos, side, stack))
             return ActionResultType.PASS;
 
-        ActionResultType toReturn = hoeUse(ctx, special, low_tier, MPD);
-        Block placedBlock = world.getBlockState(basePos).getBlock();
+        ActionResultType toReturn = hoeUse(ctx, special, low_tier);
 
         if (toReturn.isSuccessOrConsume()) {
+            boolean soundPlayed = false;
             for (int xd = -radius; xd <= radius; xd++) {
                 for (int zd = -radius; zd <= radius; zd++) {
                     if (xd == 0 && zd == 0)
                         continue;
                     BlockPos pos = basePos.add(xd, 0, zd);
-                    Block block = world.getBlockState(pos).getBlock();
-                    if (side != Direction.DOWN && world.isAirBlock(pos.up())) {
-                        if ((block == Blocks.GRASS_BLOCK || block == Blocks.GRASS_PATH || block == Blocks.DIRT) && (placedBlock == Blocks.FARMLAND || placedBlock == Registration.custom_farmland.get())) {
-                            BlockState farmland;
-                            if (special) {
-                                farmland = Registration.custom_farmland.get().getDefaultState();
-                            } else {
-                                farmland = Blocks.FARMLAND.getDefaultState();
+                    if (ctx.getFace() != Direction.DOWN && world.isAirBlock(pos.up())) {
+                        BlockState blockstate = world.getBlockState(pos).getToolModifiedState(world, pos, ctx.getPlayer(), ctx.getItem(), ToolType.HOE);
+                        if (blockstate != null) {
+                            if (blockstate.getBlock() == Blocks.FARMLAND) blockstate = Registration.custom_farmland.get().getDefaultState();
+                            if (!soundPlayed) {
+                                world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                soundPlayed = true;
                             }
-                            tiltBlock(player, world, pos, farmland);
-                        } else if (block instanceof FarmlandBlock && special && placedBlock == Blocks.GRASS_BLOCK) {
-                            Block block1 = Blocks.GRASS_BLOCK;
-                            tiltBlock(player, world, pos, block1.getDefaultState());
-                        } else if (block instanceof FarmlandBlock && !low_tier && placedBlock == Blocks.DIRT) {
-                            Block block1 = Blocks.DIRT;
-                            tiltBlock(player, world, pos, block1.getDefaultState());
+                            if (!world.isRemote) {
+                                world.setBlockState(pos, blockstate, 11);
+                                ctx.getItem().damageItem(1, player, (playerEntity) -> {
+                                    playerEntity.sendBreakAnimation(ctx.getHand());
+                                });
+                            }
+                        } else if (world.getBlockState(pos).getBlock() instanceof FarmlandBlock) {
+                            Block block = null;
+                            if (special) {
+                                block = Blocks.GRASS_BLOCK;
+                            } else if (!low_tier) {
+                                block = Blocks.DIRT;
+                            }
+                            if (block != null) {
+                                world.setBlockState(pos, block.getDefaultState());
+                            }
                         }
                     }
                 }
@@ -217,6 +223,30 @@ public class ToolUtil {
             }
         }
         return ActionResultType.PASS;
+    }
+
+    public static ActionResultType stripLog(ItemUseContext ctx) {
+        // vanilla axe code
+        World world = ctx.getWorld();
+        BlockPos blockpos = ctx.getPos();
+        BlockState blockstate = world.getBlockState(blockpos);
+        BlockState block = blockstate.getToolModifiedState(world, blockpos, ctx.getPlayer(), ctx.getItem(), net.minecraftforge.common.ToolType.AXE);
+        if (block != null) {
+            PlayerEntity playerentity = ctx.getPlayer();
+            world.playSound(playerentity, blockpos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            if (!world.isRemote) {
+                world.setBlockState(blockpos, block, 11);
+                if (playerentity != null) {
+                    ctx.getItem().damageItem(1, playerentity, (player) -> {
+                        player.sendBreakAnimation(ctx.getHand());
+                    });
+                }
+            }
+
+            return ActionResultType.func_233537_a_(world.isRemote);
+        } else {
+            return ActionResultType.PASS;
+        }
     }
 
     public static void removeBlocksInRange(ToolBreakContext context, Direction side, int range) {
