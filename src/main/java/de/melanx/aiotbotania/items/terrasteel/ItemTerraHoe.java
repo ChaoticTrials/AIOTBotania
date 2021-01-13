@@ -23,7 +23,7 @@ public class ItemTerraHoe extends ItemHoeBase {
     }
 
     public ItemTerraHoe(IItemTier mat) {
-        super(mat, 15, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
+        super(mat, -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
     }
 
     @Override

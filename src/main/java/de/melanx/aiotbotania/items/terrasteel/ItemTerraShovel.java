@@ -29,7 +29,7 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
     }
 
     public ItemTerraShovel(IItemTier mat) {
-        super(mat, (int) (ItemTerraSteelAIOT.DAMAGE / 2f), 15, ItemTerraSteelAIOT.MANA_PER_DAMAGE);
+        super(mat, (int) (ItemTerraSteelAIOT.DAMAGE / 2f), -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE);
     }
 
     @Override
