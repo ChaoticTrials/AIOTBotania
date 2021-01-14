@@ -34,24 +34,7 @@ public class ItemLivingrockAxe extends ItemAxeBase {
         if (side == Direction.UP) {
             return ToolUtil.axeUse(ctx);
         } else {
-            World world = ctx.getWorld();
-            BlockPos pos = ctx.getPos();
-            BlockState state = world.getBlockState(pos);
-            Block block = BLOCK_STRIPPING_MAP.get(state.getBlock());
-            if (block != null) {
-                PlayerEntity player = ctx.getPlayer();
-                world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                if (!world.isRemote) {
-                    world.setBlockState(pos, block.getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)), 11);
-                    if (player != null) {
-                        ctx.getItem().damageItem(1, player, (consumer) -> consumer.sendBreakAnimation(ctx.getHand()));
-                    }
-                }
-
-                return ActionResultType.SUCCESS;
-            } else {
-                return ActionResultType.PASS;
-            }
+            return ToolUtil.stripLog(ctx);
         }
     }
 

@@ -3,7 +3,6 @@ package de.melanx.aiotbotania.items.livingrock;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemPickaxeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 
@@ -22,11 +21,6 @@ public class ItemLivingrockPickaxe extends ItemPickaxeBase {
     @Nonnull
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        PlayerEntity player = ctx.getPlayer();
-
-        if (!player.isCrouching()) {
-            return ToolUtil.pickUse(ctx);
-        }
-        return ActionResultType.PASS;
+        return ToolUtil.pickUse(ctx);
     }
 }

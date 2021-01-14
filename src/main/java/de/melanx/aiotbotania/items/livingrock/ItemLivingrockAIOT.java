@@ -14,7 +14,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +45,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
-            return ToolUtil.hoemodeUse(ctx, player, world, pos, side, block);
+            return ToolUtil.hoemodeUse(ctx, player, world, pos, side);
         } else {
             if (!player.isCrouching()) {
                 return ToolUtil.pickUse(ctx);

@@ -35,8 +35,7 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
         PlayerEntity player = ctx.getPlayer();
         Direction side = ctx.getFace();
 
-        Block block = world.getBlockState(pos).getBlock();
-        ActionResultType toReturn = ToolUtil.hoemodeUse(ctx, player, world, pos, side, block);
+        ActionResultType toReturn = ToolUtil.hoemodeUse(ctx, player, world, pos, side);
 
         return toReturn == ActionResultType.PASS ? ToolUtil.stripLog(ctx) : toReturn;
     }

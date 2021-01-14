@@ -453,7 +453,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(stack));
         ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
         list.add(rankFormat);
-        if (this.getMana(stack) == 2147483647) {
+        if (this.getMana(stack) == Integer.MAX_VALUE) {
             list.add((new TranslationTextComponent("botaniamisc.getALife")).mergeStyle(TextFormatting.RED));
         }
     }
@@ -478,7 +478,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         PlayerEntity player = ctx.getPlayer();
         ItemStack stack = ctx.getItem();
         Direction side = ctx.getFace();
-        Block block = world.getBlockState(pos).getBlock();
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
         if (hoemode) {
             boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
@@ -489,14 +488,14 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 level = 2;
             }
             int range = level - 1;
-            if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
+            if (!player.isCrouching()) {
                 if (isEnabled(stack)) {
                     return ToolUtil.hoeUseAOE(ctx, special, false, range);
                 } else {
                     return ToolUtil.hoeUse(ctx, special, false);
                 }
             } else {
-                if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
+                if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
                     return ToolUtil.shovelUse(ctx);
                 } else {
                     return ToolUtil.stripLog(ctx);

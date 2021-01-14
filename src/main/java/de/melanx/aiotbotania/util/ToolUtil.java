@@ -3,10 +3,7 @@ package de.melanx.aiotbotania.util;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -64,11 +61,11 @@ public class ToolUtil {
         player.sendStatusMessage(text, true);
     }
 
-    public static ActionResultType hoemodeUse(@Nonnull ItemUseContext ctx, PlayerEntity player, World world, BlockPos pos, Direction side, Block block) {
-        if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+    public static ActionResultType hoemodeUse(@Nonnull ItemUseContext ctx, PlayerEntity player, World world, BlockPos pos, Direction side) {
+        if (!player.isCrouching()) {
             return ToolUtil.hoeUse(ctx, false, true);
         } else {
-            if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
+            if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
                 return ToolUtil.shovelUse(ctx);
             } else {
                 return ActionResultType.PASS;
@@ -204,29 +201,42 @@ public class ToolUtil {
     }
 
     public static ActionResultType shovelUse(ItemUseContext ctx) {
-        ItemStack stack = ctx.getItem();
-        PlayerEntity player = ctx.getPlayer();
+        // vanilla copy
         World world = ctx.getWorld();
         BlockPos pos = ctx.getPos();
-
-        if (!(player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))) {
-            Block block = world.getBlockState(pos).getBlock();
-
-            if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
-                Block block1 = Blocks.GRASS_PATH;
-                world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-                if (!world.isRemote) {
-                    world.setBlockState(pos, block1.getDefaultState());
+        BlockState state = world.getBlockState(pos);
+        if (ctx.getFace() != Direction.DOWN) {
+            PlayerEntity player = ctx.getPlayer();
+            BlockState modifiedState = state.getToolModifiedState(world, pos, player, ctx.getItem(), ToolType.SHOVEL);
+            if (modifiedState != null && world.isAirBlock(pos.up())) {
+                world.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            } else if (state.getBlock() instanceof CampfireBlock && state.get(CampfireBlock.LIT)) {
+                if (!world.isRemote()) {
+                    world.playEvent(null, 1009, pos, 0);
                 }
-                return ActionResultType.SUCCESS;
+
+                CampfireBlock.extinguish(world, pos, state);
+                modifiedState = state.with(CampfireBlock.LIT, false);
+            }
+
+            if (modifiedState != null) {
+                if (!world.isRemote) {
+                    world.setBlockState(pos, modifiedState, 11);
+                    if (player != null) {
+                        ctx.getItem().damageItem(1, player, (entity) -> {
+                            entity.sendBreakAnimation(ctx.getHand());
+                        });
+                    }
+                }
+
+                return ActionResultType.func_233537_a_(world.isRemote);
             }
         }
         return ActionResultType.PASS;
     }
 
     public static ActionResultType stripLog(ItemUseContext ctx) {
-        // vanilla axe code
+        // vanilla copy
         World world = ctx.getWorld();
         BlockPos blockpos = ctx.getPos();
         BlockState blockstate = world.getBlockState(blockpos);

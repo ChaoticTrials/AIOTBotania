@@ -81,16 +81,15 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
         PlayerEntity player = ctx.getPlayer();
         ItemStack stack = ctx.getItem();
         Direction side = ctx.getFace();
-        Block block = world.getBlockState(pos).getBlock();
 
         if (player == null) return ActionResultType.PASS;
 
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
-            if (!player.isCrouching() && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block instanceof FarmlandBlock)) {
+            if (!player.isCrouching()) {
                 return ToolUtil.hoeUse(ctx, special, false);
-            } else if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT)) {
+            } else if (world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
                 return ToolUtil.shovelUse(ctx);
             }
             return ToolUtil.stripLog(ctx);
