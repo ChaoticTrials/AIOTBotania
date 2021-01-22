@@ -21,6 +21,8 @@ import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.block.Block;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.BeehiveDispenseBehavior;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -83,6 +85,9 @@ public class Registration {
 
         CraftingHelper.register(MythicBotanyCondition.SERIALIZER);
         CraftingHelper.register(TerrasteelCondition.SERIALIZER);
+
+        DispenserBlock.registerDispenseBehavior(livingwood_shears.get(), new BeehiveDispenseBehavior());
+        DispenserBlock.registerDispenseBehavior(livingrock_shears.get(), new BeehiveDispenseBehavior());
     }
 
 }
