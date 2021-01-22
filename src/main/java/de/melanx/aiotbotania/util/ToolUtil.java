@@ -86,7 +86,9 @@ public class ToolUtil {
             if (ctx.getFace() != Direction.DOWN && world.isAirBlock(pos.up())) {
                 BlockState blockstate = world.getBlockState(pos).getToolModifiedState(world, pos, ctx.getPlayer(), ctx.getItem(), ToolType.HOE);
                 if (blockstate != null) {
-                    if (blockstate.getBlock() == Blocks.FARMLAND) blockstate = Registration.custom_farmland.get().getDefaultState();
+                    if (blockstate.getBlock() == Blocks.FARMLAND && special) {
+                        blockstate = Registration.custom_farmland.get().getDefaultState();
+                    }
                     world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     if (!world.isRemote) {
                         world.setBlockState(pos, blockstate, 11);
@@ -122,6 +124,7 @@ public class ToolUtil {
         if (player == null || !player.canPlayerEdit(basePos, side, stack))
             return ActionResultType.PASS;
 
+        BlockState baseStateResult = world.getBlockState(basePos).getToolModifiedState(world, basePos, player, stack, ToolType.HOE);
         ActionResultType toReturn = hoeUse(ctx, special, low_tier);
 
         if (toReturn.isSuccessOrConsume()) {
@@ -132,28 +135,31 @@ public class ToolUtil {
                         continue;
                     BlockPos pos = basePos.add(xd, 0, zd);
                     if (ctx.getFace() != Direction.DOWN && world.isAirBlock(pos.up())) {
-                        BlockState blockstate = world.getBlockState(pos).getToolModifiedState(world, pos, ctx.getPlayer(), ctx.getItem(), ToolType.HOE);
-                        if (blockstate != null) {
-                            if (blockstate.getBlock() == Blocks.FARMLAND) blockstate = Registration.custom_farmland.get().getDefaultState();
-                            if (!soundPlayed) {
-                                world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                                soundPlayed = true;
-                            }
-                            if (!world.isRemote) {
-                                world.setBlockState(pos, blockstate, 11);
-                                ctx.getItem().damageItem(1, player, (playerEntity) -> {
-                                    playerEntity.sendBreakAnimation(ctx.getHand());
-                                });
-                            }
-                        } else if (world.getBlockState(pos).getBlock() instanceof FarmlandBlock) {
-                            Block block = null;
-                            if (special) {
-                                block = Blocks.GRASS_BLOCK;
-                            } else if (!low_tier) {
-                                block = Blocks.DIRT;
-                            }
-                            if (block != null) {
-                                world.setBlockState(pos, block.getDefaultState());
+                        BlockState blockstate = world.getBlockState(pos).getToolModifiedState(world, pos, player, stack, ToolType.HOE);
+                        if (baseStateResult == blockstate) {
+                            if (blockstate != null) {
+                                if (blockstate.getBlock() == Blocks.FARMLAND && special)
+                                    blockstate = Registration.custom_farmland.get().getDefaultState();
+                                if (!soundPlayed) {
+                                    world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                    soundPlayed = true;
+                                }
+                                if (!world.isRemote) {
+                                    world.setBlockState(pos, blockstate, 11);
+                                    ctx.getItem().damageItem(1, player, (playerEntity) -> {
+                                        playerEntity.sendBreakAnimation(ctx.getHand());
+                                    });
+                                }
+                            } else if (world.getBlockState(pos).getBlock() instanceof FarmlandBlock) {
+                                Block block = null;
+                                if (special) {
+                                    block = Blocks.GRASS_BLOCK;
+                                } else if (!low_tier) {
+                                    block = Blocks.DIRT;
+                                }
+                                if (block != null) {
+                                    world.setBlockState(pos, block.getDefaultState());
+                                }
                             }
                         }
                     }
