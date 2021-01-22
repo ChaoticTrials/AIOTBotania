@@ -107,6 +107,9 @@ public class ToolUtil {
                     }
                     if (block != null) {
                         world.setBlockState(pos, block.getDefaultState());
+                        if (world.getBlockState(player.getPosition()).getBlock() == Registration.custom_farmland.get()) {
+                            player.setPosition(player.getPosX(), player.getPosY() + 0.0625, player.getPosZ());
+                        }
                         return ActionResultType.func_233537_a_(world.isRemote);
                     }
                 }
