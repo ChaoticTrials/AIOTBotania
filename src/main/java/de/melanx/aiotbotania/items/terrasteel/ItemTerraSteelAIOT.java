@@ -71,6 +71,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     public static final int[] LEVELS = new int[]{0, 10000, 1000000, 10000000, 100000000, 1000000000};
     private static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
     private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+    private static boolean tickingSwappers = false;
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
 
@@ -326,7 +327,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     public void breakOtherBlockAxe(PlayerEntity player, ItemStack stack, BlockPos pos, @SuppressWarnings("unused") BlockPos originPos, @SuppressWarnings("unused") Direction side) {
-        if (isEnabled(stack)) {
+        if (isEnabled(stack) && !tickingSwappers) {
             addBlockSwapper(player.world, player, stack, pos, 32, true);
         }
     }
@@ -336,8 +337,10 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             if (event.phase == TickEvent.Phase.END) {
                 RegistryKey<World> dim = event.world.getDimensionKey();
                 if (blockSwappers.containsKey(dim)) {
+                    tickingSwappers = true;
                     Set<BlockSwapper> swappers = blockSwappers.get(dim);
                     swappers.removeIf((next) -> next == null || !next.tick());
+                    tickingSwappers= false;
                 }
             }
         }
