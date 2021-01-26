@@ -85,7 +85,9 @@ public class Registration {
 
         CraftingHelper.register(MythicBotanyCondition.SERIALIZER);
         CraftingHelper.register(TerrasteelCondition.SERIALIZER);
+    }
 
+    public static void registerDispenseBehavior() {
         DispenserBlock.registerDispenseBehavior(livingwood_shears.get(), new BeehiveDispenseBehavior());
         DispenserBlock.registerDispenseBehavior(livingrock_shears.get(), new BeehiveDispenseBehavior());
     }

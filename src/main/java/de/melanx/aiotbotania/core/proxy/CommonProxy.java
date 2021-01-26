@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.core.proxy;
 
 import com.google.common.collect.ImmutableMap;
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.items.alfsteel.CustomPylonRepairable;
@@ -41,6 +42,8 @@ public class CommonProxy implements IProxy {
         if (ModList.get().isLoaded("mythicbotany")) {
             CustomPylonRepairable.pylonRepairable().run();
         }
+
+        Registration.registerDispenseBehavior();
     }
 
     public void startServer(FMLServerStartingEvent event) {
