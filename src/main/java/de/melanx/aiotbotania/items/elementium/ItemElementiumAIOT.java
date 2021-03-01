@@ -81,17 +81,17 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
                 int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
                 if (e.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting)
-                    addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                    this.addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
                 else if (e.getEntityLiving() instanceof ZombieEntity && !(e.getEntityLiving() instanceof ZombifiedPiglinEntity) && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
+                    this.addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
                 else if (e.getEntityLiving() instanceof CreeperEntity && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(e, new ItemStack(Items.CREEPER_HEAD));
+                    this.addDrop(e, new ItemStack(Items.CREEPER_HEAD));
                 else if (e.getEntityLiving() instanceof PlayerEntity && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
                     ItemNBTHelper.setString(stack, "SkullOwner", ((PlayerEntity) e.getEntityLiving()).getGameProfile().getName());
-                    addDrop(e, stack);
+                    this.addDrop(e, stack);
                 } else if (e.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-                    addDrop(e, new ItemStack(ModBlocks.gaiaHead));
+                    this.addDrop(e, new ItemStack(ModBlocks.gaiaHead));
             }
         }
     }

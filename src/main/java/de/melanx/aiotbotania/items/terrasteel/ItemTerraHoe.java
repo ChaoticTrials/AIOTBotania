@@ -41,9 +41,9 @@ public class ItemTerraHoe extends ItemHoeBase {
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
         if (ItemTerraSteelAIOT.isEnabled(ctx.getItem())) {
-            return ToolUtil.hoeUseAOE(ctx, special, low_tier, 1);
+            return ToolUtil.hoeUseAOE(ctx, this.special, this.low_tier, 1);
         } else {
-            return ToolUtil.hoeUse(ctx, special, low_tier);
+            return ToolUtil.hoeUse(ctx, this.special, this.low_tier);
         }
     }
 }

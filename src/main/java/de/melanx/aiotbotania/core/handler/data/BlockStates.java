@@ -18,9 +18,9 @@ public class BlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Block block = Registration.custom_farmland.get();
 
-        ModelFile model = models().singleTexture(block.getRegistryName().getPath(), mcLoc("block/template_farmland"), "top", mcLoc("block/farmland_moist"))
-                .texture("dirt", mcLoc("block/dirt"))
-                .texture("particle", mcLoc("block/farmland_moist"));
-        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
+        ModelFile model = this.models().singleTexture(block.getRegistryName().getPath(), this.mcLoc("block/template_farmland"), "top", this.mcLoc("block/farmland_moist"))
+                .texture("dirt", this.mcLoc("block/dirt"))
+                .texture("particle", this.mcLoc("block/farmland_moist"));
+        this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
     }
 }

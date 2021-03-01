@@ -39,7 +39,7 @@ public class LootTables extends LootTableProvider {
     private static class BlockTable extends BlockLootTables {
         @Override
         protected void addTables() {
-            registerDropping(Registration.custom_farmland.get(), Blocks.DIRT);
+            this.registerDropping(Registration.custom_farmland.get(), Blocks.DIRT);
         }
 
         @Override

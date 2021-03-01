@@ -92,16 +92,16 @@ public class ContributorHandler extends LayerRenderer<AbstractClientPlayerEntity
 
         UUID uuid = player.getGameProfile().getId();
         if (player.isWearing(PlayerModelPart.JACKET) && contributorMap.containsKey(uuid))
-            renderIcon(ms, buffers, player, contributorMap.get(uuid));
+            this.renderIcon(ms, buffers, player, contributorMap.get(uuid));
     }
 
     private static class ThreadContributorListLoader extends Thread {
 
         public ThreadContributorListLoader() {
-            setName("AIOT Botania Contributor Thread");
-            setDaemon(true);
-            setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(AIOTBotania.instance.getLogger()));
-            start();
+            this.setName("AIOT Botania Contributor Thread");
+            this.setDaemon(true);
+            this.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(AIOTBotania.instance.getLogger()));
+            this.start();
         }
 
         @Override

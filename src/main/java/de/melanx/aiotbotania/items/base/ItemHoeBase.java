@@ -29,18 +29,18 @@ public class ItemHoeBase extends HoeItem implements IManaUsingItem {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-        ToolUtil.inventoryTick(stack, world, player, MANA_PER_DAMAGE);
+        ToolUtil.inventoryTick(stack, world, player, this.MANA_PER_DAMAGE);
     }
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.MANA_PER_DAMAGE);
     }
 
     @Nonnull
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        return ToolUtil.hoeUse(ctx, special, low_tier);
+        return ToolUtil.hoeUse(ctx, this.special, this.low_tier);
     }
 
     @Override

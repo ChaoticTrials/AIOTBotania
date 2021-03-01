@@ -27,12 +27,12 @@ public class ItemShearsBase extends ShearsItem implements IManaUsingItem {
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, 1, entity, MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, 1, entity, this.MANA_PER_DAMAGE);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity player, int invSlot, boolean isCurrentItem) {
-        ToolUtil.inventoryTick(stack, world, player, MANA_PER_DAMAGE);
+        ToolUtil.inventoryTick(stack, world, player, this.MANA_PER_DAMAGE);
     }
 
     @Override

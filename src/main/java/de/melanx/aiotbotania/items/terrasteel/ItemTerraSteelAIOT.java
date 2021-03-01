@@ -124,17 +124,17 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 Random rand = e.getEntityLiving().world.rand;
                 int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
                 if (e.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting)
-                    addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                    this.addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
                 else if (e.getEntityLiving() instanceof ZombieEntity && !(e.getEntityLiving() instanceof ZombifiedPiglinEntity) && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
+                    this.addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
                 else if (e.getEntityLiving() instanceof CreeperEntity && rand.nextInt(26) <= 2 + 2 * looting)
-                    addDrop(e, new ItemStack(Items.CREEPER_HEAD));
+                    this.addDrop(e, new ItemStack(Items.CREEPER_HEAD));
                 else if (e.getEntityLiving() instanceof PlayerEntity && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
                     ItemNBTHelper.setString(stack, "SkullOwner", ((PlayerEntity) e.getEntityLiving()).getGameProfile().getName());
-                    addDrop(e, stack);
+                    this.addDrop(e, stack);
                 } else if (e.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-                    addDrop(e, new ItemStack(ModBlocks.gaiaHead));
+                    this.addDrop(e, new ItemStack(ModBlocks.gaiaHead));
             }
         }
     }
@@ -463,11 +463,11 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     public float getManaFractionForDisplay(ItemStack stack) {
         int level = getLevel(stack);
         if (level <= 0) {
-            return getMana(stack) / (float) LEVELS[1];
+            return this.getMana(stack) / (float) LEVELS[1];
         } else if (level >= LEVELS.length - 1) {
             return 1f;
         } else {
-            return (getMana(stack) - LEVELS[level]) / (float) LEVELS[level + 1];
+            return (this.getMana(stack) - LEVELS[level]) / (float) LEVELS[level + 1];
         }
     }
 
@@ -491,9 +491,9 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             int range = level - 1;
             if (!player.isCrouching()) {
                 if (isEnabled(stack)) {
-                    return ToolUtil.hoeUseAOE(ctx, special, false, range);
+                    return ToolUtil.hoeUseAOE(ctx, this.special, false, range);
                 } else {
-                    return ToolUtil.hoeUse(ctx, special, false);
+                    return ToolUtil.hoeUse(ctx, this.special, false);
                 }
             } else {
                 if (side != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {

@@ -22,12 +22,12 @@ public class ItemModels extends ItemModelProvider {
                     && item.get() != Registration.terrasteel_hoe.get()
                     && !(item.get() instanceof MythicBotany))
                 // The terra tools have a custom model to display it's tipped and AOE-active state.
-                generateItem(item.get());
+                this.generateItem(item.get());
     }
 
     private void generateItem(Item item) {
         String path = item.getRegistryName().getPath();
-        getBuilder(path).parent(getExistingFile(mcLoc("item/handheld")))
+        this.getBuilder(path).parent(this.getExistingFile(this.mcLoc("item/handheld")))
                 .texture("layer0", "item/" + path);
     }
 

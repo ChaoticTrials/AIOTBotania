@@ -49,7 +49,7 @@ public class ItemAlfsteelShovel extends ItemTerraShovel implements MythicBotany,
 
     @Override
     public int getRepairManaPerTick(ItemStack stack) {
-        return (int) (2.5 * MANA_PER_DAMAGE);
+        return (int) (2.5 * this.MANA_PER_DAMAGE);
     }
 
     @Override

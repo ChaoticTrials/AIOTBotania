@@ -62,12 +62,12 @@ public enum ItemTiers implements IItemTier {
     }
 
     ItemTiers(IItemTier delegate) {
-        durability = delegate.getMaxUses();
-        efficiency = delegate.getEfficiency();
-        attackDamage = delegate.getAttackDamage();
-        harvestLevel = delegate.getHarvestLevel();
-        enchantability = delegate.getEnchantability();
-        repairMaterial = new LazyValue<>(delegate::getRepairMaterial);
+        this.durability = delegate.getMaxUses();
+        this.efficiency = delegate.getEfficiency();
+        this.attackDamage = delegate.getAttackDamage();
+        this.harvestLevel = delegate.getHarvestLevel();
+        this.enchantability = delegate.getEnchantability();
+        this.repairMaterial = new LazyValue<>(delegate::getRepairMaterial);
     }
 
     @Override

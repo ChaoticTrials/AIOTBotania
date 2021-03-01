@@ -26,8 +26,8 @@ public class AIOTBotania {
     public AIOTBotania() {
         instance = this;
 
-        logger = LogManager.getLogger();
-        creativeTab = new CreativeTab();
+        this.logger = LogManager.getLogger();
+        this.creativeTab = new CreativeTab();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
@@ -40,10 +40,10 @@ public class AIOTBotania {
     }
 
     public Logger getLogger() {
-        return logger;
+        return this.logger;
     }
 
     public ItemGroup getTab() {
-        return creativeTab;
+        return this.creativeTab;
     }
 }

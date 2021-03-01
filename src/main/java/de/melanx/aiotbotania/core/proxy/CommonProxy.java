@@ -53,7 +53,7 @@ public class CommonProxy implements IProxy {
             @SuppressWarnings({"UnstableApiUsage", "ConstantConditions"})
             Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipesNew = recipes.entrySet().stream().map(entry -> {
                 if (entry.getKey() == IRecipeType.CRAFTING) {
-                    return Pair.of(entry.getKey(), insertRecipe(entry.getValue()));
+                    return Pair.of(entry.getKey(), this.insertRecipe(entry.getValue()));
                 } else {
                     return entry;
                 }
