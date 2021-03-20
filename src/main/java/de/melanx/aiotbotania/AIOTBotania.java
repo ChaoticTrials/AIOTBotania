@@ -7,7 +7,6 @@ import de.melanx.aiotbotania.core.proxy.CommonProxy;
 import de.melanx.aiotbotania.core.proxy.IProxy;
 import de.melanx.aiotbotania.util.CreativeTab;
 import net.minecraft.item.ItemGroup;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -31,8 +30,6 @@ public class AIOTBotania {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
-
-        MinecraftForge.EVENT_BUS.register(this);
 
         proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
         proxy.registerHandlers();

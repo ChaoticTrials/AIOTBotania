@@ -10,20 +10,26 @@ import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOT;
 import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOTTipped;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
+import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.client.resources.ReloadListener;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -38,6 +44,7 @@ public class CommonProxy implements IProxy {
     public CommonProxy() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.addListener(this::onReload);
+        MinecraftForge.EVENT_BUS.addListener(this::onTilt);
     }
 
     public void setup(FMLCommonSetupEvent event) {
@@ -88,5 +95,22 @@ public class CommonProxy implements IProxy {
                 return builder.build();
             }
         });
+    }
+
+    // TODO 1.17 find a new way to use this
+    public void onTilt(@SuppressWarnings("deprecation") UseHoeEvent event) {
+        ItemUseContext context = event.getContext();
+
+        if (context.getWorld().isRemote) {
+            return;
+        }
+
+        ItemStack stack = context.getItem();
+        if (stack.getItem() == ModItems.elementiumHoe || stack.getItem() == ModItems.manasteelHoe) {
+            ActionResultType resultType = ToolUtil.hoeUse(context, stack.getItem() == ModItems.elementiumHoe, false);
+            if (resultType != ActionResultType.PASS) {
+                event.setCanceled(true);
+            }
+        }
     }
 }
