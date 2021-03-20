@@ -20,10 +20,8 @@
   "item.aiotbotania.livingrock_hoe": "活石锄",
   "item.aiotbotania.livingrock_aiot": "活石全能工具",
 
-  "item.aiotbotania.manasteel_hoe": "魔钢锄",
   "item.aiotbotania.manasteel_aiot": "魔钢全能工具",
 
-  "item.aiotbotania.elementium_hoe": "源质钢锄",
   "item.aiotbotania.elementium_aiot": "源质钢全能工具",
 
   "botania.entry.livingwoodTools": "活木工具",
@@ -46,16 +44,10 @@
   "botania.page.livingrockTools5": "$(1)活石剪刀$(0)",
   "botania.page.livingrockTools6": "$(1)活石锄$(0)",
   "botania.page.livingrockTools7": "$(1)活石全能工具$(0)",
-
-
   "botania.page.manaGear11": "$(2)植魔全能工具$(0)模组还增加了两样工具。$(1)锄$(0)用法类似于原版的锄头，但与其他魔钢工具一样其也能消耗$(4)魔力$(0)。<br>而$(1)全能工具$(0)则融合了魔钢$(1)剑$(0)，$(1)斧$(0)，$(1)镐$(0)，$(1)铲$(0)与$(1)锄$(0)的所有功能。",
-  "botania.page.manaGear12": "$(1)魔钢锄$(0)",
-  "botania.page.manaGear13": "$(1)魔钢全能工具$(0)",
-
+  "botania.page.manaGear12": "$(1)魔钢全能工具$(0)",
   "botania.page.elfGear10": "$(1)源质钢剑$(0)会增加攻击时生成$(4)小精灵$(0)的概率（当未穿戴$(1)源质钢装备$(0)时也会生成），并强化$(4)小精灵$(0)的能力。",
   "botania.page.elfGear16": "$(1)源质钢锄$(0)耕种的土地不会因跳跃而被破坏，也不用担心水源问题。另外，再次右击耕地可转化为泥土。",
-  "botania.page.elfGear17": "$(1)源质钢锄$(0)",
-  "botania.page.elfGear18": "同时，$(1)源质钢全能工具$(0)融合了全部$(1)源质钢$(0)工具的功能。<br>由于它继承了斧和镐右击放置$(4)树苗$(0)与$(4)火把$(0)，所以你需要使用$(4)Shift右击$(0)切换模式来进行耕种。",
-  "botania.page.elfGear19": "$(1)源质钢全能工具$(0)"
-
+  "botania.page.elfGear17": "同时，$(1)源质钢全能工具$(0)融合了全部$(1)源质钢$(0)工具的功能。<br>由于它继承了斧和镐右击放置$(4)树苗$(0)与$(4)火把$(0)，所以你需要使用$(4)Shift右击$(0)切换模式来进行耕种。",
+  "botania.page.elfGear18": "$(1)源质钢全能工具$(0)"
 }

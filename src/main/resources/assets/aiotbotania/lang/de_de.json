@@ -22,10 +22,8 @@
   "item.aiotbotania.livingrock_hoe": "Lebesteinhacke",
   "item.aiotbotania.livingrock_aiot": "Lebestein AIOT",
 
-  "item.aiotbotania.manasteel_hoe": "Manastahlhacke",
   "item.aiotbotania.manasteel_aiot": "Manastahl AIOT",
 
-  "item.aiotbotania.elementium_hoe": "Elementiumhacke",
   "item.aiotbotania.elementium_aiot": "Elementium AIOT",
 
   "item.aiotbotania.terra_shovel": "Terra-Löffel",
@@ -46,7 +44,6 @@
   "botania.page.livingwoodTools5": "Die $(1)Lebeholzschere$(0)",
   "botania.page.livingwoodTools6": "Das $(1)Lebeholzhacke$(0)",
   "botania.page.livingwoodTools7": "Das $(1)Lebeholz AIOT$(0)",
-
   "botania.page.livingrockTools1": "Das $(1)Lebesteinschwert$(0)",
   "botania.page.livingrockTools2": "Die $(1)Lebesteinaxt$(0)",
   "botania.page.livingrockTools3": "Die $(1)Lebesteinspitzhacke$(0)",
@@ -54,10 +51,6 @@
   "botania.page.livingrockTools5": "Die $(1)Lebesteinschere$(0)",
   "botania.page.livingrockTools6": "Das $(1)Lebesteinhacke$(0)",
   "botania.page.livingrockTools7": "Das $(1)Lebestein AIOT$(0)",
-
-  "botania.page.manaGear12": "Die $(1)Manastahlhacke$(0)",
-  "botania.page.manaGear13": "Das $(1)Manastahl AIOT$(0)",
-
-  "botania.page.elfGear17": "Die $(1)Elementiumhacke$(0)",
-  "botania.page.elfGear19": "Das $(1)Elementium AIOT$(0)"
+  "botania.page.manaGear12": "Das $(1)Manastahl AIOT$(0)",
+  "botania.page.elfGear18": "Das $(1)Elementium AIOT$(0)"
 }

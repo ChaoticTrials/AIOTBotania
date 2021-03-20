@@ -32,7 +32,7 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
 
 [[dependencies.aiotbotania]]
     modId="botania"
-    mandatory=true
-    versionRange="[r1.16.4-411,)"
-    ordering="NONE"
+    mandatory = true
+versionRange = "[r1.16.4-414,)"
+ordering = "NONE"
     side="BOTH"

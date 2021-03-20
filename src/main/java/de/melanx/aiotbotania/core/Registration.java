@@ -31,7 +31,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.BotaniaAPI;
 
 public class Registration {
 
@@ -55,10 +54,8 @@ public class Registration {
     public static final RegistryObject<Item> livingrock_hoe = ITEMS.register("livingrock_hoe", () -> new ItemHoeBase(ItemTiers.LIVINGROCK_ITEM_TIER, -2, 40, false, true));
     public static final RegistryObject<Item> livingrock_aiot = ITEMS.register("livingrock_aiot", ItemLivingrockAIOT::new);
 
-    public static final RegistryObject<Item> manasteel_hoe = ITEMS.register("manasteel_hoe", () -> new ItemHoeBase(BotaniaAPI.instance().getManasteelItemTier(), -1, 60, false, false));
     public static final RegistryObject<Item> manasteel_aiot = ITEMS.register("manasteel_aiot", () -> new ItemAIOTBase(ItemTiers.MANASTEEL_AIOT_ITEM_TIER, 6.0F, -2.2F, 66, false));
 
-    public static final RegistryObject<Item> elementium_hoe = ITEMS.register("elementium_hoe", () -> new ItemHoeBase(BotaniaAPI.instance().getElementiumItemTier(), -1, 60, true, false));
     public static final RegistryObject<Item> elementium_aiot = ITEMS.register("elementium_aiot", ItemElementiumAIOT::new);
 
     public static final RegistryObject<Item> terrasteel_shovel = ITEMS.register("terra_shovel", ItemTerraShovel::new);

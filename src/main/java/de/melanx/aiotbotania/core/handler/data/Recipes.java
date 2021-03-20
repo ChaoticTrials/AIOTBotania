@@ -54,8 +54,6 @@ public class Recipes extends RecipeProvider {
 
         getHoes(Registration.livingwood_hoe.get(), ModBlocks.livingwood).build(consumer);
         getHoes(Registration.livingrock_hoe.get(), ModBlocks.livingrock).build(consumer);
-        getHoes(Registration.manasteel_hoe.get(), ModItems.manaSteel).build(consumer);
-        getHoes(Registration.elementium_hoe.get(), ModItems.elementium, ModItems.dreamwoodTwig).build(consumer);
         getHoes(Registration.terrasteel_hoe.get(), ModItems.terrasteel).build(WrapperResult.transformJson(consumer, json -> {
             JsonArray array = new JsonArray();
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition(true)));
@@ -102,12 +100,12 @@ public class Recipes extends RecipeProvider {
                 .addIngredient(ModItems.manasteelAxe)
                 .addIngredient(ModItems.manasteelPick)
                 .addIngredient(ModItems.manasteelShovel)
-                .addIngredient(Registration.manasteel_hoe.get())
+                .addIngredient(ModItems.manasteelHoe)
                 .addCriterion("has_sword", hasItem(ModItems.manasteelSword))
                 .addCriterion("has_axe", hasItem(ModItems.manasteelAxe))
                 .addCriterion("has_pickaxe", hasItem(ModItems.manasteelPick))
                 .addCriterion("has_shovel", hasItem(ModItems.manasteelShovel))
-                .addCriterion("has_hoe", hasItem(Registration.manasteel_hoe.get()))
+                .addCriterion("has_hoe", hasItem(ModItems.manasteelHoe))
                 .build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(Registration.elementium_aiot.get())
@@ -115,12 +113,12 @@ public class Recipes extends RecipeProvider {
                 .addIngredient(ModItems.elementiumAxe)
                 .addIngredient(ModItems.elementiumPick)
                 .addIngredient(ModItems.elementiumShovel)
-                .addIngredient(Registration.elementium_hoe.get())
+                .addIngredient(ModItems.elementiumHoe)
                 .addCriterion("has_sword", hasItem(ModItems.elementiumSword))
                 .addCriterion("has_axe", hasItem(ModItems.elementiumAxe))
                 .addCriterion("has_pickaxe", hasItem(ModItems.elementiumPick))
                 .addCriterion("has_shovel", hasItem(ModItems.elementiumShovel))
-                .addCriterion("has_hoe", hasItem(Registration.elementium_hoe.get()))
+                .addCriterion("has_hoe", hasItem(ModItems.elementiumHoe))
                 .build(consumer);
     }
 

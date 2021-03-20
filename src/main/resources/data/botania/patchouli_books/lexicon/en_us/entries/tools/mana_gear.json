@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaGear",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:manasteel_pick",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",
@@ -16,7 +16,7 @@
     {
       "type": "crafting",
       "text": "botania.page.manaGear1",
-      "recipe": "botania:manasteel_pickaxe"
+      "recipe": "botania:manasteel_pick"
     },
     {
       "type": "crafting",
@@ -27,6 +27,11 @@
       "type": "crafting",
       "text": "botania.page.manaGear3",
       "recipe": "botania:manasteel_axe"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.manaGear3a",
+      "recipe": "botania:manasteel_hoe"
     },
     {
       "type": "crafting",
@@ -65,11 +70,6 @@
     {
       "type": "crafting",
       "text": "botania.page.manaGear12",
-      "recipe": "aiotbotania:manasteel_hoe"
-    },
-    {
-      "type": "crafting",
-      "text": "botania.page.manaGear13",
       "recipe": "aiotbotania:manasteel_aiot"
     }
   ]
