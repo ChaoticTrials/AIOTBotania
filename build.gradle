@@ -136,6 +136,8 @@ dependencies {
 
     compile fg.deobf("io.github.noeppi_noeppi.mods:LibX:${libx_version}")
     compile fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:${mythicbotany_version}")
+
+//    runtimeOnly fg.deobf("de.melanx.recipeprinter:recipeprinter-1.16.3:2.0.1")
 }
 
 private static String getVersion(String group, String artifact, String baseVersion) {
