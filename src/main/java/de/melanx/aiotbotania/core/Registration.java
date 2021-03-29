@@ -17,6 +17,7 @@ import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAxe;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockPickaxe;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockShovel;
 import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
+import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
@@ -54,7 +55,7 @@ public class Registration {
     public static final RegistryObject<Item> livingrock_hoe = ITEMS.register("livingrock_hoe", () -> new ItemHoeBase(ItemTiers.LIVINGROCK_ITEM_TIER, -2, 40, false, true));
     public static final RegistryObject<Item> livingrock_aiot = ITEMS.register("livingrock_aiot", ItemLivingrockAIOT::new);
 
-    public static final RegistryObject<Item> manasteel_aiot = ITEMS.register("manasteel_aiot", () -> new ItemAIOTBase(ItemTiers.MANASTEEL_AIOT_ITEM_TIER, 6.0F, -2.2F, 66, false));
+    public static final RegistryObject<Item> manasteel_aiot = ITEMS.register("manasteel_aiot", () -> new ItemManasteelAIOT(ItemTiers.MANASTEEL_AIOT_ITEM_TIER, 6.0F, -2.2F, 66, false));
 
     public static final RegistryObject<Item> elementium_aiot = ITEMS.register("elementium_aiot", ItemElementiumAIOT::new);
 
