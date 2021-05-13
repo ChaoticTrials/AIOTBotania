@@ -54,7 +54,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
         PlantType plantType = plantable.getPlantType(world, pos.up());
-        if (plantType == PlantType.CROP) {
+        if (plantType == PlantType.CROP || plantType == PlantType.PLAINS) {
             return true;
         }
         return super.canSustainPlant(state, world, pos, facing, plantable);
