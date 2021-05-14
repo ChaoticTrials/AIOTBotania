@@ -19,6 +19,7 @@ import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 import vazkii.botania.client.fx.SparkleParticleData;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockCustomFarmland extends FarmlandBlock {
@@ -31,7 +32,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
         if (ConfigHandler.CLIENT.PARTICLES.get()) {
             int r = 1;
             float g = 0.078F;
@@ -42,7 +43,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
+    public void onFallenUpon(@Nonnull World world, @Nonnull BlockPos pos, Entity entity, float fallDistance) {
         entity.onLivingFall(fallDistance, 1.0F);
     }
 
@@ -52,7 +53,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plantable) {
         PlantType plantType = plantable.getPlantType(world, pos.up());
         if (plantType == PlantType.CROP || plantType == PlantType.PLAINS) {
             return true;
@@ -66,7 +67,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
         BlockState above = world.getBlockState(pos.up());
         if (above.getBlock() instanceof CropsBlock) {
             CropsBlock crop = (CropsBlock) above.getBlock();
@@ -76,7 +77,7 @@ public class BlockCustomFarmland extends FarmlandBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
         // no, thank you
     }
 }
