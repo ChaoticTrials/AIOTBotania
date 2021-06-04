@@ -131,7 +131,7 @@ dependencies {
 
     compile fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     compile fg.deobf("io.github.noeppi_noeppi.mods:LibX:${libx_version}")
