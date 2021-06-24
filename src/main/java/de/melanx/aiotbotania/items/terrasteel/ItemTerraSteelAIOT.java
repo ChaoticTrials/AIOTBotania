@@ -449,7 +449,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<ITextComponent> list, @Nonnull ITooltipFlag flags) {
         super.addInformation(stack, world, list, flags);
         ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(stack));
         ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);

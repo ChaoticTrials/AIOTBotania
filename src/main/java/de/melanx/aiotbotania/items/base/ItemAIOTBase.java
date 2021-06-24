@@ -131,12 +131,12 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment);
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Items.DIAMOND_SWORD);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<ITextComponent> list, @Nonnull ITooltipFlag flags) {
         list.add(new TranslationTextComponent(getModeString(stack)));
     }
 
