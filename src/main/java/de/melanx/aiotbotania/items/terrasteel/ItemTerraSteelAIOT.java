@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania.items.terrasteel;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.core.network.TerrasteelCreateBurstMesssage;
@@ -64,8 +65,8 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
     public static final float SPEED = -2.2F;
-    protected static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
-    private static final List<Material> AXE_MATERIALS = Arrays.asList(Material.WOOD, Material.LEAVES, Material.BAMBOO);
+    protected static final Set<Material> MATERIALS = ImmutableSet.of(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
+    private static final Set<Material> AXE_MATERIALS = ImmutableSet.of(Material.WOOD, Material.LEAVES, Material.BAMBOO);
     public static final int[] LEVELS = new int[]{0, 10000, 1000000, 10000000, 100000000, 1000000000};
     private static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
     private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
@@ -298,26 +299,28 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         if (isEnabled(stack)) {
             World world = player.world;
             Material mat = world.getBlockState(pos).getMaterial();
-            if (MATERIALS.contains(mat)) {
-                if (!world.isAirBlock(pos)) {
-                    boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
-                    boolean doX = thor || side.getXOffset() == 0;
-                    boolean doY = thor || side.getYOffset() == 0;
-                    boolean doZ = thor || side.getZOffset() == 0;
-                    int origLevel = getLevel(stack);
-                    int level = origLevel + (thor ? 1 : 0);
-                    if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
-                        level = 2;
-                    }
-                    int range = level - 1;
-                    int rangeY = Math.max(1, range);
-                    if (range != 0 || level == 1) {
-                        Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
-                        Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
-                        ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, (state) -> MATERIALS.contains(state.getMaterial()));
-                        if (origLevel == 5) {
-                            PlayerHelper.grantCriterion((ServerPlayerEntity) player, ResourceLocationHelper.prefix("challenge/rank_ss_pick"), "code_triggered");
-                        }
+            if (MATERIALS.contains(mat) && !world.isAirBlock(pos)) {
+                boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
+                boolean doX = thor || side.getXOffset() == 0;
+                boolean doY = thor || side.getYOffset() == 0;
+                boolean doZ = thor || side.getZOffset() == 0;
+                int origLevel = getLevel(stack);
+                int level = origLevel + (thor ? 1 : 0);
+                int rangeDepth = level / 2;
+                if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
+                    level = 2;
+                    rangeDepth = 0;
+                }
+
+                int range = level - 1;
+                int rangeY = Math.max(1, range);
+                if (range != 0 || level == 1) {
+                    Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
+                    Vector3i endDiff = new Vector3i(doX ? range : rangeDepth * -side.getXOffset(), doY ? rangeY * 2 - 1 : 0, doZ ? range : rangeDepth * -side.getZOffset());
+                    ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
+                            state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
+                    if (origLevel == 5) {
+                        PlayerHelper.grantCriterion((ServerPlayerEntity) player, ResourceLocationHelper.prefix("challenge/rank_ss_pick"), "code_triggered");
                     }
                 }
             }
@@ -338,7 +341,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                     tickingSwappers = true;
                     Set<BlockSwapper> swappers = blockSwappers.get(dim);
                     swappers.removeIf((next) -> next == null || !next.tick());
-                    tickingSwappers= false;
+                    tickingSwappers = false;
                 }
             }
         }
