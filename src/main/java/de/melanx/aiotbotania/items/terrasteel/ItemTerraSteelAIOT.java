@@ -326,7 +326,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     public void breakOtherBlockAxe(PlayerEntity player, ItemStack stack, BlockPos pos, @SuppressWarnings("unused") BlockPos originPos, @SuppressWarnings("unused") Direction side) {
-    	if (!player.isSneaking() && !tickingSwappers && isEnabled(stack)) {
+        if (!player.isSneaking() && !tickingSwappers && isEnabled(stack) && !ItemTemperanceStone.hasTemperanceActive(player)) {
             addBlockSwapper(player.world, player, stack, pos, 32, true);
         }
     }
