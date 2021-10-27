@@ -14,6 +14,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.ItemEntity;
@@ -316,7 +317,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 int rangeY = Math.max(1, range);
                 if (range != 0 || level == 1) {
                     Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
-                    Vector3i endDiff = new Vector3i(doX ? range : rangeDepth * -side.getXOffset(), doY ? rangeY * 2 - 1 : 0, doZ ? range : rangeDepth * -side.getZOffset());
+                    Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
                     ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
                             state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
                     if (origLevel == 5) {
