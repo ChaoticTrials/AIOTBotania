@@ -307,10 +307,8 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 boolean doZ = thor || side.getZOffset() == 0;
                 int origLevel = getLevel(stack);
                 int level = origLevel + (thor ? 1 : 0);
-                int rangeDepth = level / 2;
                 if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
                     level = 2;
-                    rangeDepth = 0;
                 }
 
                 int range = level - 1;
