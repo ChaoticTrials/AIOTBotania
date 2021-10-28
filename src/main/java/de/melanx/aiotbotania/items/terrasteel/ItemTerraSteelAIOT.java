@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.core.network.TerrasteelCreateBurstMesssage;
 import de.melanx.aiotbotania.items.ItemTiers;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.block.Block;
@@ -306,15 +307,20 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 boolean doZ = thor || side.getZOffset() == 0;
                 int origLevel = getLevel(stack);
                 int level = origLevel + (thor ? 1 : 0);
+                int rangeDepth = level / 2;
                 if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
                     level = 2;
+                    rangeDepth = 0;
+                }
+                if (!(stack.getItem() instanceof ItemAlfsteelAIOT)) {
+                    rangeDepth = 0;
                 }
 
                 int range = level - 1;
                 int rangeY = Math.max(1, range);
                 if (range != 0 || level == 1) {
                     Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
-                    Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
+                    Vector3i endDiff = new Vector3i(doX ? range : rangeDepth * -side.getXOffset(), doY ? rangeY * 2 - 1 : 0, doZ ? range : rangeDepth * -side.getZOffset());
                     ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
                             state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
                     if (origLevel == 5) {
