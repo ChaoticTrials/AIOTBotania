@@ -3,9 +3,9 @@ package de.melanx.aiotbotania.items.livingrock;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAxeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
 
 import javax.annotation.Nonnull;
 
@@ -21,12 +21,12 @@ public class ItemLivingrockAxe extends ItemAxeBase {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        Direction side = ctx.getFace();
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Direction side = context.getClickedFace();
         if (side == Direction.UP) {
-            return ToolUtil.axeUse(ctx);
+            return ToolUtil.axeUse(context);
         } else {
-            return ToolUtil.stripLog(ctx);
+            return ToolUtil.stripLog(context);
         }
     }
 

@@ -4,10 +4,10 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.compat.MythicBotany;
 import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ItemModels extends ItemModelProvider {
     public ItemModels(DataGenerator gen, ExistingFileHelper helper) {
@@ -26,13 +26,9 @@ public class ItemModels extends ItemModelProvider {
     }
 
     private void generateItem(Item item) {
+        //noinspection ConstantConditions
         String path = item.getRegistryName().getPath();
         this.getBuilder(path).parent(this.getExistingFile(this.mcLoc("item/handheld")))
                 .texture("layer0", "item/" + path);
-    }
-
-    @Override
-    public String getName() {
-        return "Item Models";
     }
 }

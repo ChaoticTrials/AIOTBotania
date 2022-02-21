@@ -6,14 +6,14 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModList;
 
 import javax.annotation.Nonnull;
@@ -28,8 +28,8 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        if (ItemTerraSteelAIOT.isEnabled(ctx.getItem())) {
+    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
+        if (ItemTerraSteelAIOT.isEnabled(ctx.getItemInHand())) {
             return ToolUtil.hoeUseAOE(ctx, this.special, this.low_tier, 2);
         } else {
             return ToolUtil.hoeUse(ctx, this.special, this.low_tier);
@@ -38,7 +38,7 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
 
     @Override
     public boolean canRepairPylon(ItemStack stack) {
-        return stack.getDamage() > 0;
+        return stack.getDamageValue() > 0;
     }
 
     @Override
@@ -48,16 +48,16 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
 
     @Override
     public ItemStack repairOneTick(ItemStack stack) {
-        stack.setDamage(Math.max(0, stack.getDamage() - 5));
+        stack.setDamageValue(Math.max(0, stack.getDamageValue() - 5));
         return stack;
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (!ModList.get().isLoaded("mythicbotany")) {
-            tooltip.add(new TranslationTextComponent(AIOTBotania.MODID + ".mythicbotany.disabled").mergeStyle(TextFormatting.DARK_RED));
+            tooltip.add(new TranslatableComponent(AIOTBotania.MODID + ".mythicbotany.disabled").withStyle(ChatFormatting.DARK_RED));
         } else {
-            super.addInformation(stack, world, tooltip, flag);
+            super.appendHoverText(stack, level, tooltip, flag);
         }
     }
 }

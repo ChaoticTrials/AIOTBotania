@@ -2,15 +2,15 @@ package de.melanx.aiotbotania.core.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.items.base.ItemShearsBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TallGrassBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.TallGrassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
@@ -21,17 +21,17 @@ import java.util.List;
 import java.util.Random;
 
 public class GrassModifier extends LootModifier {
-    protected GrassModifier(ILootCondition[] conditionsIn) {
+    protected GrassModifier(LootItemCondition[] conditionsIn) {
         super(conditionsIn);
     }
 
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.get(LootParameters.BLOCK_STATE);
-        ItemStack tool = context.get(LootParameters.TOOL);
+        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+        ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
         if (state != null && tool != null)
-            if (state.getBlock() instanceof TallGrassBlock && (tool.getItem() instanceof ItemShearsBase) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, tool) <= 0) {
+            if (state.getBlock() instanceof TallGrassBlock && (tool.getItem() instanceof ItemShearsBase) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) <= 0) {
                 return Collections.singletonList(new ItemStack(Tags.Items.SEEDS.getRandomElement(new Random())));
             }
         return generatedLoot;
@@ -39,7 +39,7 @@ public class GrassModifier extends LootModifier {
 
     public static class Serializer extends GlobalLootModifierSerializer<GrassModifier> {
         @Override
-        public GrassModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
+        public GrassModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
             return new GrassModifier(conditions);
         }
 

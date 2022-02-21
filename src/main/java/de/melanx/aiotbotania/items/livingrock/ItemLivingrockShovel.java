@@ -3,8 +3,8 @@ package de.melanx.aiotbotania.items.livingrock;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +18,7 @@ public class ItemLivingrockShovel extends ItemShovelBase {
         super(ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
     }
 
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        return ToolUtil.shovelUse(ctx);
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        return ToolUtil.shovelUse(context);
     }
 }

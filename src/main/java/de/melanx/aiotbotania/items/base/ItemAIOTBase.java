@@ -1,49 +1,44 @@
 package de.melanx.aiotbotania.items.base;
 
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.core.handler.data.ModTags;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
 import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
-import vazkii.botania.api.mana.IManaUsingItem;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
+public class ItemAIOTBase extends DiggerItem implements ICustomDamageItem {
 
     protected final int MANA_PER_DAMAGE;
     protected final boolean special;
-    protected final IItemTier mat;
+    protected final Tier mat;
 
-    public ItemAIOTBase(IItemTier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
-        super(attackDamage, attackSpeed, mat, new HashSet<>(), new Item.Properties().group(AIOTBotania.instance.getTab())
-                .addToolType(ToolType.AXE, mat.getHarvestLevel())
-                .addToolType(ToolType.PICKAXE, mat.getHarvestLevel())
-                .addToolType(ToolType.SHOVEL, mat.getHarvestLevel())
-                .addToolType(ToolType.HOE, mat.getHarvestLevel()));
+    public ItemAIOTBase(Tier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
+        super(attackDamage, attackSpeed, mat, ModTags.Blocks.MINEABLE_WITH_AIOT, new Item.Properties().tab(AIOTBotania.instance.getTab()));
         this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
         this.special = special;
         this.mat = mat;
@@ -61,8 +56,8 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-        ToolUtil.inventoryTick(stack, world, player, this.MANA_PER_DAMAGE);
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int itemSlot, boolean isSelected) {
+        ToolUtil.inventoryTick(stack, level, entity, this.MANA_PER_DAMAGE);
     }
 
     @Override
@@ -72,76 +67,69 @@ public class ItemAIOTBase extends ToolItem implements IManaUsingItem {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        World world = ctx.getWorld();
-        BlockPos pos = ctx.getPos();
-        PlayerEntity player = ctx.getPlayer();
-        ItemStack stack = ctx.getItem();
-        Direction side = ctx.getFace();
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        Player player = context.getPlayer();
+        ItemStack stack = context.getItemInHand();
+        Direction side = context.getClickedFace();
 
-        if (player == null) return ActionResultType.PASS;
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
 
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
 
         if (hoemode) {
             if (!player.isCrouching()) {
-                return ToolUtil.hoeUse(ctx, this.special, false);
-            } else if (world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
-                return ToolUtil.shovelUse(ctx);
+                return ToolUtil.hoeUse(context, this.special, false);
+            } else if (level.getBlockState(pos.above()).isAir()) {
+                return ToolUtil.shovelUse(context);
             }
-            return ToolUtil.stripLog(ctx);
+            return ToolUtil.stripLog(context);
         } else {
             if (!player.isCrouching()) {
-                return ToolUtil.pickUse(ctx);
+                return ToolUtil.pickUse(context);
             } else {
                 if (side == Direction.UP) {
-                    return ToolUtil.axeUse(ctx);
+                    return ToolUtil.axeUse(context);
                 }
-                return ActionResultType.PASS;
+
+                return InteractionResult.PASS;
             }
         }
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-        ItemStack itemStack = player.getHeldItem(hand);
-        if (!world.isRemote) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!level.isClientSide) {
             if (player.isCrouching()) {
                 ToolUtil.toggleMode(player, itemStack);
-                return ActionResult.resultSuccess(itemStack);
+                return InteractionResultHolder.success(itemStack);
             }
         }
-        return super.onItemRightClick(world, player, hand);
+        return super.use(level, player, hand);
     }
 
     @Override
     public float getDestroySpeed(@Nonnull ItemStack stack, BlockState state) {
-        if (state.getBlock() == Blocks.COBWEB) {
+        if (state.is(Blocks.COBWEB)) {
             return 15.0F;
-        } else {
-            return state.getBlock().getHarvestTool(state) == null || this.getToolTypes(stack).contains(state.getBlock().getHarvestTool(state)) ? this.efficiency : 1.0F;
         }
-    }
 
-    @Override
-    public boolean usesMana(ItemStack itemStack) {
-        return true;
+        return super.getDestroySpeed(stack, state);
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Items.DIAMOND_SWORD);
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(Items.DIAMOND_SWORD);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(@Nonnull ItemStack stack, World world, List<ITextComponent> list, @Nonnull ITooltipFlag flags) {
-        list.add(new TranslationTextComponent(getModeString(stack)));
-    }
-
-    @Override
-    public boolean canHarvestBlock(BlockState block) {
-        return block.getHarvestLevel() <= this.mat.getHarvestLevel();
+    public void appendHoverText(@Nonnull ItemStack stack, Level level, List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent(getModeString(stack)));
     }
 }

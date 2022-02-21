@@ -1,47 +1,47 @@
 package de.melanx.aiotbotania.items.terrasteel;
 
 import de.melanx.aiotbotania.core.Registration;
-import net.minecraft.block.Blocks;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
 public class RecipeTerraSteelAIOT extends ShapelessRecipe {
 
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.fromItems(ModItems.terraSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.fromItems(ModItems.terraAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.fromItems(ModItems.terraPick);
-    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.fromItems(Registration.terrasteel_shovel.get());
-    private static final Ingredient INGREDIENT_HOE = Ingredient.fromItems(Registration.terrasteel_hoe.get());
+    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.terraSword);
+    private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.terraAxe);
+    private static final Ingredient INGREDIENT_PICK = Ingredient.of(ModItems.terraPick);
+    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.terrasteel_shovel.get());
+    private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.terrasteel_hoe.get());
 
     public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.from(Ingredient.fromItems(Blocks.BARRIER),
-                Ingredient.fromItems(ModItems.terraSword), Ingredient.fromItems(ModItems.terraAxe), Ingredient.fromItems(ModItems.terraPick),
-                Ingredient.fromItems(Registration.terrasteel_shovel.get()), Ingredient.fromItems(Registration.terrasteel_hoe.get())));
+        super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
+                Ingredient.of(ModItems.terraSword), Ingredient.of(ModItems.terraAxe), Ingredient.of(ModItems.terraPick),
+                Ingredient.of(Registration.terrasteel_shovel.get()), Ingredient.of(Registration.terrasteel_hoe.get())));
     }
 
     @Override
     @Nonnull
-    public IRecipeType<?> getType() {
-        return IRecipeType.CRAFTING;
+    public RecipeType<?> getType() {
+        return RecipeType.CRAFTING;
     }
 
-    public boolean matches(CraftingInventory inv, @Nonnull World worldIn) {
+    public boolean matches(CraftingContainer inv, @Nonnull Level level) {
         boolean foundSword = false;
         boolean foundAxe = false;
         boolean foundPick = false;
         boolean foundShovel = false;
         boolean foundHoe = false;
-        for(int j = 0; j < inv.getSizeInventory(); ++j) {
-            ItemStack stack = inv.getStackInSlot(j);
+        for (int j = 0; j < inv.getContainerSize(); ++j) {
+            ItemStack stack = inv.getItem(j);
             if (!stack.isEmpty()) {
                 if (INGREDIENT_SWORD.test(stack) && !foundSword) {
                     foundSword = true;
@@ -62,10 +62,10 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     }
 
     @Nonnull
-    public ItemStack getCraftingResult(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         ItemStack stack = new ItemStack(Registration.terrasteel_aiot.get());
-        for(int j = 0; j < inv.getSizeInventory(); ++j) {
-            ItemStack ingredient = inv.getStackInSlot(j);
+        for (int j = 0; j < inv.getContainerSize(); ++j) {
+            ItemStack ingredient = inv.getItem(j);
             if (!ingredient.isEmpty() && INGREDIENT_PICK.test(ingredient)) {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
@@ -73,7 +73,7 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
         return stack;
     }
 
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 3;
     }
 }

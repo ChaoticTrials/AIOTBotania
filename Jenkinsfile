@@ -3,7 +3,10 @@
 pipeline {
     agent any
     tools {
-        jdk "java8"
+        jdk 'java17'
+    }
+    environment { 
+        MODGRADLE_CI = 'true'
     }
     stages {
         stage('Clean') {
@@ -14,31 +17,17 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build and Publish') {
             steps {
                 echo 'Building'
-                sh './gradlew build'
+                sh './gradlew build curseforge modrinth publish'
             }
         }
 
         stage('Archive artifacts') {
             steps {
                 echo 'Archive'
-                archiveArtifacts 'build/libs*/*jar'
-            }
-        }
-
-        stage('Upload artifacts to CurseForge') {
-            steps {
-                echo 'Uploading to CurseForge'
-                sh './gradlew curseforge'
-            }
-        }
-
-        stage('Publish artifacts') {
-            steps {
-                echo 'Publishing'
-                sh './gradlew publish'
+                archiveArtifacts 'build/libs*/*.jar'
             }
         }
     }

@@ -7,9 +7,6 @@ import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import de.melanx.aiotbotania.core.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.core.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelHoe;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelShovel;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
@@ -21,17 +18,17 @@ import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
-import net.minecraft.block.Block;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.BeehiveDispenseBehavior;
-import net.minecraft.item.Item;
+import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class Registration {
 
@@ -63,9 +60,9 @@ public class Registration {
     public static final RegistryObject<Item> terrasteel_hoe = ITEMS.register("terra_hoe", ItemTerraHoe::new);
     public static final RegistryObject<Item> terrasteel_aiot = ITEMS.register("terra_aiot", ItemTerraSteelAIOT::new);
 
-    public static final RegistryObject<Item> alfsteel_shovel = ITEMS.register("alfsteel_shovel", ItemAlfsteelShovel::new);
-    public static final RegistryObject<Item> alfsteel_hoe = ITEMS.register("alfsteel_hoe", ItemAlfsteelHoe::new);
-    public static final RegistryObject<Item> alfsteel_aiot = ITEMS.register("alfsteel_aiot", ItemAlfsteelAIOT::new);
+//    public static final RegistryObject<Item> alfsteel_shovel = ITEMS.register("alfsteel_shovel", ItemAlfsteelShovel::new);
+//    public static final RegistryObject<Item> alfsteel_hoe = ITEMS.register("alfsteel_hoe", ItemAlfsteelHoe::new);
+//    public static final RegistryObject<Item> alfsteel_aiot = ITEMS.register("alfsteel_aiot", ItemAlfsteelAIOT::new);
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
@@ -86,8 +83,7 @@ public class Registration {
     }
 
     public static void registerDispenseBehavior() {
-        DispenserBlock.registerDispenseBehavior(livingwood_shears.get(), new BeehiveDispenseBehavior());
-        DispenserBlock.registerDispenseBehavior(livingrock_shears.get(), new BeehiveDispenseBehavior());
+        DispenserBlock.registerBehavior(livingwood_shears.get(), new ShearsDispenseItemBehavior());
+        DispenserBlock.registerBehavior(livingrock_shears.get(), new ShearsDispenseItemBehavior());
     }
-
 }

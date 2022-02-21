@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.livingwoodTools",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "aiotbotania:livingwood_aiot",
   "priority": true,
   "pages": [

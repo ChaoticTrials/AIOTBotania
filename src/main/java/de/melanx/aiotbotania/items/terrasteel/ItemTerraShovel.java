@@ -3,21 +3,22 @@ package de.melanx.aiotbotania.items.terrasteel;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
 import de.melanx.aiotbotania.util.ToolBreakContext;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -28,26 +29,26 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
         this(BotaniaAPI.instance().getTerrasteelItemTier());
     }
 
-    public ItemTerraShovel(IItemTier mat) {
+    public ItemTerraShovel(Tier mat) {
         super(mat, (int) (ItemTerraSteelAIOT.DAMAGE / 2f), -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE);
     }
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, Player player, @Nonnull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         ItemTerraSteelAIOT.setEnabled(stack, !ItemTerraSteelAIOT.isEnabled(stack));
-        if (!world.isRemote) {
-            world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+        if (!level.isClientSide) {
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
         }
-        return ActionResult.resultSuccess(stack);
+        return InteractionResultHolder.success(stack);
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-        BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        if (!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
-            Direction face = raycast.getFace();
+    public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+        BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10.0D, false);
+        if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
+            Direction face = raycast.getDirection();
             this.breakOtherBlock(player, stack, pos, pos, face);
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
         }
@@ -55,20 +56,17 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
     }
 
     @Override
-    public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
+    public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
         if (ItemTerraSteelAIOT.isEnabled(stack)) {
-            World world = player.world;
-            BlockState state = world.getBlockState(pos);
-            if (stack.getToolTypes().stream().anyMatch(state::isToolEffective)) {
-                if (!world.isAirBlock(pos)) {
-                    ToolUtil.removeBlocksInRange(new ToolBreakContext(player, pos, this.getTier()), side, 1);
+            Level level = player.level;
+            BlockState state = level.getBlockState(pos);
+            if (this.isCorrectToolForDrops(stack, state)) {
+                if (!level.isEmptyBlock(pos)) {
+                    ToolUtil.removeBlocksInRange(new ToolBreakContext(player, pos, this.getTier()), side, 1,
+                            blockState -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
+                                    && (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
                 }
             }
         }
-    }
-
-    @Override
-    public boolean disposeOfTrashBlocks(ItemStack itemStack) {
-        return false;
     }
 }

@@ -1,33 +1,30 @@
 package de.melanx.aiotbotania.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.Set;
 
 public class ToolBreakContext {
-    @Nullable
-    private final PlayerEntity player;
-    private final BlockPos pos;
-    private final World world;
-    private final ItemStack item;
-    private final IItemTier mat;
 
-    public ToolBreakContext(PlayerEntity player, BlockPos pos, IItemTier mat) {
-        this(player.world, player, player.getHeldItemMainhand(), pos, mat);
+    @Nullable
+    private final Player player;
+    private final BlockPos pos;
+    private final Level level;
+    private final ItemStack item;
+    private final Tier mat;
+
+    public ToolBreakContext(Player player, BlockPos pos, Tier mat) {
+        this(player.level, player, player.getMainHandItem(), pos, mat);
     }
 
-    protected ToolBreakContext(World worldIn, @Nullable PlayerEntity player, ItemStack heldItem, BlockPos pos, IItemTier mat) {
-        this.world = worldIn;
+    protected ToolBreakContext(Level level, @Nullable Player player, ItemStack heldItem, BlockPos pos, Tier mat) {
+        this.level = level;
         this.player = player;
         this.item = heldItem;
         this.pos = pos;
@@ -44,28 +41,19 @@ public class ToolBreakContext {
 
     @Nullable
     public Item getToolItem() {
-        return this.item.getItem() instanceof ToolItem ? this.item.getItem() : null;
+        return this.item.getItem() instanceof DiggerItem ? this.item.getItem() : null;
     }
 
     @Nullable
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
-    public World getWorld() {
-        return this.world;
+    public Level getLevel() {
+        return this.level;
     }
 
-    public IItemTier getMaterial() {
+    public Tier getMaterial() {
         return this.mat;
-    }
-
-    @Nullable
-    public Set<ToolType> getToolTypes() {
-        return this.getToolItem() != null ? this.getToolItem().getToolTypes(this.item) : null;
-    }
-
-    public boolean isEffectiveOn(BlockState state) {
-        return Objects.requireNonNull(this.getToolTypes()).stream().anyMatch(state::isToolEffective);
     }
 }

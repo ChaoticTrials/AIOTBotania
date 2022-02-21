@@ -2,14 +2,13 @@ package de.melanx.aiotbotania.core.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import vazkii.botania.common.lib.ModTags;
@@ -18,14 +17,14 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class DisposeModifier extends LootModifier {
-    protected DisposeModifier(ILootCondition[] conditions) {
+    protected DisposeModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
     public static void filterDisposable(List<ItemStack> drops, Entity entity, ItemStack stack) {
         if (!stack.isEmpty() && (stack.getItem() == Registration.elementium_aiot.get()
                 || (stack.getItem() == Registration.terrasteel_aiot.get() && ItemTerraSteelAIOT.isTipped(stack))
-                || (stack.getItem() == Registration.alfsteel_aiot.get() && ItemAlfsteelAIOT.isTipped(stack)))) {
+                /* || (stack.getItem() == Registration.alfsteel_aiot.get() && ItemAlfsteelAIOT.isTipped(stack)) TODO Alfsteel */)) {
             drops.removeIf(s -> !s.isEmpty() && (isDisposable(s) || isSemiDisposable(s) && !entity.isCrouching()));
         }
     }
@@ -45,8 +44,8 @@ public class DisposeModifier extends LootModifier {
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        Entity entity = context.get(LootParameters.THIS_ENTITY);
-        ItemStack tool = context.get(LootParameters.TOOL);
+        Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+        ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
         if (entity != null && tool != null && !tool.isEmpty()) {
             filterDisposable(generatedLoot, entity, tool);
         }
@@ -55,7 +54,7 @@ public class DisposeModifier extends LootModifier {
 
     public static class Serializer extends GlobalLootModifierSerializer<DisposeModifier> {
         @Override
-        public DisposeModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
+        public DisposeModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
             return new DisposeModifier(conditions);
         }
 

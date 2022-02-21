@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "aiotbotania:livingrock_sword"
+            "items": [
+              "aiotbotania:livingrock_sword"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "aiotbotania:livingrock_axe"
+            "items": [
+              "aiotbotania:livingrock_axe"
+            ]
           }
         ]
       }
@@ -31,7 +35,9 @@
       "conditions": {
         "items": [
           {
-            "item": "aiotbotania:livingrock_pickaxe"
+            "items": [
+              "aiotbotania:livingrock_pickaxe"
+            ]
           }
         ]
       }
@@ -41,7 +47,9 @@
       "conditions": {
         "items": [
           {
-            "item": "aiotbotania:livingrock_shovel"
+            "items": [
+              "aiotbotania:livingrock_shovel"
+            ]
           }
         ]
       }
@@ -51,7 +59,9 @@
       "conditions": {
         "items": [
           {
-            "item": "aiotbotania:livingrock_hoe"
+            "items": [
+              "aiotbotania:livingrock_hoe"
+            ]
           }
         ]
       }

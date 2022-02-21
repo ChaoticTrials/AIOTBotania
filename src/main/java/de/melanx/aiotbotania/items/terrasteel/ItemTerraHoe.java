@@ -2,17 +2,17 @@ package de.melanx.aiotbotania.items.terrasteel;
 
 import de.melanx.aiotbotania.items.base.ItemHoeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nonnull;
 
@@ -22,25 +22,25 @@ public class ItemTerraHoe extends ItemHoeBase {
         this(BotaniaAPI.instance().getTerrasteelItemTier());
     }
 
-    public ItemTerraHoe(IItemTier mat) {
+    public ItemTerraHoe(Tier mat) {
         super(mat, -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
     }
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, Player player, @Nonnull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         ItemTerraSteelAIOT.setEnabled(stack, !ItemTerraSteelAIOT.isEnabled(stack));
-        if (!world.isRemote) {
-            world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+        if (!level.isClientSide) {
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
         }
-        return ActionResult.resultSuccess(stack);
+        return InteractionResultHolder.success(stack);
     }
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        if (ItemTerraSteelAIOT.isEnabled(ctx.getItem())) {
+    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
+        if (ItemTerraSteelAIOT.isEnabled(ctx.getItemInHand())) {
             return ToolUtil.hoeUseAOE(ctx, this.special, this.low_tier, 1);
         } else {
             return ToolUtil.hoeUse(ctx, this.special, this.low_tier);

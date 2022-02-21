@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_sword"
+            "items": [
+              "botania:elementium_sword"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_axe"
+            "items": [
+              "botania:elementium_axe"
+            ]
           }
         ]
       }
@@ -31,7 +35,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_pickaxe"
+            "items": [
+              "botania:elementium_pickaxe"
+            ]
           }
         ]
       }
@@ -41,7 +47,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_shovel"
+            "items": [
+              "botania:elementium_shovel"
+            ]
           }
         ]
       }
@@ -51,7 +59,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_hoe"
+            "items": [
+              "botania:elementium_hoe"
+            ]
           }
         ]
       }

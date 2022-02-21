@@ -4,16 +4,16 @@ import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
@@ -28,27 +28,31 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext ctx) {
-        World world = ctx.getWorld();
-        BlockPos pos = ctx.getPos();
-        PlayerEntity player = ctx.getPlayer();
-        Direction side = ctx.getFace();
+    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
+        Level level = ctx.getLevel();
+        BlockPos pos = ctx.getClickedPos();
+        Player player = ctx.getPlayer();
+        Direction side = ctx.getClickedFace();
 
-        ActionResultType toReturn = ToolUtil.hoemodeUse(ctx, player, world, pos, side);
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
 
-        return toReturn == ActionResultType.PASS ? ToolUtil.stripLog(ctx) : toReturn;
+        InteractionResult toReturn = ToolUtil.hoemodeUse(ctx, player, level, pos, side);
+
+        return toReturn == InteractionResult.PASS ? ToolUtil.stripLog(ctx) : toReturn;
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-        ItemStack itemStack = player.getHeldItem(hand);
-        return ActionResult.resultFail(itemStack);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        return InteractionResultHolder.fail(itemStack);
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.type.canEnchantItem(Registration.livingwood_sword.get());
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(Registration.livingwood_sword.get());
     }
 }
 

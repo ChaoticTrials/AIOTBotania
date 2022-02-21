@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel_sword"
+            "items": [
+              "botania:manasteel_sword"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel_axe"
+            "items": [
+              "botania:manasteel_axe"
+            ]
           }
         ]
       }
@@ -31,7 +35,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel_pick"
+            "items": [
+              "botania:manasteel_pick"
+            ]
           }
         ]
       }
@@ -41,7 +47,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel_shovel"
+            "items": [
+              "botania:manasteel_shovel"
+            ]
           }
         ]
       }
@@ -51,7 +59,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel_hoe"
+            "items": [
+              "botania:manasteel_hoe"
+            ]
           }
         ]
       }

@@ -6,7 +6,7 @@ import de.melanx.aiotbotania.core.proxy.ClientProxy;
 import de.melanx.aiotbotania.core.proxy.CommonProxy;
 import de.melanx.aiotbotania.core.proxy.IProxy;
 import de.melanx.aiotbotania.util.CreativeTab;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +20,7 @@ public class AIOTBotania {
     public static AIOTBotania instance;
     public static IProxy proxy;
     private final Logger logger;
-    private final ItemGroup creativeTab;
+    private final CreativeModeTab creativeTab;
 
     public AIOTBotania() {
         instance = this;
@@ -40,7 +40,7 @@ public class AIOTBotania {
         return this.logger;
     }
 
-    public ItemGroup getTab() {
+    public CreativeModeTab getTab() {
         return this.creativeTab;
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.livingrockTools",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "aiotbotania:livingrock_aiot",
   "priority": true,
   "pages": [

@@ -1,83 +1,87 @@
 package de.melanx.aiotbotania.blocks;
 
 import de.melanx.aiotbotania.core.config.ConfigHandler;
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.ToolType;
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockCustomFarmland extends FarmlandBlock {
+public class BlockCustomFarmland extends FarmBlock {
     public BlockCustomFarmland() {
-        super(AbstractBlock.Properties.from(Blocks.FARMLAND).harvestTool(ToolType.SHOVEL));
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(MOISTURE, 7)
+        super(BlockBehaviour.Properties.copy(Blocks.FARMLAND));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(MOISTURE, 7)
         );
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
         if (ConfigHandler.CLIENT.PARTICLES.get()) {
             int r = 1;
             float g = 0.078F;
             float b = 0.576F;
             SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 3);
-            world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
+            level.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
         }
     }
 
     @Override
-    public void onFallenUpon(@Nonnull World world, @Nonnull BlockPos pos, Entity entity, float fallDistance) {
-        entity.onLivingFall(fallDistance, 1.0F);
+    public void fallOn(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockPos pos, Entity entity, float fallDistance) {
+        entity.causeFallDamage(fallDistance, 1.0F, DamageSource.FALL);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(MOISTURE);
     }
 
     @Override
-    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plantable) {
-        PlantType plantType = plantable.getPlantType(world, pos.up());
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter level, BlockPos pos, @Nonnull Direction facing, IPlantable plantable) {
+        PlantType plantType = plantable.getPlantType(level, pos.above());
         if (plantType == PlantType.CROP || plantType == PlantType.PLAINS) {
             return true;
         }
-        return super.canSustainPlant(state, world, pos, facing, plantable);
+        return super.canSustainPlant(state, level, pos, facing, plantable);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+    public ItemStack getCloneItemStack(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return new ItemStack(Blocks.FARMLAND.asItem());
     }
 
     @Override
-    public void tick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
-        BlockState above = world.getBlockState(pos.up());
-        if (above.getBlock() instanceof CropsBlock) {
-            CropsBlock crop = (CropsBlock) above.getBlock();
-            if (random.nextInt(30) <= 1)
-                crop.grow(world, pos.up(), above);
+    public void tick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        BlockState above = level.getBlockState(pos.above());
+        if (above.getBlock() instanceof CropBlock crop) {
+            if (rand.nextInt(30) <= 1)
+                crop.growCrops(level, pos.above(), above);
         }
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
         // no, thank you
     }
 }
