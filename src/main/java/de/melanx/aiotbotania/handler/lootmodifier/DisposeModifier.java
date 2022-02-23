@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DisposeModifier extends LootModifier {
 
-    protected DisposeModifier(LootItemCondition[] conditions) {
+    public DisposeModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 

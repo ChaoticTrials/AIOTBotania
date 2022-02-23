@@ -16,6 +16,7 @@ public class DataHandler {
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         if (event.includeServer()) {
+            generator.addProvider(new LootModifierProvider(generator));
             generator.addProvider(new Recipes(generator));
             generator.addProvider(new ModLootTables(generator));
             ModTags.Blocks blockTagsProvider = new ModTags.Blocks(generator, helper);

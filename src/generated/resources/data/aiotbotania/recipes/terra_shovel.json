@@ -18,7 +18,6 @@
   },
   "conditions": [
     {
-      "value": true,
       "type": "aiotbotania:terrasteel_enabled"
     }
   ]

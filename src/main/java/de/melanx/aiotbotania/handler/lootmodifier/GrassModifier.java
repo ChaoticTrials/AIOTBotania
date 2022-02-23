@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class GrassModifier extends LootModifier {
 
-    protected GrassModifier(LootItemCondition[] conditions) {
+    public GrassModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 

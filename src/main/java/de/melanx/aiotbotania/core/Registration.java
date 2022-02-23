@@ -66,8 +66,8 @@ public class Registration {
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
-    public static final RegistryObject<GlobalLootModifierSerializer<?>> dispose = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
-    public static final RegistryObject<GlobalLootModifierSerializer<?>> sapling_modifier = LOOT_MODIFIER.register("grass", GrassModifier.Serializer::new);
+    public static final RegistryObject<GlobalLootModifierSerializer<DisposeModifier>> dispose_modifier = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
+    public static final RegistryObject<GlobalLootModifierSerializer<GrassModifier>> grass_modifier = LOOT_MODIFIER.register("grass", GrassModifier.Serializer::new);
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
