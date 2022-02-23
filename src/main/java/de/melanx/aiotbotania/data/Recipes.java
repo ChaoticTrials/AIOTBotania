@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler.data;
+package de.melanx.aiotbotania.data;
 
 import com.google.gson.JsonArray;
 import de.melanx.aiotbotania.core.Registration;
@@ -18,8 +18,9 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("SameParameterValue")
 public class Recipes extends RecipeProvider {
-    public Recipes(DataGenerator gen) {
-        super(gen);
+
+    public Recipes(DataGenerator generator) {
+        super(generator);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Recipes extends RecipeProvider {
         getShovels(Registration.livingrock_shovel.get(), ModBlocks.livingrock).save(consumer);
         getShovels(Registration.terrasteel_shovel.get(), ModItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
             JsonArray array = new JsonArray();
-            array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition(true)));
+            array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
 //        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_shovel.get()),
@@ -57,7 +58,7 @@ public class Recipes extends RecipeProvider {
         getHoes(Registration.livingrock_hoe.get(), ModBlocks.livingrock).save(consumer);
         getHoes(Registration.terrasteel_hoe.get(), ModItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
             JsonArray array = new JsonArray();
-            array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition(true)));
+            array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
 //        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_hoe.get()),

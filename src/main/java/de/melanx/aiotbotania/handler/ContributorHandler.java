@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler;
+package de.melanx.aiotbotania.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
@@ -59,6 +59,7 @@ public class ContributorHandler extends RenderLayer<AbstractClientPlayer, Player
                 AIOTBotania.instance.getLogger().info("Oops, a wrong item at {}. Please report on GitHub. https://www.github.com/MelanX/aiotbotania/issues", key);
                 continue;
             }
+
             UUID uuid = UUID.fromString(key);
             contributorMap.put(uuid, stack);
         }
@@ -70,22 +71,20 @@ public class ContributorHandler extends RenderLayer<AbstractClientPlayer, Player
         return new ItemStack(item);
     }
 
-    private void renderIcon(PoseStack ms, MultiBufferSource buffers, Player player, ItemStack stack) {
-        ms.pushPose();
+    private void renderIcon(PoseStack poseStack, MultiBufferSource buffers, Player player, ItemStack stack) {
+        poseStack.pushPose();
 
-        //noinspection deprecation
-//        Minecraft.getInstance().textureManager.(TextureAtlas.LOCATION_BLOCKS);
-        ms.mulPose(Vector3f.XP.rotationDegrees(180));
-        ms.translate(0.15F, -0.17F, 0.13F);
-        ms.scale(0.15F, 0.15F, 0.15F);
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
+        poseStack.translate(0.15F, -0.17F, 0.13F);
+        poseStack.scale(0.15F, 0.15F, 0.15F);
 
         if (player.isCrouching()) {
-            ms.mulPose(Vector3f.XP.rotationDegrees(30));
-            ms.translate(0, -1.76, 0.2);
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(30));
+            poseStack.translate(0, -1.76, 0.2);
         }
 
-        RenderHelper.renderItemCustomColor(player, stack, -1, ms, buffers, 15728880, OverlayTexture.NO_OVERLAY);
-        ms.popPose();
+        RenderHelper.renderItemCustomColor(player, stack, -1, poseStack, buffers, 15728880, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
     }
 
     @Override

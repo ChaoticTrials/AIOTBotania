@@ -46,6 +46,7 @@ public class RecipeTerraSteelAIOTTipped extends ShapelessRecipe {
                 }
             }
         }
+
         return foundTerra && foundElementium;
     }
 
@@ -58,6 +59,7 @@ public class RecipeTerraSteelAIOTTipped extends ShapelessRecipe {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
         }
+
         ItemNBTHelper.setBoolean(stack, "tipped", true);
         return stack;
     }

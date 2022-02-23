@@ -4,24 +4,17 @@ import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 
 public class ItemLivingrockAIOT extends ItemAIOTBase {
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(Registration.livingrock_sword.get());
-    }
 
     private static final int MANA_PER_DAMAGE = 44;
     private static final float DAMAGE = 6.0F;
@@ -33,33 +26,33 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
 
     @Nonnull
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
-        ItemStack stack = ctx.getItemInHand();
-        Player player = ctx.getPlayer();
-        Level level = ctx.getLevel();
-        BlockPos pos = ctx.getClickedPos();
-        Direction side = ctx.getClickedFace();
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Player player = context.getPlayer();
 
         if (player == null) {
             return InteractionResult.PASS;
         }
 
-        Block block = level.getBlockState(pos).getBlock();
-
-        boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
+        boolean hoemode = ItemNBTHelper.getBoolean(context.getItemInHand(), "hoemode", true);
 
         if (hoemode) {
-            return ToolUtil.hoemodeUse(ctx, player, level, pos, side);
+            return ToolUtil.hoemodeUse(context, player, context.getLevel(), context.getClickedPos(), context.getClickedFace());
         } else {
+            InteractionResult result = InteractionResult.PASS;
             if (!player.isCrouching()) {
-                return ToolUtil.pickUse(ctx);
-            } else {
-                if (side == Direction.UP) {
-                    return ToolUtil.axeUse(ctx);
-                }
-
-                return ToolUtil.stripLog(ctx);
+                result = ToolUtil.pickUse(context);
             }
+
+            if (result == InteractionResult.PASS && context.getClickedFace() == Direction.UP) {
+                result = ToolUtil.axeUse(context);
+            }
+
+            return result == InteractionResult.PASS ? ToolUtil.stripLog(context) : result;
         }
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(Registration.livingrock_sword.get());
     }
 }

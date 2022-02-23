@@ -4,8 +4,6 @@ import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,6 +16,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nonnull;
 
 public class ItemLivingwoodAIOT extends ItemAIOTBase {
+
     private static final int MANA_PER_DAMAGE = 33;
     private static final float DAMAGE = 6.0F;
     private static final float SPEED = -2.4F;
@@ -28,26 +27,22 @@ public class ItemLivingwoodAIOT extends ItemAIOTBase {
 
     @Nonnull
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
-        Level level = ctx.getLevel();
-        BlockPos pos = ctx.getClickedPos();
-        Player player = ctx.getPlayer();
-        Direction side = ctx.getClickedFace();
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Player player = context.getPlayer();
 
         if (player == null) {
             return InteractionResult.PASS;
         }
 
-        InteractionResult toReturn = ToolUtil.hoemodeUse(ctx, player, level, pos, side);
+        InteractionResult result = ToolUtil.hoemodeUse(context, player, context.getLevel(), context.getClickedPos(), context.getClickedFace());
 
-        return toReturn == InteractionResult.PASS ? ToolUtil.stripLog(ctx) : toReturn;
+        return result == InteractionResult.PASS ? ToolUtil.stripLog(context) : result;
     }
 
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResultHolder.fail(player.getItemInHand(hand));
     }
 
     @Override

@@ -1,7 +1,6 @@
-package de.melanx.aiotbotania.core.handler;
+package de.melanx.aiotbotania.data;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.handler.data.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,19 +12,19 @@ public class DataHandler {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
-        DataGenerator gen = event.getGenerator();
+        DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         if (event.includeServer()) {
-            gen.addProvider(new Recipes(gen));
-            gen.addProvider(new ModLootTables(gen));
-            ModTags.Blocks blockTagsProvider = new ModTags.Blocks(gen, helper);
-            gen.addProvider(blockTagsProvider);
-            gen.addProvider(new ModTags.Items(gen, blockTagsProvider, helper));
+            generator.addProvider(new Recipes(generator));
+            generator.addProvider(new ModLootTables(generator));
+            ModTags.Blocks blockTagsProvider = new ModTags.Blocks(generator, helper);
+            generator.addProvider(blockTagsProvider);
+            generator.addProvider(new ModTags.Items(generator, blockTagsProvider, helper));
         }
         if (event.includeClient()) {
-            gen.addProvider(new BlockStates(gen, helper));
-            gen.addProvider(new ItemModels(gen, helper));
+            generator.addProvider(new BlockStates(generator, helper));
+            generator.addProvider(new ItemModels(generator, helper));
         }
     }
 

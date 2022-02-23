@@ -22,8 +22,8 @@ public class ItemTerraHoe extends ItemHoeBase {
         this(BotaniaAPI.instance().getTerrasteelItemTier());
     }
 
-    public ItemTerraHoe(Tier mat) {
-        super(mat, -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
+    public ItemTerraHoe(Tier tier) {
+        super(tier, -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE, true, false);
     }
 
     @Override
@@ -32,8 +32,9 @@ public class ItemTerraHoe extends ItemHoeBase {
         ItemStack stack = player.getItemInHand(hand);
         ItemTerraSteelAIOT.setEnabled(stack, !ItemTerraSteelAIOT.isEnabled(stack));
         if (!level.isClientSide) {
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
         }
+
         return InteractionResultHolder.success(stack);
     }
 
@@ -41,9 +42,9 @@ public class ItemTerraHoe extends ItemHoeBase {
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext ctx) {
         if (ItemTerraSteelAIOT.isEnabled(ctx.getItemInHand())) {
-            return ToolUtil.hoeUseAOE(ctx, this.special, this.low_tier, 1);
+            return ToolUtil.hoeUseAOE(ctx, this.special, this.lowTier, 1);
         } else {
-            return ToolUtil.hoeUse(ctx, this.special, this.low_tier);
+            return ToolUtil.hoeUse(ctx, this.special, this.lowTier);
         }
     }
 }

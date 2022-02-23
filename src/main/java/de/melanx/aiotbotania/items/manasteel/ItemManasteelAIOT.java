@@ -7,8 +7,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import vazkii.botania.common.item.ModItems;
 
 public class ItemManasteelAIOT extends ItemAIOTBase {
-    public ItemManasteelAIOT(Tier mat, float attackDamage, float attackSpeed, int MANA_PER_DAMAGE, boolean special) {
-        super(mat, attackDamage, attackSpeed, MANA_PER_DAMAGE, special);
+
+    public ItemManasteelAIOT(Tier tier, float attackDamage, float attackSpeed, int manaPerDamage, boolean special) {
+        super(tier, attackDamage, attackSpeed, manaPerDamage, special);
     }
 
     @Override

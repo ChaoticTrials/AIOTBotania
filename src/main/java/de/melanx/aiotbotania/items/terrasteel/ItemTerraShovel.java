@@ -29,8 +29,8 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
         this(BotaniaAPI.instance().getTerrasteelItemTier());
     }
 
-    public ItemTerraShovel(Tier mat) {
-        super(mat, (int) (ItemTerraSteelAIOT.DAMAGE / 2f), -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE);
+    public ItemTerraShovel(Tier tier) {
+        super(tier, (int) (ItemTerraSteelAIOT.DAMAGE / 2f), -2, ItemTerraSteelAIOT.MANA_PER_DAMAGE);
     }
 
     @Override
@@ -39,19 +39,21 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
         ItemStack stack = player.getItemInHand(hand);
         ItemTerraSteelAIOT.setEnabled(stack, !ItemTerraSteelAIOT.isEnabled(stack));
         if (!level.isClientSide) {
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
         }
+
         return InteractionResultHolder.success(stack);
     }
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-        BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
-            Direction face = raycast.getDirection();
+        BlockHitResult hitResult = ToolCommons.raytraceFromEntity(player, 10.0D, false);
+        if (!player.level.isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
+            Direction face = hitResult.getDirection();
             this.breakOtherBlock(player, stack, pos, pos, face);
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
         }
+
         return false;
     }
 
@@ -62,7 +64,10 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
             BlockState state = level.getBlockState(pos);
             if (this.isCorrectToolForDrops(stack, state)) {
                 if (!level.isEmptyBlock(pos)) {
-                    ToolUtil.removeBlocksInRange(new ToolBreakContext(player, pos, this.getTier()), side, 1,
+                    ToolUtil.removeBlocksInRange(
+                            new ToolBreakContext(player, pos, this.getTier()),
+                            side,
+                            1,
                             blockState -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
                                     && (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
                 }

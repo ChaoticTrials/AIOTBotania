@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler.data;
+package de.melanx.aiotbotania.data;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;

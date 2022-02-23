@@ -18,22 +18,21 @@ import java.util.function.Consumer;
 
 public class ItemShearsBase extends ShearsItem implements ICustomDamageItem {
 
-    protected final int MANA_PER_DAMAGE;
+    protected final int manaPerDamage;
 
-    public ItemShearsBase(int MANA_PER_DAMAGE, int MAX_DMG) {
-        super(new Item.Properties().tab(AIOTBotania.instance.getTab()).stacksTo(1).defaultDurability(MAX_DMG));
-
-        this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+    public ItemShearsBase(int manaPerDamage, int durability) {
+        super(new Item.Properties().tab(AIOTBotania.instance.getTab()).stacksTo(1).defaultDurability(durability));
+        this.manaPerDamage = manaPerDamage;
     }
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, 1, entity, this.MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.manaPerDamage);
     }
 
     @Override
-    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int itemSlot, boolean isSelected) {
-        ToolUtil.inventoryTick(stack, level, entity, this.MANA_PER_DAMAGE);
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int slot, boolean isSelected) {
+        ToolUtil.inventoryTick(stack, level, entity, this.manaPerDamage);
     }
 
     @Override

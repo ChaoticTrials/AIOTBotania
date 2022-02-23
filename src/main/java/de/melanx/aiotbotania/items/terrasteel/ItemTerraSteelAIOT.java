@@ -85,8 +85,8 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         this(ItemTiers.TERRASTEEL_AIOT_ITEM_TIER);
     }
 
-    public ItemTerraSteelAIOT(Tier mat) {
-        super(mat, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
+    public ItemTerraSteelAIOT(Tier tier) {
+        super(tier, DAMAGE, SPEED, MANA_PER_DAMAGE, true);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
         MinecraftForge.EVENT_BUS.addListener(this::leftClick);
         MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
@@ -100,14 +100,15 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
+        Multimap<Attribute, AttributeModifier> result = super.getDefaultAttributeModifiers(slot);
         if (slot == EquipmentSlot.MAINHAND) {
-            ret = HashMultimap.create(ret);
+            result = HashMultimap.create(result);
             if (isTipped(stack)) {
-                ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "AIOT modifier", 0.1));
+                result.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "AIOT modifier", 0.1));
             }
         }
-        return ret;
+
+        return result;
     }
 
     @Nonnull
@@ -123,54 +124,56 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-        BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
-            Direction face = raycast.getDirection();
-            if (AXE_MATERIALS.contains(player.getCommandSenderWorld().getBlockState(raycast.getBlockPos()).getMaterial())) {
+        BlockHitResult hitResult = ToolCommons.raytraceFromEntity(player, 10.0D, false);
+        if (!player.level.isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
+            Direction face = hitResult.getDirection();
+            if (AXE_MATERIALS.contains(player.getCommandSenderWorld().getBlockState(hitResult.getBlockPos()).getMaterial())) {
                 this.breakOtherBlockAxe(player, stack, pos, pos, face);
             } else {
                 this.breakOtherBlock(player, stack, pos, pos, face);
             }
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
         }
+
         return false;
     }
 
-    private void onEntityDrops(LivingDropsEvent e) {
-        if (e.isRecentlyHit() && e.getSource().getEntity() != null && e.getSource().getEntity() instanceof Player) {
-            ItemStack weapon = ((Player) e.getSource().getEntity()).getMainHandItem();
+    private void onEntityDrops(LivingDropsEvent event) {
+        if (event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player) {
+            ItemStack weapon = ((Player) event.getSource().getEntity()).getMainHandItem();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                Random rand = e.getEntityLiving().level.random;
+                Random rand = event.getEntityLiving().level.random;
                 int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, weapon);
-                if (e.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting)
-                    this.addDrop(e, new ItemStack(e.getEntity() instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-                else if (e.getEntityLiving() instanceof Zombie && !(e.getEntityLiving() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting)
-                    this.addDrop(e, new ItemStack(Items.ZOMBIE_HEAD));
-                else if (e.getEntityLiving() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting)
-                    this.addDrop(e, new ItemStack(Items.CREEPER_HEAD));
-                else if (e.getEntityLiving() instanceof Player && rand.nextInt(11) <= 1 + looting) {
+                if (event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
+                    this.addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                } else if (event.getEntityLiving() instanceof Zombie && !(event.getEntityLiving() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
+                    this.addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
+                } else if (event.getEntityLiving() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
+                    this.addDrop(event, new ItemStack(Items.CREEPER_HEAD));
+                } else if (event.getEntityLiving() instanceof Player && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) e.getEntityLiving()).getGameProfile().getName());
-                    this.addDrop(e, stack);
-                } else if (e.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-                    this.addDrop(e, new ItemStack(ModBlocks.gaiaHead));
+                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) event.getEntityLiving()).getGameProfile().getName());
+                    this.addDrop(event, stack);
+                } else if (event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting) {
+                    this.addDrop(event, new ItemStack(ModBlocks.gaiaHead));
+                }
             }
         }
     }
 
-    private void addDrop(LivingDropsEvent e, ItemStack drop) {
-        ItemEntity entityitem = new ItemEntity(e.getEntityLiving().level, e.getEntityLiving().xOld,
-                e.getEntityLiving().yOld, e.getEntityLiving().zOld, drop);
+    private void addDrop(LivingDropsEvent event, ItemStack drop) {
+        ItemEntity entityitem = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().xOld,
+                event.getEntityLiving().yOld, event.getEntityLiving().zOld, drop);
         entityitem.setPickUpDelay(10);
-        e.getDrops().add(entityitem);
+        event.getDrops().add(entityitem);
     }
 
     public void trySpawnBurst(Player player) {
         if (!player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == this && player.getAttackStrengthScale(0.0F) == 1.0F) {
             EntityManaBurst burst = this.getBurst(player, new ItemStack(ModItems.terraSword));
             player.level.addFreshEntity(burst);
-            player.getMainHandItem().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
+            player.getMainHandItem().hurtAndBreak(1, player, playerEntity -> playerEntity.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+            player.level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
         }
     }
 
@@ -178,15 +181,15 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         return ItemTerraSword.getBurst(player, stack);
     }
 
-    private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
-        if (!evt.getItemStack().isEmpty() && evt.getItemStack().getItem() == this) {
+    private void leftClick(PlayerInteractEvent.LeftClickEmpty event) {
+        if (!event.getItemStack().isEmpty() && event.getItemStack().getItem() == this) {
             AIOTBotaniaNetwork.INSTANCE.sendToServer(new TerrasteelCreateBurstMesssage());
         }
     }
 
-    private void attackEntity(AttackEntityEvent evt) {
-        if (!evt.getPlayer().level.isClientSide) {
-            this.trySpawnBurst(evt.getPlayer());
+    private void attackEntity(AttackEntityEvent event) {
+        if (!event.getPlayer().level.isClientSide) {
+            this.trySpawnBurst(event.getPlayer());
         }
     }
 
@@ -198,6 +201,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 setMana(stack, mana);
                 items.add(stack);
             }
+
             ItemStack stack = new ItemStack(this);
             setMana(stack, CREATIVE_MANA[1]);
             setTipped(stack);
@@ -246,6 +250,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 return i;
             }
         }
+
         return 0;
     }
 
@@ -308,6 +313,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
                 }
             }
+
             return InteractionResultHolder.success(stack);
         }
     }
@@ -348,7 +354,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         }
     }
 
-    public void breakOtherBlockAxe(Player player, ItemStack stack, BlockPos pos, @SuppressWarnings("unused") BlockPos originPos, @SuppressWarnings("unused") Direction side) {
+    public void breakOtherBlockAxe(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
         if (!player.isShiftKeyDown() && !tickingSwappers && isEnabled(stack) && !ItemTemperanceStone.hasTemperanceActive(player)) {
             addBlockSwapper(player.level, player, stack, pos, 32, true);
         }
@@ -399,28 +405,28 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 return false;
             } else {
                 int remainingSwaps = 10;
-                label51:
+                outerLoop:
                 while (remainingSwaps > 0 && !this.candidateQueue.isEmpty()) {
-                    SwapCandidate cand = this.candidateQueue.poll();
-                    if (!this.completedCoords.contains(cand.coordinates) && cand.range > 0) {
-                        ToolCommons.removeBlockWithDrops(this.player, this.truncator, this.level, cand.coordinates, state -> state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES));
+                    SwapCandidate candidate = this.candidateQueue.poll();
+                    if (!this.completedCoords.contains(candidate.coordinates) && candidate.range > 0) {
+                        ToolCommons.removeBlockWithDrops(this.player, this.truncator, this.level, candidate.coordinates, state -> state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES));
                         --remainingSwaps;
-                        this.completedCoords.add(cand.coordinates);
-                        Iterator<BlockPos> var3 = this.adjacent(cand.coordinates).iterator();
+                        this.completedCoords.add(candidate.coordinates);
+                        Iterator<BlockPos> coords = this.adjacent(candidate.coordinates).iterator();
                         while (true) {
                             BlockPos adj;
                             boolean isWood;
                             boolean isLeaf;
                             do {
-                                if (!var3.hasNext()) {
-                                    continue label51;
+                                if (!coords.hasNext()) {
+                                    continue outerLoop;
                                 }
-                                adj = var3.next();
+                                adj = coords.next();
                                 Block block = this.level.getBlockState(adj).getBlock();
                                 isWood = BlockTags.LOGS.contains(block);
                                 isLeaf = BlockTags.LEAVES.contains(block);
                             } while (!isWood && !isLeaf);
-                            int newRange = this.treatLeavesSpecial && isLeaf ? Math.min(3, cand.range - 1) : cand.range - 1;
+                            int newRange = this.treatLeavesSpecial && isLeaf ? Math.min(3, candidate.range - 1) : candidate.range - 1;
                             this.candidateQueue.offer(new BlockSwapper.SwapCandidate(adj, newRange));
                         }
                     }
@@ -441,33 +447,14 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                     }
                 }
             }
+
             return coords;
         }
 
-        public static final class SwapCandidate implements Comparable<BlockSwapper.SwapCandidate> {
-            public final BlockPos coordinates;
-            public final int range;
-
-            public SwapCandidate(BlockPos coordinates, int range) {
-                this.coordinates = coordinates;
-                this.range = range;
-            }
+        public record SwapCandidate(BlockPos coordinates, int range) implements Comparable<SwapCandidate> {
 
             public int compareTo(@Nonnull BlockSwapper.SwapCandidate other) {
                 return other.range - this.range;
-            }
-
-            public boolean equals(Object other) {
-                if (!(other instanceof BlockSwapper.SwapCandidate)) {
-                    return false;
-                } else {
-                    BlockSwapper.SwapCandidate cand = (BlockSwapper.SwapCandidate) other;
-                    return this.coordinates.equals(cand.coordinates) && this.range == cand.range;
-                }
-            }
-
-            public int hashCode() {
-                return Objects.hash(this.coordinates, this.range);
             }
         }
     }
@@ -497,12 +484,10 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Nonnull
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
-        Level level = ctx.getLevel();
-        BlockPos pos = ctx.getClickedPos();
-        Player player = ctx.getPlayer();
-        ItemStack stack = ctx.getItemInHand();
-        Direction side = ctx.getClickedFace();
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Player player = context.getPlayer();
+        ItemStack stack = context.getItemInHand();
+
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
         if (hoemode) {
             boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
@@ -512,31 +497,33 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             if (ItemTemperanceStone.hasTemperanceActive(player) && tier > 2) {
                 tier = 2;
             }
+
             int range = tier - 1;
             if (!player.isCrouching()) {
                 if (isEnabled(stack)) {
-                    return ToolUtil.hoeUseAOE(ctx, this.special, false, range);
+                    return ToolUtil.hoeUseAOE(context, this.special, false, range);
                 } else {
-                    return ToolUtil.hoeUse(ctx, this.special, false);
-                }
-            } else {
-                if (side != Direction.DOWN && level.getBlockState(pos.above()).isAir()) {
-                    return ToolUtil.shovelUse(ctx);
-                } else {
-                    return ToolUtil.stripLog(ctx);
+                    return ToolUtil.hoeUse(context, this.special, false);
                 }
             }
+
+            InteractionResult result = InteractionResult.PASS;
+            if (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
+                result = ToolUtil.shovelUse(context);
+            }
+
+            return result == InteractionResult.PASS ? ToolUtil.stripLog(context) : result;
         } else {
             //noinspection ConstantConditions
             if (!player.isCrouching()) {
-                return ToolUtil.pickUse(ctx);
+                return ToolUtil.pickUse(context);
             } else {
-                if (side == Direction.UP) {
-                    return ToolUtil.axeUse(ctx);
+                if (context.getClickedFace() == Direction.UP) {
+                    return ToolUtil.axeUse(context);
                 }
+
                 return InteractionResult.PASS;
             }
         }
     }
 }
-

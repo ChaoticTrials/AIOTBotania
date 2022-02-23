@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler.lootmodifier;
+package de.melanx.aiotbotania.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.items.base.ItemShearsBase;
@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.Random;
 
 public class GrassModifier extends LootModifier {
-    protected GrassModifier(LootItemCondition[] conditionsIn) {
-        super(conditionsIn);
+
+    protected GrassModifier(LootItemCondition[] conditions) {
+        super(conditions);
     }
 
     @Nonnull
@@ -30,22 +31,25 @@ public class GrassModifier extends LootModifier {
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
         ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
-        if (state != null && tool != null)
+        if (state != null && tool != null) {
             if (state.getBlock() instanceof TallGrassBlock && (tool.getItem() instanceof ItemShearsBase) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) <= 0) {
                 return Collections.singletonList(new ItemStack(Tags.Items.SEEDS.getRandomElement(new Random())));
             }
+        }
+
         return generatedLoot;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<GrassModifier> {
+
         @Override
-        public GrassModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
+        public GrassModifier read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
             return new GrassModifier(conditions);
         }
 
         @Override
         public JsonObject write(GrassModifier instance) {
-            return null;
+            return this.makeConditions(instance.conditions);
         }
     }
 }

@@ -17,18 +17,18 @@ public class ToolBreakContext {
     private final BlockPos pos;
     private final Level level;
     private final ItemStack item;
-    private final Tier mat;
+    private final Tier tier;
 
-    public ToolBreakContext(Player player, BlockPos pos, Tier mat) {
-        this(player.level, player, player.getMainHandItem(), pos, mat);
+    public ToolBreakContext(Player player, BlockPos pos, Tier tier) {
+        this(player.level, player, player.getMainHandItem(), pos, tier);
     }
 
-    protected ToolBreakContext(Level level, @Nullable Player player, ItemStack heldItem, BlockPos pos, Tier mat) {
+    protected ToolBreakContext(Level level, @Nullable Player player, ItemStack heldItem, BlockPos pos, Tier tier) {
         this.level = level;
         this.player = player;
         this.item = heldItem;
         this.pos = pos;
-        this.mat = mat;
+        this.tier = tier;
     }
 
     public BlockPos getPos() {
@@ -54,6 +54,6 @@ public class ToolBreakContext {
     }
 
     public Tier getMaterial() {
-        return this.mat;
+        return this.tier;
     }
 }

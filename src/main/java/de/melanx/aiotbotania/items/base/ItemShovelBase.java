@@ -12,25 +12,25 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class ItemShovelBase extends ShovelItem implements ICustomDamageItem {
 
-    protected final int MANA_PER_DAMAGE;
+    protected final int manaPerDamage;
 
-    public ItemShovelBase(Tier mat, int damage, float speed, int MANA_PER_DAMAGE) {
-        super(mat, damage, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
-
-        this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+    public ItemShovelBase(Tier tier, int damage, float speed, int manaPerDamage) {
+        super(tier, damage, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        this.manaPerDamage = manaPerDamage;
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
-        ToolUtil.inventoryTick(stack, level, entity, this.MANA_PER_DAMAGE);
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int slot, boolean isSelected) {
+        ToolUtil.inventoryTick(stack, level, entity, this.manaPerDamage);
     }
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.manaPerDamage);
     }
 }

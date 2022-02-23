@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler.data;
+package de.melanx.aiotbotania.data;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
@@ -25,8 +25,8 @@ import java.util.function.Supplier;
 
 public class ModLootTables extends LootTableProvider {
 
-    public ModLootTables(DataGenerator gen) {
-        super(gen);
+    public ModLootTables(DataGenerator generator) {
+        super(generator);
     }
 
     @Nonnull
@@ -38,11 +38,12 @@ public class ModLootTables extends LootTableProvider {
     }
 
     @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationContext validationtracker) {
-        map.forEach((name, table) -> LootTables.validate(validationtracker, name, table));
+    protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationContext context) {
+        map.forEach((name, table) -> LootTables.validate(context, name, table));
     }
 
     private static class BlockTable extends BlockLoot {
+
         @Override
         protected void addTables() {
             this.dropOther(Registration.custom_farmland.get(), Blocks.DIRT);

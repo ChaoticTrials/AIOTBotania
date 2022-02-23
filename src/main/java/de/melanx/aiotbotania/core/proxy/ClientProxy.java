@@ -2,7 +2,7 @@ package de.melanx.aiotbotania.core.proxy;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.core.handler.ContributorHandler;
+import de.melanx.aiotbotania.handler.ContributorHandler;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -17,6 +17,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import java.util.function.Consumer;
 
 public class ClientProxy extends CommonProxy {
+
     private static final ResourceLocation active = new ResourceLocation(AIOTBotania.MODID, "active");
     private static final ResourceLocation tipped = new ResourceLocation(AIOTBotania.MODID, "tipped");
 
@@ -35,7 +36,7 @@ public class ClientProxy extends CommonProxy {
         ItemProperties.register(Registration.terrasteel_shovel.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
         ItemProperties.register(Registration.terrasteel_aiot.get(), tipped, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
         ItemProperties.register(Registration.terrasteel_aiot.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-        // TODO ALfsteel
+        // TODO Alfsteel
 //        ItemProperties.register(Registration.alfsteel_hoe.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
 //        ItemProperties.register(Registration.alfsteel_shovel.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
 //        ItemProperties.register(Registration.alfsteel_aiot.get(), tipped, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);

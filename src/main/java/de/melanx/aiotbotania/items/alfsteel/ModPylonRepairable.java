@@ -3,7 +3,8 @@ package de.melanx.aiotbotania.items.alfsteel;
 import net.minecraft.world.item.ItemStack;
 
 public interface ModPylonRepairable {
-    int getRepairManaPerTick(ItemStack var1);
+
+    int getRepairManaPerTick(ItemStack stack);
 
     default boolean canRepairPylon(ItemStack stack) {
         return stack.getDamageValue() > 0;
@@ -13,6 +14,7 @@ public interface ModPylonRepairable {
         if (stack.getDamageValue() > 0) {
             stack.setDamageValue(Math.max(0, stack.getDamageValue() - 1));
         }
+
         return stack;
     }
 }

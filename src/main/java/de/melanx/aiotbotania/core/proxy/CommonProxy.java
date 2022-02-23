@@ -2,8 +2,8 @@ package de.melanx.aiotbotania.core.proxy;
 
 import com.google.common.collect.ImmutableMap;
 import de.melanx.aiotbotania.AIOTBotania;
+import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
@@ -55,7 +55,8 @@ public class CommonProxy implements IProxy {
     }
 
     public void onReload(AddReloadListenerEvent event) {
-        event.addListener(new SimplePreparableReloadListener<Object>() {
+        event.addListener(new SimplePreparableReloadListener<>() {
+
             @Nonnull
             @Override
             protected Object prepare(@Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
@@ -64,9 +65,9 @@ public class CommonProxy implements IProxy {
 
             @Override
             protected void apply(@Nonnull Object object, @Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
-                if (ConfigHandler.COMMON.TERRA_AIOT.get() || ModList.get().isLoaded("mythicbotany")) {
-                    RecipeManager rm = event.getDataPackRegistries().getRecipeManager();
-                    Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipes = ObfuscationReflectionHelper.getPrivateValue(RecipeManager.class, rm, "f_44007_");
+                if (CommonConfig.terraAiot.get() || ModList.get().isLoaded("mythicbotany")) {
+                    RecipeManager recipeManager = event.getDataPackRegistries().getRecipeManager();
+                    Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipes = ObfuscationReflectionHelper.getPrivateValue(RecipeManager.class, recipeManager, "f_44007_");
                     //noinspection ConstantConditions
                     Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipesNew = recipes.entrySet().stream().map(entry -> {
                         if (entry.getKey() == RecipeType.CRAFTING) {
@@ -75,13 +76,13 @@ public class CommonProxy implements IProxy {
                             return entry;
                         }
                     }).collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
-                    ObfuscationReflectionHelper.setPrivateValue(RecipeManager.class, rm, recipesNew, "f_44007_");
+                    ObfuscationReflectionHelper.setPrivateValue(RecipeManager.class, recipeManager, recipesNew, "f_44007_");
                 }
             }
 
             private Map<ResourceLocation, Recipe<?>> insertRecipe(Map<ResourceLocation, Recipe<?>> recipeMap) {
                 ImmutableMap.Builder<ResourceLocation, Recipe<?>> builder = ImmutableMap.<ResourceLocation, Recipe<?>>builder().putAll(recipeMap);
-                if (ConfigHandler.COMMON.TERRA_AIOT.get()) {
+                if (CommonConfig.terraAiot.get()) {
                     builder.put(TERRA_RECIPE_ID, new RecipeTerraSteelAIOT(TERRA_RECIPE_ID, "terrasteel_aiot"))
                             .put(TERRA_RECIPE_ID_TIPPED, new RecipeTerraSteelAIOTTipped(TERRA_RECIPE_ID_TIPPED, "recipe_terrasteel_aiot_tipped"));
                 }

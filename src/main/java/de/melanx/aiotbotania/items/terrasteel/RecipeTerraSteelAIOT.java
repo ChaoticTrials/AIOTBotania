@@ -58,6 +58,7 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
                 }
             }
         }
+
         return foundSword && foundAxe && foundPick && foundShovel && foundHoe;
     }
 

@@ -17,21 +17,20 @@ import java.util.function.Consumer;
 
 public class ItemAxeBase extends AxeItem implements ICustomDamageItem {
 
-    protected final int MANA_PER_DAMAGE;
+    protected final int manaPerDamage;
 
-    public ItemAxeBase(Tier mat, int MANA_PER_DAMAGE, float ATTACK_DAMAGE, float ATTACK_SPEED) {
-        super(mat, ATTACK_DAMAGE, ATTACK_SPEED, new Item.Properties().tab(AIOTBotania.instance.getTab()));
-
-        this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+    public ItemAxeBase(Tier tier, int manaPerDamage, float attackDamage, float attackSpeed) {
+        super(tier, attackDamage, attackSpeed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        this.manaPerDamage = manaPerDamage;
     }
 
     @Override
-    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int itemSlot, boolean isSelected) {
-        ToolUtil.inventoryTick(stack, level, entity, this.MANA_PER_DAMAGE);
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int slot, boolean isSelected) {
+        ToolUtil.inventoryTick(stack, level, entity, this.manaPerDamage);
     }
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.manaPerDamage);
     }
 }

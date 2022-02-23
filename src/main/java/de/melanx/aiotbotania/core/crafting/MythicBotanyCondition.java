@@ -8,12 +8,8 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import net.minecraftforge.fml.ModList;
 
 public class MythicBotanyCondition implements ICondition {
-    public static final ResourceLocation KEY = new ResourceLocation(AIOTBotania.MODID, "mythicbotany");
-    private final boolean value;
 
-    public MythicBotanyCondition(boolean value) {
-        this.value = value;
-    }
+    public static final ResourceLocation KEY = new ResourceLocation(AIOTBotania.MODID, "mythicbotany");
 
     @Override
     public ResourceLocation getID() {
@@ -25,15 +21,16 @@ public class MythicBotanyCondition implements ICondition {
         return ModList.get().isLoaded("mythicbotany");
     }
 
-    public static final IConditionSerializer<MythicBotanyCondition> SERIALIZER = new IConditionSerializer<MythicBotanyCondition>() {
+    public static final IConditionSerializer<MythicBotanyCondition> SERIALIZER = new IConditionSerializer<>() {
+
         @Override
         public void write(JsonObject json, MythicBotanyCondition value) {
-            json.addProperty("value", value.value);
+
         }
 
         @Override
         public MythicBotanyCondition read(JsonObject json) {
-            return new MythicBotanyCondition(json.get("value").getAsBoolean());
+            return new MythicBotanyCondition();
         }
 
         @Override

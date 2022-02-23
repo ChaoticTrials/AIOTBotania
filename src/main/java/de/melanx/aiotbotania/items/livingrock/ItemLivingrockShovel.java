@@ -18,6 +18,8 @@ public class ItemLivingrockShovel extends ItemShovelBase {
         super(ItemTiers.LIVINGROCK_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE);
     }
 
+    @Nonnull
+    @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
         return ToolUtil.shovelUse(context);
     }

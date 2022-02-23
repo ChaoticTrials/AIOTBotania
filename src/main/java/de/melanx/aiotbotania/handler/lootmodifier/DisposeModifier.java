@@ -1,4 +1,4 @@
-package de.melanx.aiotbotania.core.handler.lootmodifier;
+package de.melanx.aiotbotania.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.core.Registration;
@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class DisposeModifier extends LootModifier {
+
     protected DisposeModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
@@ -49,18 +50,20 @@ public class DisposeModifier extends LootModifier {
         if (entity != null && tool != null && !tool.isEmpty()) {
             filterDisposable(generatedLoot, entity, tool);
         }
+
         return generatedLoot;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<DisposeModifier> {
+
         @Override
-        public DisposeModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
+        public DisposeModifier read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
             return new DisposeModifier(conditions);
         }
 
         @Override
         public JsonObject write(DisposeModifier instance) {
-            return null;
+            return this.makeConditions(instance.conditions);
         }
     }
 }

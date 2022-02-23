@@ -1,7 +1,8 @@
 package de.melanx.aiotbotania;
 
+import de.melanx.aiotbotania.config.ClientConfig;
+import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.core.config.ConfigHandler;
 import de.melanx.aiotbotania.core.proxy.ClientProxy;
 import de.melanx.aiotbotania.core.proxy.CommonProxy;
 import de.melanx.aiotbotania.core.proxy.IProxy;
@@ -16,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(AIOTBotania.MODID)
 public class AIOTBotania {
+
     public static final String MODID = "aiotbotania";
     public static AIOTBotania instance;
     public static IProxy proxy;
@@ -28,10 +30,10 @@ public class AIOTBotania {
         this.logger = LogManager.getLogger();
         this.creativeTab = new CreativeTab();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);
 
-        proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+        proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
         proxy.registerHandlers();
         Registration.init();
     }

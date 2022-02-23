@@ -19,31 +19,30 @@ import java.util.function.Consumer;
 
 public class ItemHoeBase extends HoeItem implements ICustomDamageItem {
 
-    protected final int MANA_PER_DAMAGE;
+    protected final int manaPerDamage;
     protected final boolean special;
-    protected final boolean low_tier;
+    protected final boolean lowTier;
 
-    public ItemHoeBase(Tier mat, int speed, int MANA_PER_DAMAGE, boolean special, boolean low_tier) {
-        super(mat, 0, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
-
-        this.MANA_PER_DAMAGE = MANA_PER_DAMAGE;
+    public ItemHoeBase(Tier tier, int speed, int manaPerDamage, boolean special, boolean lowTier) {
+        super(tier, 0, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        this.manaPerDamage = manaPerDamage;
         this.special = special;
-        this.low_tier = low_tier;
+        this.lowTier = lowTier;
     }
 
     @Override
-    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int itemSlot, boolean isSelected) {
-        ToolUtil.inventoryTick(stack, level, entity, this.MANA_PER_DAMAGE);
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int slot, boolean isSelected) {
+        ToolUtil.inventoryTick(stack, level, entity, this.manaPerDamage);
     }
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.MANA_PER_DAMAGE);
+        return ToolCommons.damageItemIfPossible(stack, amount, entity, this.manaPerDamage);
     }
 
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
-        return ToolUtil.hoeUse(context, this.special, this.low_tier);
+        return ToolUtil.hoeUse(context, this.special, this.lowTier);
     }
 }

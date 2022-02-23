@@ -30,9 +30,9 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext ctx) {
         if (ItemTerraSteelAIOT.isEnabled(ctx.getItemInHand())) {
-            return ToolUtil.hoeUseAOE(ctx, this.special, this.low_tier, 2);
+            return ToolUtil.hoeUseAOE(ctx, this.special, this.lowTier, 2);
         } else {
-            return ToolUtil.hoeUse(ctx, this.special, this.low_tier);
+            return ToolUtil.hoeUse(ctx, this.special, this.lowTier);
         }
     }
 
@@ -43,7 +43,7 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
 
     @Override
     public int getRepairManaPerTick(ItemStack stack) {
-        return (int) (2.5 * this.MANA_PER_DAMAGE);
+        return (int) (2.5 * this.manaPerDamage);
     }
 
     @Override
