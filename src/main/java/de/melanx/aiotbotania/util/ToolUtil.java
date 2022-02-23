@@ -101,7 +101,8 @@ public class ToolUtil {
 
         if (player != null && player.mayUseItemAt(pos, side, context.getItemInHand())) {
             if (context.getClickedFace() != Direction.DOWN && level.isEmptyBlock(pos.above())) {
-                BlockState blockstate = ToolUtil.getHoeTillingState(level.getBlockState(pos), context);
+                BlockState state = level.getBlockState(pos);
+                BlockState blockstate = ToolUtil.getHoeTillingState(state, context);
                 if (blockstate != null) {
                     if (blockstate.getBlock() == Blocks.FARMLAND && special) {
                         blockstate = Registration.custom_farmland.get().defaultBlockState();
@@ -117,7 +118,7 @@ public class ToolUtil {
                     }
 
                     return InteractionResult.sidedSuccess(level.isClientSide);
-                } else if (level.getBlockState(pos).getBlock() instanceof FarmBlock) {
+                } else if (state.getBlock() instanceof FarmBlock) {
                     Block block = null;
                     if (special) {
                         block = Blocks.GRASS_BLOCK;
@@ -126,10 +127,7 @@ public class ToolUtil {
                     }
                     if (block != null) {
                         level.setBlockAndUpdate(pos, block.defaultBlockState());
-                        if (level.getBlockState(player.blockPosition()).getBlock() == Registration.custom_farmland.get()) {
-                            player.setPos(player.getX(), player.getY() + 0.0625, player.getZ());
-                        }
-
+                        Block.pushEntitiesUp(state, block.defaultBlockState(), level, pos);
                         return InteractionResult.sidedSuccess(level.isClientSide);
                     }
                 }

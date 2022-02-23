@@ -28,5 +28,4 @@ public class DataHandler {
             generator.addProvider(new ItemModels(generator, helper));
         }
     }
-
 }

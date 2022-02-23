@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -32,6 +33,11 @@ public class BlockCustomFarmland extends FarmBlock {
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(MOISTURE, 7)
         );
+    }
+
+    @Override
+    public void onNeighborChange(BlockState state, LevelReader world, BlockPos pos, BlockPos neighbor) {
+        super.onNeighborChange(state, world, pos, neighbor);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -75,6 +81,11 @@ public class BlockCustomFarmland extends FarmBlock {
 
     @Override
     public void tick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        if (!this.canSurvive(state, level, pos)) {
+            FarmBlock.turnToDirt(state, level, pos);
+            return;
+        }
+
         BlockState above = level.getBlockState(pos.above());
         if (above.getBlock() instanceof CropBlock crop) {
             if (rand.nextInt(30) <= 1) {
