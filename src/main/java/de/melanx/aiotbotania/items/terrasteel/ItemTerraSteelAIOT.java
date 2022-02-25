@@ -171,7 +171,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     public void trySpawnBurst(Player player) {
         if (!player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == this && player.getAttackStrengthScale(0.0F) == 1.0F) {
-            EntityManaBurst burst = this.getBurst(player, new ItemStack(ModItems.terraSword));
+            EntityManaBurst burst = this.getBurst(player, player.getMainHandItem());
             player.level.addFreshEntity(burst);
             player.getMainHandItem().hurtAndBreak(1, player, playerEntity -> playerEntity.broadcastBreakEvent(InteractionHand.MAIN_HAND));
             player.level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
