@@ -51,10 +51,6 @@ public class ContributorHandler extends RenderLayer<AbstractClientPlayer, Player
 
             ItemStack stack = getItem(value);
 
-            if (value.contains("alfsteel")) { // TODO remove when alfsteel
-                continue;
-            }
-
             if (stack.isEmpty()) {
                 AIOTBotania.instance.getLogger().info("Oops, a wrong item at {}. Please report on GitHub. https://www.github.com/MelanX/aiotbotania/issues", key);
                 continue;

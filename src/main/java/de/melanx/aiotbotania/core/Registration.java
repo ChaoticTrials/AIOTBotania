@@ -7,6 +7,9 @@ import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import de.melanx.aiotbotania.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelHoe;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelShovel;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
@@ -60,9 +63,9 @@ public class Registration {
     public static final RegistryObject<Item> terrasteel_hoe = ITEMS.register("terra_hoe", ItemTerraHoe::new);
     public static final RegistryObject<Item> terrasteel_aiot = ITEMS.register("terra_aiot", ItemTerraSteelAIOT::new);
 
-//    public static final RegistryObject<Item> alfsteel_shovel = ITEMS.register("alfsteel_shovel", ItemAlfsteelShovel::new);
-//    public static final RegistryObject<Item> alfsteel_hoe = ITEMS.register("alfsteel_hoe", ItemAlfsteelHoe::new);
-//    public static final RegistryObject<Item> alfsteel_aiot = ITEMS.register("alfsteel_aiot", ItemAlfsteelAIOT::new);
+    public static final RegistryObject<Item> alfsteel_shovel = ITEMS.register("alfsteel_shovel", ItemAlfsteelShovel::new);
+    public static final RegistryObject<Item> alfsteel_hoe = ITEMS.register("alfsteel_hoe", ItemAlfsteelHoe::new);
+    public static final RegistryObject<Item> alfsteel_aiot = ITEMS.register("alfsteel_aiot", ItemAlfsteelAIOT::new);
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 

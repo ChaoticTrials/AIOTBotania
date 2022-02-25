@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.core.network.TerrasteelCreateBurstMesssage;
 import de.melanx.aiotbotania.items.ItemTiers;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.ChatFormatting;
@@ -289,11 +290,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         return true;
     }
 
-//    @Override TODO
-//    public boolean disposeOfTrashBlocks(ItemStack stack) {
-//        return isTipped(stack);
-//    }
-
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
         return after.getItem() != this || isEnabled(before) != isEnabled(after);
@@ -335,9 +331,10 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                     tier = 2;
                     rangeDepth = 0;
                 }
-//                if (!(stack.getItem() instanceof ItemAlfsteelAIOT)) { TODO Alfsteel
-//                    rangeDepth = 0;
-//                }
+
+                if (!(stack.getItem() instanceof ItemAlfsteelAIOT)) {
+                    rangeDepth = 0;
+                }
 
                 int range = tier - 1;
                 int rangeY = Math.max(1, range);
@@ -469,18 +466,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             list.add((new TranslatableComponent("botaniamisc.getALife")).withStyle(ChatFormatting.RED));
         }
     }
-
-//    @Override TODO
-//    public float getManaFractionForDisplay(ItemStack stack) {
-//        int level = getLevel(stack);
-//        if (level <= 0) {
-//            return this.getMana(stack) / (float) LEVELS[1];
-//        } else if (level >= LEVELS.length - 1) {
-//            return 1f;
-//        } else {
-//            return (this.getMana(stack) - LEVELS[level]) / (float) LEVELS[level + 1];
-//        }
-//    }
 
     @Nonnull
     @Override

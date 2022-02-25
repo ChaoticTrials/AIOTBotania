@@ -62,16 +62,12 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
         if (ItemTerraSteelAIOT.isEnabled(stack)) {
             Level level = player.level;
             BlockState state = level.getBlockState(pos);
-            if (this.isCorrectToolForDrops(stack, state)) {
-                if (!level.isEmptyBlock(pos)) {
-                    ToolUtil.removeBlocksInRange(
-                            new ToolBreakContext(player, pos, this.getTier()),
-                            side,
-                            1,
-                            blockState -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
-                                    && (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
-                }
-            }
+            ToolUtil.removeBlocksInRange(
+                    new ToolBreakContext(player, pos, this.getTier()),
+                    side,
+                    1,
+                    blockState -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
+                            && (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
         }
     }
 }

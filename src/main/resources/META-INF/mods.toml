@@ -35,3 +35,10 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
     versionRange = "[1.18.1-428,)"
     ordering = "NONE"
     side="BOTH"
+
+[[dependencies.aiotbotania]]
+    modId="mythicbotany"
+    mandatory=false
+    versionRange="[1.18.1, 1.19)"
+    ordering="NONE"
+    side="BOTH"

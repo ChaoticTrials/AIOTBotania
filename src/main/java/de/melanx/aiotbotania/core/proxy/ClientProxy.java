@@ -36,11 +36,11 @@ public class ClientProxy extends CommonProxy {
         ItemProperties.register(Registration.terrasteel_shovel.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
         ItemProperties.register(Registration.terrasteel_aiot.get(), tipped, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
         ItemProperties.register(Registration.terrasteel_aiot.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-        // TODO Alfsteel
-//        ItemProperties.register(Registration.alfsteel_hoe.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-//        ItemProperties.register(Registration.alfsteel_shovel.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
-//        ItemProperties.register(Registration.alfsteel_aiot.get(), tipped, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
-//        ItemProperties.register(Registration.alfsteel_aiot.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+
+        ItemProperties.register(Registration.alfsteel_hoe.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(Registration.alfsteel_shovel.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(Registration.alfsteel_aiot.get(), tipped, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isTipped(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(Registration.alfsteel_aiot.get(), active, (stack, level, entity, seed) -> ItemTerraSteelAIOT.isEnabled(stack) ? 1.0F : 0.0F);
     }
 
     private void loadComplete(EntityRenderersEvent.AddLayers event) {

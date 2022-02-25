@@ -2,11 +2,13 @@ package de.melanx.aiotbotania.core.network;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
+import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -31,10 +33,9 @@ public class AIOTBotaniaNetwork {
             if (sender != null) {
                 if (hasItemInHand(sender, Registration.terrasteel_aiot.get())) {
                     ((ItemTerraSteelAIOT) Registration.terrasteel_aiot.get()).trySpawnBurst(sender);
+                } else if (ModList.get().isLoaded("mythicbotany") && hasItemInHand(sender, Registration.alfsteel_aiot.get())) {
+                    ((ItemAlfsteelAIOT) Registration.alfsteel_aiot.get()).trySpawnBurst(sender);
                 }
-//                else if (ModList.get().isLoaded("mythicbotany") && hasItemInHand(sender, Registration.alfsteel_aiot.get())) {
-//                    ((ItemAlfsteelAIOT) Registration.alfsteel_aiot.get()).trySpawnBurst(sender);
-//                } TODO Alfsteel
             }
         }), Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
