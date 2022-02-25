@@ -43,6 +43,9 @@ public class ItemHoeBase extends HoeItem implements ICustomDamageItem {
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
+        //noinspection deprecation
+        int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
+        if (hook != 0) return hook > 0 ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         return ToolUtil.hoeUse(context, this.special, this.lowTier);
     }
 }

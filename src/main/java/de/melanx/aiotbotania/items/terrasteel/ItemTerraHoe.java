@@ -40,11 +40,14 @@ public class ItemTerraHoe extends ItemHoeBase {
 
     @Nonnull
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext ctx) {
-        if (ItemTerraSteelAIOT.isEnabled(ctx.getItemInHand())) {
-            return ToolUtil.hoeUseAOE(ctx, this.special, this.lowTier, 1);
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        //noinspection deprecation
+        int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
+        if (hook != 0) return hook > 0 ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        if (ItemTerraSteelAIOT.isEnabled(context.getItemInHand())) {
+            return ToolUtil.hoeUseAOE(context, this.special, this.lowTier, 1);
         } else {
-            return ToolUtil.hoeUse(ctx, this.special, this.lowTier);
+            return ToolUtil.hoeUse(context, this.special, this.lowTier);
         }
     }
 }
