@@ -5,8 +5,9 @@ import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -17,7 +18,7 @@ public class ModTags {
 
     public static class Blocks extends BlockTagsProvider {
 
-        public static final Tag.Named<Block> MINEABLE_WITH_AIOT = BlockTags.bind("forge:mineable/aiot");
+        public static final TagKey<Block> MINEABLE_WITH_AIOT = BlockTags.create(new ResourceLocation("forge", "mineable/aiot"));
 
         public Blocks(DataGenerator generator, @Nullable ExistingFileHelper helper) {
             super(generator, AIOTBotania.MODID, helper);

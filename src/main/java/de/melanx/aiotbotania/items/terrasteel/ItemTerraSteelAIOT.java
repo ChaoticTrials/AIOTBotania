@@ -36,8 +36,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -62,13 +61,13 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.relic.ItemThorRing;
-import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.lib.ResourceLocationHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreaker, IManaItem {
+public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreaker {
 
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
@@ -235,11 +234,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         ItemNBTHelper.setInt(stack, "mana", mana);
     }
 
-    @Override
-    public int getMana(ItemStack stack) {
-        return getMana_(stack);
-    }
-
     public static int getMana_(ItemStack stack) {
         return ItemNBTHelper.getInt(stack, "mana", 0);
     }
@@ -256,41 +250,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     @Override
-    public int getMaxMana(ItemStack stack) {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public void addMana(ItemStack stack, int mana) {
-        setMana(stack, Math.min(this.getMana(stack) + mana, Integer.MAX_VALUE));
-    }
-
-    @Override
-    public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
-        return true;
-    }
-
-    @Override
-    public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-        return !ModTags.Items.TERRA_PICK_BLACKLIST.contains(otherStack.getItem());
-    }
-
-    @Override
-    public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
-        return false;
-    }
-
-    @Override
-    public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
-        return false;
-    }
-
-    @Override
-    public boolean isNoExport(ItemStack stack) {
-        return true;
-    }
-
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
         return after.getItem() != this || isEnabled(before) != isEnabled(after);
     }
@@ -301,7 +260,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             return super.use(level, player, hand);
         } else {
             ItemStack stack = player.getItemInHand(hand);
-            this.getMana(stack);
             int manaLevel = getLevel(stack);
             if (manaLevel != 0) {
                 setEnabled(stack, !isEnabled(stack));
@@ -419,9 +377,9 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                                     continue outerLoop;
                                 }
                                 adj = coords.next();
-                                Block block = this.level.getBlockState(adj).getBlock();
-                                isWood = BlockTags.LOGS.contains(block);
-                                isLeaf = BlockTags.LEAVES.contains(block);
+                                BlockState state = this.level.getBlockState(adj);
+                                isWood = state.is(BlockTags.LOGS);
+                                isLeaf = state.is(BlockTags.LEAVES);
                             } while (!isWood && !isLeaf);
                             int newRange = this.treatLeavesSpecial && isLeaf ? Math.min(3, candidate.range - 1) : candidate.range - 1;
                             this.candidateQueue.offer(new BlockSwapper.SwapCandidate(adj, newRange));
@@ -462,7 +420,8 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
         Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
         list.add(rankFormat);
-        if (this.getMana(stack) == Integer.MAX_VALUE) {
+        IManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+        if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
             list.add((new TranslatableComponent("botaniamisc.getALife")).withStyle(ChatFormatting.RED));
         }
     }

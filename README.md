@@ -1,6 +1,6 @@
 ## AIOT Botania
-[![CurseForge](http://cf.way2muchnoise.eu/full_294815_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aiot-botania)
 [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_294815_all.svg)](https://www.curseforge.com/minecraft/mc-mods/aiot-botania)
+[![CurseForge](http://cf.way2muchnoise.eu/full_294815_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aiot-botania)
 
 [![Modrinth](https://modrinth-utils.vercel.app/api/badge/versions?id=TFFWPTSD&logo=true)](https://modrinth.com/mod/aiot-botania)
 [![Modrinth](https://modrinth-utils.vercel.app/api/badge/downloads?id=TFFWPTSD&logo=true)](https://modrinth.com/mod/aiot-botania)

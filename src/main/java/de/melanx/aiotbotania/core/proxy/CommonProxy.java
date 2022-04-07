@@ -5,9 +5,6 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
-import de.melanx.aiotbotania.items.alfsteel.CustomPylonRepairable;
-import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOT;
-import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOTTipped;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
 import de.melanx.aiotbotania.util.ToolUtil;
@@ -51,7 +48,7 @@ public class CommonProxy implements IProxy {
         AIOTBotaniaNetwork.registerPackets();
 
         if (ModList.get().isLoaded("mythicbotany")) {
-            CustomPylonRepairable.pylonRepairable().run();
+//            CustomPylonRepairable.pylonRepairable().run(); TODO
         }
 
         Registration.registerDispenseBehavior();
@@ -69,7 +66,7 @@ public class CommonProxy implements IProxy {
             @Override
             protected void apply(@Nonnull Object object, @Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
                 if (CommonConfig.terraAiot.get() || ModList.get().isLoaded("mythicbotany")) {
-                    RecipeManager recipeManager = event.getDataPackRegistries().getRecipeManager();
+                    RecipeManager recipeManager = event.getServerResources().getRecipeManager();
                     Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipes = ObfuscationReflectionHelper.getPrivateValue(RecipeManager.class, recipeManager, "f_44007_");
                     //noinspection ConstantConditions
                     Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipesNew = recipes.entrySet().stream().map(entry -> {
@@ -90,8 +87,9 @@ public class CommonProxy implements IProxy {
                             .put(TERRA_RECIPE_ID_TIPPED, new RecipeTerraSteelAIOTTipped(TERRA_RECIPE_ID_TIPPED, "recipe_terrasteel_aiot_tipped"));
                 }
                 if (ModList.get().isLoaded("mythicbotany")) {
-                    builder.put(ALFSTEEL_RECIPE_ID, new RecipeAlfsteelAIOT(ALFSTEEL_RECIPE_ID, "recipe_alfsteel_aiot"))
-                            .put(ALFSTEEL_RECIPE_ID_TIPPED, new RecipeAlfsteelAIOTTipped(ALFSTEEL_RECIPE_ID_TIPPED, "recipe_alfsteel_aiot_tipped"));
+                    // TODO
+//                    builder.put(ALFSTEEL_RECIPE_ID, new RecipeAlfsteelAIOT(ALFSTEEL_RECIPE_ID, "recipe_alfsteel_aiot"))
+//                            .put(ALFSTEEL_RECIPE_ID_TIPPED, new RecipeAlfsteelAIOTTipped(ALFSTEEL_RECIPE_ID_TIPPED, "recipe_alfsteel_aiot_tipped"));
                 }
                 return builder.build();
             }

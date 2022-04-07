@@ -2,7 +2,10 @@ package de.melanx.aiotbotania.handler.lootmodifier;
 
 import com.google.gson.JsonObject;
 import de.melanx.aiotbotania.items.base.ItemShearsBase;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -16,11 +19,14 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class GrassModifier extends LootModifier {
+
+    private static final Random RANDOM = new Random();
 
     public GrassModifier(LootItemCondition[] conditions) {
         super(conditions);
@@ -33,11 +39,22 @@ public class GrassModifier extends LootModifier {
         ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
         if (state != null && tool != null) {
             if (state.getBlock() instanceof TallGrassBlock && (tool.getItem() instanceof ItemShearsBase) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) <= 0) {
-                return Collections.singletonList(new ItemStack(Tags.Items.SEEDS.getRandomElement(new Random())));
+                return Collections.singletonList(new ItemStack(GrassModifier::getRandomSeed));
             }
         }
 
         return generatedLoot;
+    }
+
+    @Nonnull
+    private static Item getRandomSeed() {
+        List<Item> items = new ArrayList<>();
+        //noinspection deprecation
+        for (Holder<Item> itemHolder : Registry.ITEM.getTagOrEmpty(Tags.Items.SEEDS)) {
+            items.add(itemHolder.value());
+        }
+
+        return items.get(RANDOM.nextInt(items.size()));
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<GrassModifier> {
