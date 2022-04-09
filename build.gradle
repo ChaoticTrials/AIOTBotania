@@ -35,8 +35,8 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
 
-//    runtimeOnly fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.2-3.2.2")
-//    compileOnly fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.0")
+    runtimeOnly fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.2-3.2.2")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.0")
 
 //    runtimeOnly fg.deobf("de.melanx.recipeprinter:recipeprinter-1.16.3:2.0.1")
 }

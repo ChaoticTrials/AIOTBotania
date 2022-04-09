@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +52,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
-        /* TODO if (player.isShiftKeyDown()) {
+        if (player.isShiftKeyDown()) {
             double x = player.getX();
             double y = player.getY();
             double z = player.getZ();
@@ -66,7 +67,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
             for (ItemEntity item : items) {
                 item.moveTo(x + level.random.nextFloat() - 0.5f, y + level.random.nextFloat(), z + level.random.nextFloat() - 0.5f, item.yRot, item.xRot);
             }
-        } */
+        }
         return super.use(level, player, hand);
     }
 
