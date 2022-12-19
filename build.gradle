@@ -1,8 +1,8 @@
 buildscript {
-    apply from: 'https://noeppi-noeppi.github.io/ModUtils/v3/buildscript.gradle', to: buildscript
+    apply from: 'https://moddingx.github.io/ModUtils/v4/buildscript.gradle', to: buildscript
 }
 
-apply from: 'https://noeppi-noeppi.github.io/ModUtils/v3/mod.gradle'
+apply from: 'https://moddingx.github.io/ModUtils/v4/mod.gradle'
 
 repositories {
     maven {
@@ -30,13 +30,13 @@ repositories {
 }
 
 dependencies {
-    implementation fg.deobf("vazkii.botania:Botania:1.18.2-430")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.4.171")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
+    implementation fg.deobf("vazkii.botania:Botania:1.18.2-435")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.1.255")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71.1")
 
-    runtimeOnly fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.2-3.2.2")
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.0")
+    runtimeOnly fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.2-3.2.18")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.14")
 
 //    runtimeOnly fg.deobf("de.melanx.recipeprinter:recipeprinter-1.16.3:2.0.1")
 }
