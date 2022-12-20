@@ -1,4 +1,4 @@
 {
-  "conditions": [],
-  "type": "aiotbotania:dispose"
+  "type": "aiotbotania:dispose",
+  "conditions": []
 }

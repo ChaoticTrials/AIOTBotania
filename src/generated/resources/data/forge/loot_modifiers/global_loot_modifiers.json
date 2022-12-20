@@ -1,7 +1,7 @@
 {
-  "replace": false,
   "entries": [
     "aiotbotania:grass",
     "aiotbotania:dispose"
-  ]
+  ],
+  "replace": false
 }

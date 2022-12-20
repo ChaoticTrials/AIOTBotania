@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MMM",
-    " T ",
-    " T "
-  ],
   "key": {
     "M": {
       "item": "botania:livingrock"
@@ -13,6 +8,11 @@
       "item": "botania:livingwood_twig"
     }
   },
+  "pattern": [
+    "MMM",
+    " T ",
+    " T "
+  ],
   "result": {
     "item": "aiotbotania:livingrock_pickaxe"
   }

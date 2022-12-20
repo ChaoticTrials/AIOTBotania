@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " M",
-    "M "
-  ],
   "key": {
     "M": {
       "item": "botania:livingrock"
     }
   },
+  "pattern": [
+    " M",
+    "M "
+  ],
   "result": {
     "item": "aiotbotania:livingrock_shears"
   }
