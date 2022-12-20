@@ -17,7 +17,7 @@ public class MythicBotanyCondition implements ICondition {
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         return ModList.get().isLoaded("mythicbotany");
     }
 

@@ -6,7 +6,6 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -41,7 +40,7 @@ public class ItemAlfsteelShovel extends ItemTerraShovel implements MythicBotany,
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (!ModList.get().isLoaded("mythicbotany")) {
-            tooltip.add(new TranslatableComponent(AIOTBotania.MODID + ".mythicbotany.disabled").withStyle(ChatFormatting.DARK_RED));
+            tooltip.add(Component.translatable(AIOTBotania.MODID + ".mythicbotany.disabled").withStyle(ChatFormatting.DARK_RED));
         } else {
             super.appendHoverText(stack, level, tooltip, flag);
         }

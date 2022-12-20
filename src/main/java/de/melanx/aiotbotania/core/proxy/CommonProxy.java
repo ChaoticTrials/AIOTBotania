@@ -22,14 +22,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import org.apache.commons.lang3.tuple.Pair;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -98,17 +99,16 @@ public class CommonProxy implements IProxy {
         });
     }
 
-    // TODO 1.19 find a new way to use this
-    public void onTilt(@SuppressWarnings("deprecation") UseHoeEvent event) {
+    public void onTilt(BlockEvent.BlockToolModificationEvent event) {
         UseOnContext context = event.getContext();
 
-        if (context.getLevel().isClientSide) {
+        if (event.getToolAction() != ToolActions.HOE_TILL || context.getLevel().isClientSide) {
             return;
         }
 
         ItemStack stack = context.getItemInHand();
-        if (stack.getItem() == ModItems.elementiumHoe || stack.getItem() == ModItems.manasteelHoe) {
-            InteractionResult resultType = ToolUtil.hoeUse(context, stack.getItem() == ModItems.elementiumHoe, false);
+        if (stack.getItem() == BotaniaItems.elementiumHoe || stack.getItem() == BotaniaItems.manasteelHoe) {
+            InteractionResult resultType = ToolUtil.hoeUse(context, stack.getItem() == BotaniaItems.elementiumHoe, false);
             if (resultType != InteractionResult.PASS) {
                 event.setCanceled(true);
             }

@@ -30,13 +30,13 @@ repositories {
 }
 
 dependencies {
-    implementation fg.deobf("vazkii.botania:Botania:1.18.2-435")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.1.255")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1")
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71.1")
+    implementation fg.deobf("vazkii.botania:Botania:1.19.2-436-FORGE")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:11.4.0.290")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77")
 
-    runtimeOnly fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.2-3.2.18")
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.14")
+    runtimeOnly fg.deobf("org.moddingx:LibX:1.19.2-4.2.5")
+//    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.18.2-2.1.14")
 
 //    runtimeOnly fg.deobf("de.melanx.recipeprinter:recipeprinter-1.16.3:2.0.1")
 }

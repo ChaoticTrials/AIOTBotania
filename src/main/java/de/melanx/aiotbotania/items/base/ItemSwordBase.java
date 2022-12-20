@@ -9,13 +9,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
-import vazkii.botania.common.item.equipment.ICustomDamageItem;
+import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class ItemSwordBase extends SwordItem implements ICustomDamageItem {
+public class ItemSwordBase extends SwordItem implements CustomDamageItem {
 
     protected final int manaPerDamage;
 

@@ -10,13 +10,13 @@ import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import vazkii.botania.common.item.equipment.ICustomDamageItem;
+import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class ItemShearsBase extends ShearsItem implements ICustomDamageItem {
+public class ItemShearsBase extends ShearsItem implements CustomDamageItem {
 
     protected final int manaPerDamage;
 

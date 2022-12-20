@@ -1,29 +1,33 @@
 package de.melanx.aiotbotania.handler.lootmodifier;
 
-import com.google.gson.JsonObject;
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
-import net.minecraft.resources.ResourceLocation;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class DisposeModifier extends LootModifier {
+
+    public static final Supplier<Codec<DisposeModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, DisposeModifier::new)));
 
     public DisposeModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
-    public static void filterDisposable(List<ItemStack> drops, Entity entity, ItemStack stack) {
+    public static void filterDisposable(ObjectArrayList<ItemStack> drops, Entity entity, ItemStack stack) {
         if (!stack.isEmpty() && (stack.getItem() == Registration.elementium_aiot.get()
                 || (stack.getItem() == Registration.terrasteel_aiot.get() && ItemTerraSteelAIOT.isTipped(stack))
                 || (stack.getItem() == Registration.alfsteel_aiot.get() && ItemAlfsteelAIOT.isTipped(stack)))) {
@@ -36,16 +40,16 @@ public class DisposeModifier extends LootModifier {
             return false;
         }
 
-        return stack.is(ModTags.Items.DISPOSABLE);
+        return stack.is(BotaniaTags.Items.DISPOSABLE);
     }
 
     private static boolean isSemiDisposable(ItemStack stack) {
-        return stack.is(ModTags.Items.SEMI_DISPOSABLE);
+        return stack.is(BotaniaTags.Items.SEMI_DISPOSABLE);
     }
 
     @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
         ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
         if (entity != null && tool != null && !tool.isEmpty()) {
@@ -55,16 +59,8 @@ public class DisposeModifier extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<DisposeModifier> {
-
-        @Override
-        public DisposeModifier read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
-            return new DisposeModifier(conditions);
-        }
-
-        @Override
-        public JsonObject write(DisposeModifier instance) {
-            return this.makeConditions(instance.conditions);
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

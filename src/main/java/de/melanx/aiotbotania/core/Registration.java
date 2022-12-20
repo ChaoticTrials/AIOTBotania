@@ -1,5 +1,6 @@
 package de.melanx.aiotbotania.core;
 
+import com.mojang.serialization.Codec;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.blocks.BlockCustomFarmland;
 import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
@@ -26,7 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,7 +38,7 @@ public class Registration {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AIOTBotania.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AIOTBotania.MODID);
-    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
 
     public static final RegistryObject<Item> livingwood_shears = ITEMS.register("livingwood_shears", () -> new ItemShearsBase(10, 60));
     public static final RegistryObject<Item> livingwood_sword = ITEMS.register("livingwood_sword", () -> new ItemSwordBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 3, -2.5F, 30));
@@ -69,8 +70,8 @@ public class Registration {
 
     public static final RegistryObject<Block> custom_farmland = BLOCKS.register("super_farmland", BlockCustomFarmland::new);
 
-    public static final RegistryObject<GlobalLootModifierSerializer<DisposeModifier>> dispose_modifier = LOOT_MODIFIER.register("dispose", DisposeModifier.Serializer::new);
-    public static final RegistryObject<GlobalLootModifierSerializer<GrassModifier>> grass_modifier = LOOT_MODIFIER.register("grass", GrassModifier.Serializer::new);
+    public static final RegistryObject<Codec<DisposeModifier>> dispose_modifier = LOOT_MODIFIER.register("dispose", DisposeModifier.CODEC);
+    public static final RegistryObject<Codec<GrassModifier>> grass_modifier = LOOT_MODIFIER.register("grass", GrassModifier.CODEC);
 
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

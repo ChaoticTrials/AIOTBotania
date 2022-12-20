@@ -17,13 +17,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.api.item.SequentialBreaker;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 
-public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreaker {
+public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker {
 
     public ItemTerraShovel() {
         this(BotaniaAPI.instance().getTerrasteelItemTier());
@@ -39,7 +39,7 @@ public class ItemTerraShovel extends ItemShovelBase implements ISequentialBreake
         ItemStack stack = player.getItemInHand(hand);
         ItemTerraSteelAIOT.setEnabled(stack, !ItemTerraSteelAIOT.isEnabled(stack));
         if (!level.isClientSide) {
-            level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
         }
 
         return InteractionResultHolder.success(stack);

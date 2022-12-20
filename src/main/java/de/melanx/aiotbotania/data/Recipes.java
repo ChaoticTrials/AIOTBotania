@@ -1,17 +1,16 @@
 package de.melanx.aiotbotania.data;
 
 import com.google.gson.JsonArray;
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.level.ItemLike;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.data.recipes.WrapperResult;
 
 import javax.annotation.Nonnull;
@@ -26,51 +25,51 @@ public class Recipes extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
-        getShears(Registration.livingwood_shears.get(), ModBlocks.livingwood).save(consumer);
-        getShears(Registration.livingrock_shears.get(), ModBlocks.livingrock).save(consumer);
+        getShears(Registration.livingwood_shears.get(), BotaniaBlocks.livingwood).save(consumer);
+        getShears(Registration.livingrock_shears.get(), BotaniaBlocks.livingrock).save(consumer);
 
-        getSwords(Registration.livingwood_sword.get(), ModBlocks.livingwood).save(consumer);
-        getSwords(Registration.livingrock_sword.get(), ModBlocks.livingrock).save(consumer);
+        getSwords(Registration.livingwood_sword.get(), BotaniaBlocks.livingwood).save(consumer);
+        getSwords(Registration.livingrock_sword.get(), BotaniaBlocks.livingrock).save(consumer);
 
-        getAxes(Registration.livingwood_axe.get(), ModBlocks.livingwood).save(consumer);
-        getAxes(Registration.livingrock_axe.get(), ModBlocks.livingrock).save(consumer);
+        getAxes(Registration.livingwood_axe.get(), BotaniaBlocks.livingwood).save(consumer);
+        getAxes(Registration.livingrock_axe.get(), BotaniaBlocks.livingrock).save(consumer);
 
-        getPickaxes(Registration.livingwood_pickaxe.get(), ModBlocks.livingwood).save(consumer);
-        getPickaxes(Registration.livingrock_pickaxe.get(), ModBlocks.livingrock).save(consumer);
+        getPickaxes(Registration.livingwood_pickaxe.get(), BotaniaBlocks.livingwood).save(consumer);
+        getPickaxes(Registration.livingrock_pickaxe.get(), BotaniaBlocks.livingrock).save(consumer);
 
-        getShovels(Registration.livingwood_shovel.get(), ModBlocks.livingwood).save(consumer);
-        getShovels(Registration.livingrock_shovel.get(), ModBlocks.livingrock).save(consumer);
-        getShovels(Registration.terrasteel_shovel.get(), ModItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
+        getShovels(Registration.livingwood_shovel.get(), BotaniaBlocks.livingwood).save(consumer);
+        getShovels(Registration.livingrock_shovel.get(), BotaniaBlocks.livingrock).save(consumer);
+        getShovels(Registration.terrasteel_shovel.get(), BotaniaItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
             JsonArray array = new JsonArray();
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_shovel.get()),
-                        Ingredient.of(mythicbotany.ModItems.alfsteelIngot),
-                        Registration.alfsteel_shovel.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-                .save(WrapperResult.transformJson(consumer, json -> {
-                    JsonArray array = new JsonArray();
-                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-                    json.add("conditions", array);
-                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel"));
+//        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_shovel.get()),
+//                        Ingredient.of(mythicbotany.ModItems.alfsteelIngot),
+//                        Registration.alfsteel_shovel.get())
+//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+//                .save(WrapperResult.transformJson(consumer, json -> {
+//                    JsonArray array = new JsonArray();
+//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+//                    json.add("conditions", array);
+//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel")); TODO MythicBotany
 
-        getHoes(Registration.livingwood_hoe.get(), ModBlocks.livingwood).save(consumer);
-        getHoes(Registration.livingrock_hoe.get(), ModBlocks.livingrock).save(consumer);
-        getHoes(Registration.terrasteel_hoe.get(), ModItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
+        getHoes(Registration.livingwood_hoe.get(), BotaniaBlocks.livingwood).save(consumer);
+        getHoes(Registration.livingrock_hoe.get(), BotaniaBlocks.livingrock).save(consumer);
+        getHoes(Registration.terrasteel_hoe.get(), BotaniaItems.terrasteel).save(WrapperResult.transformJson(consumer, json -> {
             JsonArray array = new JsonArray();
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_hoe.get()),
-                        Ingredient.of(mythicbotany.ModItems.alfsteelIngot),
-                        Registration.alfsteel_hoe.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-                .save(WrapperResult.transformJson(consumer, json -> {
-                    JsonArray array = new JsonArray();
-                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-                    json.add("conditions", array);
-                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe"));
+//        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_hoe.get()),
+//                        Ingredient.of(mythicbotany.ModItems.alfsteelIngot),
+//                        Registration.alfsteel_hoe.get())
+//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+//                .save(WrapperResult.transformJson(consumer, json -> {
+//                    JsonArray array = new JsonArray();
+//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+//                    json.add("conditions", array);
+//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe")); TODO MythicBotany
 
         ShapelessRecipeBuilder.shapeless(Registration.livingwood_aiot.get())
                 .requires(Registration.livingwood_sword.get())
@@ -99,29 +98,29 @@ public class Recipes extends RecipeProvider {
                 .save(consumer);
 
         ShapelessRecipeBuilder.shapeless(Registration.manasteel_aiot.get())
-                .requires(ModItems.manasteelSword)
-                .requires(ModItems.manasteelAxe)
-                .requires(ModItems.manasteelPick)
-                .requires(ModItems.manasteelShovel)
-                .requires(ModItems.manasteelHoe)
-                .unlockedBy("has_sword", has(ModItems.manasteelSword))
-                .unlockedBy("has_axe", has(ModItems.manasteelAxe))
-                .unlockedBy("has_pickaxe", has(ModItems.manasteelPick))
-                .unlockedBy("has_shovel", has(ModItems.manasteelShovel))
-                .unlockedBy("has_hoe", has(ModItems.manasteelHoe))
+                .requires(BotaniaItems.manasteelSword)
+                .requires(BotaniaItems.manasteelAxe)
+                .requires(BotaniaItems.manasteelPick)
+                .requires(BotaniaItems.manasteelShovel)
+                .requires(BotaniaItems.manasteelHoe)
+                .unlockedBy("has_sword", has(BotaniaItems.manasteelSword))
+                .unlockedBy("has_axe", has(BotaniaItems.manasteelAxe))
+                .unlockedBy("has_pickaxe", has(BotaniaItems.manasteelPick))
+                .unlockedBy("has_shovel", has(BotaniaItems.manasteelShovel))
+                .unlockedBy("has_hoe", has(BotaniaItems.manasteelHoe))
                 .save(consumer);
 
         ShapelessRecipeBuilder.shapeless(Registration.elementium_aiot.get())
-                .requires(ModItems.elementiumSword)
-                .requires(ModItems.elementiumAxe)
-                .requires(ModItems.elementiumPick)
-                .requires(ModItems.elementiumShovel)
-                .requires(ModItems.elementiumHoe)
-                .unlockedBy("has_sword", has(ModItems.elementiumSword))
-                .unlockedBy("has_axe", has(ModItems.elementiumAxe))
-                .unlockedBy("has_pickaxe", has(ModItems.elementiumPick))
-                .unlockedBy("has_shovel", has(ModItems.elementiumShovel))
-                .unlockedBy("has_hoe", has(ModItems.elementiumHoe))
+                .requires(BotaniaItems.elementiumSword)
+                .requires(BotaniaItems.elementiumAxe)
+                .requires(BotaniaItems.elementiumPick)
+                .requires(BotaniaItems.elementiumShovel)
+                .requires(BotaniaItems.elementiumHoe)
+                .unlockedBy("has_sword", has(BotaniaItems.elementiumSword))
+                .unlockedBy("has_axe", has(BotaniaItems.elementiumAxe))
+                .unlockedBy("has_pickaxe", has(BotaniaItems.elementiumPick))
+                .unlockedBy("has_shovel", has(BotaniaItems.elementiumShovel))
+                .unlockedBy("has_hoe", has(BotaniaItems.elementiumHoe))
                 .save(consumer);
     }
 
@@ -134,7 +133,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getSwords(ItemLike result, ItemLike material) {
-        return getSwords(result, material, ModItems.livingwoodTwig);
+        return getSwords(result, material, BotaniaItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getSwords(ItemLike result, ItemLike material, ItemLike twig) {
@@ -148,7 +147,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getAxes(ItemLike result, ItemLike material) {
-        return getAxes(result, material, ModItems.livingwoodTwig);
+        return getAxes(result, material, BotaniaItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getAxes(ItemLike result, ItemLike material, ItemLike twig) {
@@ -162,7 +161,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getPickaxes(ItemLike result, ItemLike material) {
-        return getPickaxes(result, material, ModItems.livingwoodTwig);
+        return getPickaxes(result, material, BotaniaItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getPickaxes(ItemLike result, ItemLike material, ItemLike twig) {
@@ -176,7 +175,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getShovels(ItemLike result, ItemLike material) {
-        return getShovels(result, material, ModItems.livingwoodTwig);
+        return getShovels(result, material, BotaniaItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getShovels(ItemLike result, ItemLike material, ItemLike twig) {
@@ -190,7 +189,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getHoes(ItemLike result, ItemLike material) {
-        return getHoes(result, material, ModItems.livingwoodTwig);
+        return getHoes(result, material, BotaniaItems.livingwoodTwig);
     }
 
     private static ShapedRecipeBuilder getHoes(ItemLike result, ItemLike material, ItemLike twig) {

@@ -8,9 +8,9 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -43,8 +43,6 @@ public class ToolUtil {
     private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
     private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
-    public static final ToolAction HOE_TILL = ToolAction.get("till");
-    public static final Set<ToolAction> DEFAULT_HOE_ACTIONS = Set.of(HOE_DIG, HOE_TILL);
     public static final Set<ToolAction> DEFAULT_AIOT_ACTIONS = Set.of(
             AXE_DIG, AXE_STRIP, AXE_SCRAPE, AXE_WAX_OFF,
             HOE_DIG, HOE_TILL,
@@ -62,10 +60,10 @@ public class ToolUtil {
     public static void toggleMode(Player player, ItemStack stack) {
         Style dark_blue = Style.EMPTY.withColor(ChatFormatting.DARK_BLUE).withItalic(true);
         Style aqua = Style.EMPTY.withColor(ChatFormatting.AQUA).withItalic(true);
-        MutableComponent text = new TranslatableComponent(AIOTBotania.MODID + ".toggleMode").append(" ").withStyle(dark_blue);
-        MutableComponent utilityMode = new TranslatableComponent(AIOTBotania.MODID + ".utilityMode").withStyle(aqua);
-        MutableComponent hoeMode = new TranslatableComponent(AIOTBotania.MODID + ".hoeMode").withStyle(aqua);
-        MutableComponent hoeModePath = new TranslatableComponent(AIOTBotania.MODID + ".hoeModePath").withStyle(aqua);
+        MutableComponent text = Component.translatable(AIOTBotania.MODID + ".toggleMode").append(" ").withStyle(dark_blue);
+        MutableComponent utilityMode = Component.translatable(AIOTBotania.MODID + ".utilityMode").withStyle(aqua);
+        MutableComponent hoeMode = Component.translatable(AIOTBotania.MODID + ".hoeMode").withStyle(aqua);
+        MutableComponent hoeModePath = Component.translatable(AIOTBotania.MODID + ".hoeModePath").withStyle(aqua);
 
         if (ItemNBTHelper.getBoolean(stack, "hoemode", true)) {
             ItemNBTHelper.setBoolean(stack, "hoemode", false);
@@ -102,7 +100,7 @@ public class ToolUtil {
         if (player != null && player.mayUseItemAt(pos, side, context.getItemInHand())) {
             if (context.getClickedFace() != Direction.DOWN && level.isEmptyBlock(pos.above())) {
                 BlockState state = level.getBlockState(pos);
-                BlockState blockstate = ToolUtil.getHoeTillingState(state, context);
+                BlockState blockstate = state.getToolModifiedState(context, HOE_TILL, true);
                 if (blockstate != null) {
                     if (blockstate.getBlock() == Blocks.FARMLAND && special) {
                         blockstate = Registration.custom_farmland.get().defaultBlockState();
@@ -147,7 +145,7 @@ public class ToolUtil {
             return InteractionResult.PASS;
         }
 
-        BlockState baseStateResult = ToolUtil.getHoeTillingState(level.getBlockState(basePos), context);
+        BlockState baseStateResult = level.getBlockState(basePos).getToolModifiedState(context, HOE_TILL, true);
         InteractionResult toReturn = hoeUse(context, special, lowTier);
 
         if (toReturn.consumesAction()) {
@@ -160,7 +158,7 @@ public class ToolUtil {
 
                     BlockPos pos = basePos.offset(xd, 0, zd);
                     if (side != Direction.DOWN && level.isEmptyBlock(pos.above())) {
-                        BlockState blockstate = ToolUtil.getHoeTillingState(level.getBlockState(pos), context);
+                        BlockState blockstate = level.getBlockState(pos).getToolModifiedState(context, HOE_TILL, true);
                         if (baseStateResult == blockstate) {
                             if (blockstate != null) {
                                 if (blockstate.getBlock() == Blocks.FARMLAND && special) {
@@ -248,7 +246,7 @@ public class ToolUtil {
 
         if (context.getClickedFace() != Direction.DOWN) {
             Player player = context.getPlayer();
-            BlockState modifiedState = state.getToolModifiedState(level, pos, player, context.getItemInHand(), SHOVEL_FLATTEN);
+            BlockState modifiedState = state.getToolModifiedState(context, SHOVEL_FLATTEN, false);
             if (modifiedState != null && level.isEmptyBlock(pos.above())) {
                 level.playSound(player, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT)) {
@@ -283,9 +281,9 @@ public class ToolUtil {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        Optional<BlockState> strip = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_STRIP));
-        Optional<BlockState> scrape = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_SCRAPE));
-        Optional<BlockState> waxOff = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_WAX_OFF));
+        Optional<BlockState> strip = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_STRIP, false));
+        Optional<BlockState> scrape = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_SCRAPE, false));
+        Optional<BlockState> waxOff = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_WAX_OFF, false));
         Optional<BlockState> resultState = Optional.empty();
         if (strip.isPresent()) {
             level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -317,24 +315,6 @@ public class ToolUtil {
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide);
-    }
-
-    public static BlockState getHoeTillingState(BlockState state, UseOnContext context) {
-        Block block = state.getBlock();
-        if (block == Blocks.ROOTED_DIRT) {
-            return Blocks.DIRT.defaultBlockState();
-        }
-        if (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
-            if (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT_PATH || block == Blocks.DIRT) {
-                return Blocks.FARMLAND.defaultBlockState();
-            }
-
-            if (block == Blocks.COARSE_DIRT) {
-                return Blocks.DIRT.defaultBlockState();
-            }
-        }
-
-        return null;
     }
 
     public static void removeBlocksInRange(ToolBreakContext context, Direction side, int range, Predicate<BlockState> predicate) {

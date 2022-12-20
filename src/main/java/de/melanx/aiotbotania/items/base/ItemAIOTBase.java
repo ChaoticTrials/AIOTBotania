@@ -7,7 +7,6 @@ import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,14 +23,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolAction;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.equipment.ICustomDamageItem;
+import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ItemAIOTBase extends DiggerItem implements ICustomDamageItem {
+public class ItemAIOTBase extends DiggerItem implements CustomDamageItem {
 
     protected final int manaPerDamage;
     protected final boolean special;
@@ -129,7 +128,7 @@ public class ItemAIOTBase extends DiggerItem implements ICustomDamageItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent(getModeString(stack)));
+        tooltip.add(Component.translatable(getModeString(stack)));
     }
 
     @Override

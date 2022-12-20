@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.items.alfsteel;
 
 import de.melanx.aiotbotania.core.Registration;
-import mythicbotany.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -16,16 +15,15 @@ import javax.annotation.Nonnull;
 
 public class RecipeAlfsteelAIOT extends ShapelessRecipe {
 
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.alfsteelSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.alfsteelAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.of(ModItems.alfsteelPick);
+    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(); // TODO (ModItems.alfsteelSword);
+    private static final Ingredient INGREDIENT_AXE = Ingredient.of(); // TODO (ModItems.alfsteelAxe);
+    private static final Ingredient INGREDIENT_PICK = Ingredient.of(); // TODO (ModItems.alfsteelPick);
     private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.alfsteel_shovel.get());
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.alfsteel_hoe.get());
 
     public RecipeAlfsteelAIOT(ResourceLocation idIn, String groupIn) {
         super(idIn, groupIn, new ItemStack(Registration.alfsteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
-                Ingredient.of(ModItems.alfsteelSword), Ingredient.of(ModItems.alfsteelAxe), Ingredient.of(ModItems.alfsteelPick),
-                Ingredient.of(Registration.alfsteel_shovel.get()), Ingredient.of(Registration.alfsteel_hoe.get())));
+                INGREDIENT_SWORD, INGREDIENT_AXE, INGREDIENT_PICK, INGREDIENT_SHOVEL, INGREDIENT_HOE));
     }
 
     @Override

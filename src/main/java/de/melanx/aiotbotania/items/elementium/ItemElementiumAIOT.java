@@ -6,6 +6,7 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -15,21 +16,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import java.util.Random;
 
 public class ItemElementiumAIOT extends ItemAIOTBase {
     private static final int MANA_PER_DAMAGE = 66;
@@ -45,7 +43,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(ModItems.elementiumSword);
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(BotaniaItems.elementiumSword);
     }
 
     @Override
@@ -85,29 +83,29 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
         if (event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player) {
             ItemStack weapon = ((Player) event.getSource().getEntity()).getMainHandItem();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                Random rand = event.getEntityLiving().level.random;
-                int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, weapon);
+                RandomSource rand = event.getEntity().level.random;
+                int looting = weapon.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
 
-                if (event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
+                if (event.getEntity() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
                     this.addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-                } else if (event.getEntityLiving() instanceof Zombie && !(event.getEntityLiving() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
+                } else if (event.getEntity() instanceof Zombie && !(event.getEntity() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
                     this.addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
-                } else if (event.getEntityLiving() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
+                } else if (event.getEntity() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
                     this.addDrop(event, new ItemStack(Items.CREEPER_HEAD));
-                } else if (event.getEntityLiving() instanceof Player && rand.nextInt(11) <= 1 + looting) {
+                } else if (event.getEntity() instanceof Player && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) event.getEntityLiving()).getGameProfile().getName());
+                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) event.getEntity()).getGameProfile().getName());
                     this.addDrop(event, stack);
-                } else if (event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting) {
-                    this.addDrop(event, new ItemStack(ModBlocks.gaiaHead));
+                } else if (event.getEntity() instanceof GaiaGuardianEntity && rand.nextInt(13) < 1 + looting) {
+                    this.addDrop(event, new ItemStack(BotaniaBlocks.gaiaHead));
                 }
             }
         }
     }
 
     private void addDrop(LivingDropsEvent event, ItemStack drop) {
-        ItemEntity entity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().xOld,
-                event.getEntityLiving().yOld, event.getEntityLiving().zOld, drop);
+        ItemEntity entity = new ItemEntity(event.getEntity().level, event.getEntity().xOld,
+                event.getEntity().yOld, event.getEntity().zOld, drop);
         entity.setPickUpDelay(10);
         event.getDrops().add(entity);
     }

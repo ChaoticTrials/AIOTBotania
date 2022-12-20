@@ -10,22 +10,21 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import javax.annotation.Nonnull;
 
 public class RecipeTerraSteelAIOT extends ShapelessRecipe {
 
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.terraSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.terraAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.of(ModItems.terraPick);
+    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(BotaniaItems.terraSword);
+    private static final Ingredient INGREDIENT_AXE = Ingredient.of(BotaniaItems.terraAxe);
+    private static final Ingredient INGREDIENT_PICK = Ingredient.of(BotaniaItems.terraPick);
     private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.terrasteel_shovel.get());
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.terrasteel_hoe.get());
 
     public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
         super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
-                Ingredient.of(ModItems.terraSword), Ingredient.of(ModItems.terraAxe), Ingredient.of(ModItems.terraPick),
-                Ingredient.of(Registration.terrasteel_shovel.get()), Ingredient.of(Registration.terrasteel_hoe.get())));
+                INGREDIENT_SWORD, INGREDIENT_AXE, INGREDIENT_PICK, INGREDIENT_SHOVEL, INGREDIENT_HOE));
     }
 
     @Override

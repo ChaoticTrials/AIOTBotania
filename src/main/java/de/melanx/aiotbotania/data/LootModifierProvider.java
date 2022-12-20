@@ -1,7 +1,6 @@
 package de.melanx.aiotbotania.data;
 
 import de.melanx.aiotbotania.AIOTBotania;
-import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.handler.lootmodifier.GrassModifier;
 import net.minecraft.data.DataGenerator;
@@ -16,7 +15,7 @@ public class LootModifierProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        this.add("dispose", Registration.dispose_modifier.get(), new DisposeModifier(new LootItemCondition[]{}));
-        this.add("grass", Registration.grass_modifier.get(), new GrassModifier(new LootItemCondition[]{}));
+        this.add("dispose", new DisposeModifier(new LootItemCondition[]{}));
+        this.add("grass", new GrassModifier(new LootItemCondition[]{}));
     }
 }

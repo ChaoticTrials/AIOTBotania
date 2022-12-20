@@ -15,11 +15,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -33,7 +33,6 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,28 +45,28 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
+import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTemperanceStone;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
-import vazkii.botania.common.item.relic.ItemThorRing;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
+import vazkii.botania.common.item.relic.RingOfThorItem;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreaker {
+public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreaker {
 
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
@@ -95,7 +94,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(ModItems.terraSword);
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(BotaniaItems.terraSword);
     }
 
     @Override
@@ -142,43 +141,43 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
         if (event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player) {
             ItemStack weapon = ((Player) event.getSource().getEntity()).getMainHandItem();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                Random rand = event.getEntityLiving().level.random;
-                int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, weapon);
-                if (event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
+                RandomSource rand = event.getEntity().level.random;
+                int looting = weapon.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
+                if (event.getEntity() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
                     this.addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-                } else if (event.getEntityLiving() instanceof Zombie && !(event.getEntityLiving() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
+                } else if (event.getEntity() instanceof Zombie && !(event.getEntity() instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
                     this.addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
-                } else if (event.getEntityLiving() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
+                } else if (event.getEntity() instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
                     this.addDrop(event, new ItemStack(Items.CREEPER_HEAD));
-                } else if (event.getEntityLiving() instanceof Player && rand.nextInt(11) <= 1 + looting) {
+                } else if (event.getEntity() instanceof Player && rand.nextInt(11) <= 1 + looting) {
                     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) event.getEntityLiving()).getGameProfile().getName());
+                    ItemNBTHelper.setString(stack, "SkullOwner", ((Player) event.getEntity()).getGameProfile().getName());
                     this.addDrop(event, stack);
-                } else if (event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting) {
-                    this.addDrop(event, new ItemStack(ModBlocks.gaiaHead));
+                } else if (event.getEntity() instanceof GaiaGuardianEntity && rand.nextInt(13) < 1 + looting) {
+                    this.addDrop(event, new ItemStack(BotaniaBlocks.gaiaHead));
                 }
             }
         }
     }
 
     private void addDrop(LivingDropsEvent event, ItemStack drop) {
-        ItemEntity entityitem = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().xOld,
-                event.getEntityLiving().yOld, event.getEntityLiving().zOld, drop);
+        ItemEntity entityitem = new ItemEntity(event.getEntity().level, event.getEntity().xOld,
+                event.getEntity().yOld, event.getEntity().zOld, drop);
         entityitem.setPickUpDelay(10);
         event.getDrops().add(entityitem);
     }
 
     public void trySpawnBurst(Player player) {
         if (!player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == this && player.getAttackStrengthScale(0.0F) == 1.0F) {
-            EntityManaBurst burst = this.getBurst(player, player.getMainHandItem());
+            ManaBurstEntity burst = this.getBurst(player, player.getMainHandItem());
             player.level.addFreshEntity(burst);
             player.getMainHandItem().hurtAndBreak(1, player, playerEntity -> playerEntity.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-            player.level.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
+            player.level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
         }
     }
 
-    public EntityManaBurst getBurst(Player player, ItemStack stack) {
-        return ItemTerraSword.getBurst(player, stack);
+    public ManaBurstEntity getBurst(Player player, ItemStack stack) {
+        return TerraBladeItem.getBurst(player, stack);
     }
 
     private void leftClick(PlayerInteractEvent.LeftClickEmpty event) {
@@ -188,14 +187,14 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     private void attackEntity(AttackEntityEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
-            this.trySpawnBurst(event.getPlayer());
+        if (!event.getEntity().level.isClientSide) {
+            this.trySpawnBurst(event.getEntity());
         }
     }
 
     @Override
     public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> items) {
-        if (this.allowdedIn(group)) {
+        if (this.allowedIn(group)) {
             for (int mana : CREATIVE_MANA) {
                 ItemStack stack = new ItemStack(this);
                 setMana(stack, mana);
@@ -264,7 +263,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             if (manaLevel != 0) {
                 setEnabled(stack, !isEnabled(stack));
                 if (!level.isClientSide) {
-                    level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
                 }
             }
 
@@ -278,14 +277,14 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
             Level level = player.level;
             Material mat = level.getBlockState(pos).getMaterial();
             if (MATERIALS.contains(mat) && !level.isEmptyBlock(pos)) {
-                boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
+                boolean thor = !RingOfThorItem.getThorRing(player).isEmpty();
                 boolean doX = thor || side.getStepX() == 0;
                 boolean doY = thor || side.getStepY() == 0;
                 boolean doZ = thor || side.getStepZ() == 0;
                 int origLevel = getLevel(stack);
                 int tier = origLevel + (thor ? 1 : 0);
                 int rangeDepth = tier / 2;
-                if (ItemTemperanceStone.hasTemperanceActive(player) && tier > 2) {
+                if (StoneOfTemperanceItem.hasTemperanceActive(player) && tier > 2) {
                     tier = 2;
                     rangeDepth = 0;
                 }
@@ -310,15 +309,15 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     }
 
     public void breakOtherBlockAxe(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
-        if (!player.isShiftKeyDown() && !tickingSwappers && isEnabled(stack) && !ItemTemperanceStone.hasTemperanceActive(player)) {
+        if (!player.isShiftKeyDown() && !tickingSwappers && isEnabled(stack) && !StoneOfTemperanceItem.hasTemperanceActive(player)) {
             addBlockSwapper(player.level, player, stack, pos, 32, true);
         }
     }
 
-    private void onTickEnd(TickEvent.WorldTickEvent event) {
-        if (!event.world.isClientSide) {
+    private void onTickEnd(TickEvent.LevelTickEvent event) {
+        if (!event.level.isClientSide) {
             if (event.phase == TickEvent.Phase.END) {
-                ResourceKey<Level> dim = event.world.dimension();
+                ResourceKey<Level> dim = event.level.dimension();
                 if (blockSwappers.containsKey(dim)) {
                     tickingSwappers = true;
                     Set<BlockSwapper> swappers = blockSwappers.get(dim);
@@ -360,7 +359,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
                 return false;
             } else {
                 int remainingSwaps = 10;
-                outerLoop:
+                   outerLoop:
                 while (remainingSwaps > 0 && !this.candidateQueue.isEmpty()) {
                     SwapCandidate candidate = this.candidateQueue.poll();
                     if (!this.completedCoords.contains(candidate.coordinates) && candidate.range > 0) {
@@ -417,12 +416,12 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, List<Component> list, @Nonnull TooltipFlag flags) {
         super.appendHoverText(stack, level, list, flags);
-        Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
-        Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
+        Component rank = Component.translatable("botania.rank" + getLevel(stack));
+        Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
         list.add(rankFormat);
-        IManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+        ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
         if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
-            list.add((new TranslatableComponent("botaniamisc.getALife")).withStyle(ChatFormatting.RED));
+            list.add((Component.translatable("botaniamisc.getALife")).withStyle(ChatFormatting.RED));
         }
     }
 
@@ -434,11 +433,11 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements ISequentialBreak
 
         boolean hoemode = ItemNBTHelper.getBoolean(stack, "hoemode", true);
         if (hoemode) {
-            boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
+            boolean thor = !RingOfThorItem.getThorRing(player).isEmpty();
             int origLevel = getLevel(stack);
             int tier = origLevel + (thor ? 1 : 0);
             //noinspection ConstantConditions
-            if (ItemTemperanceStone.hasTemperanceActive(player) && tier > 2) {
+            if (StoneOfTemperanceItem.hasTemperanceActive(player) && tier > 2) {
                 tier = 2;
             }
 

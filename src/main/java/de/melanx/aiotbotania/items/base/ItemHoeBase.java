@@ -11,13 +11,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import vazkii.botania.common.item.equipment.ICustomDamageItem;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.event.ForgeEventFactory;
+import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class ItemHoeBase extends HoeItem implements ICustomDamageItem {
+public class ItemHoeBase extends HoeItem implements CustomDamageItem {
 
     protected final int manaPerDamage;
     protected final boolean special;
@@ -43,9 +46,12 @@ public class ItemHoeBase extends HoeItem implements ICustomDamageItem {
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
-        //noinspection deprecation
-        int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
-        if (hook != 0) return hook > 0 ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        BlockState originalState = context.getLevel().getBlockState(context.getClickedPos());
+        BlockState modifiedState = ForgeEventFactory.onToolUse(originalState, context, ToolActions.HOE_TILL, false);
+        if (originalState == modifiedState || modifiedState == null) {
+            return InteractionResult.FAIL;
+        }
+
         return ToolUtil.hoeUse(context, this.special, this.lowTier);
     }
 }

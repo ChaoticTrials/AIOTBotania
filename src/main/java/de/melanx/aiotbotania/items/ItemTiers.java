@@ -4,15 +4,15 @@ import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public enum ItemTiers implements Tier {
-    LIVINGWOOD_ITEM_TIER(68, 2.0F, 0.5F, 0, 18, () -> Ingredient.of(ModTags.Items.LIVINGWOOD_LOGS)),
-    LIVINGROCK_ITEM_TIER(191, 4.5F, 2.5F, 1, 10, () -> Ingredient.of(ModBlocks.livingrock)),
+    LIVINGWOOD_ITEM_TIER(68, 2.0F, 0.5F, 0, 18, () -> Ingredient.of(BotaniaTags.Items.LIVINGWOOD_LOGS)),
+    LIVINGROCK_ITEM_TIER(191, 4.5F, 2.5F, 1, 10, () -> Ingredient.of(BotaniaBlocks.livingrock)),
     LIVINGWOOD_AIOT_ITEM_TIER(LIVINGWOOD_ITEM_TIER) {
         @Override
         public int getUses() {

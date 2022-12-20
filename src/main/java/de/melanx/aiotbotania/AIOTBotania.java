@@ -19,7 +19,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.forge.CapabilityUtil;
 
 @Mod(AIOTBotania.MODID)
@@ -57,7 +57,7 @@ public class AIOTBotania {
     public void attachItemCaps(AttachCapabilitiesEvent<ItemStack> event) {
         ItemStack stack = event.getObject();
         if (stack.is(Registration.terrasteel_aiot.get()) || stack.is(Registration.alfsteel_aiot.get())) {
-            event.addCapability(new ResourceLocation("botania", "mana_item"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, new ItemTerraPick.ManaItem(stack)));
+            event.addCapability(new ResourceLocation("botania", "mana_item"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, new TerraShattererItem.ManaItemImpl(stack)));
         }
     }
 }

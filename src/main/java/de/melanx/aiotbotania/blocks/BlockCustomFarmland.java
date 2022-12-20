@@ -4,6 +4,7 @@ import de.melanx.aiotbotania.config.ClientConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,6 @@ import net.minecraftforge.common.PlantType;
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockCustomFarmland extends FarmBlock {
 
@@ -42,7 +42,7 @@ public class BlockCustomFarmland extends FarmBlock {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         if (ClientConfig.particles.get()) {
             int r = 1;
             float g = 0.078F;
@@ -80,7 +80,7 @@ public class BlockCustomFarmland extends FarmBlock {
     }
 
     @Override
-    public void tick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void tick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         if (!this.canSurvive(state, level, pos)) {
             FarmBlock.turnToDirt(state, level, pos);
             return;
@@ -95,7 +95,7 @@ public class BlockCustomFarmland extends FarmBlock {
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         // no, thank you
     }
 }

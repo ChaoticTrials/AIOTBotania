@@ -17,7 +17,7 @@ public class TerrasteelCondition implements ICondition {
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         return CommonConfig.terraAiot.get();
     }
 

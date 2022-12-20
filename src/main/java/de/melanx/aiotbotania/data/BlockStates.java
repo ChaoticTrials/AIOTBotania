@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockStates extends BlockStateProvider {
 
@@ -20,7 +21,7 @@ public class BlockStates extends BlockStateProvider {
         Block block = Registration.custom_farmland.get();
 
         //noinspection ConstantConditions
-        ModelFile model = this.models().singleTexture(block.getRegistryName().getPath(),
+        ModelFile model = this.models().singleTexture(ForgeRegistries.BLOCKS.getKey(block).getPath(),
                         this.mcLoc("block/template_farmland"),
                         "top", this.mcLoc("block/farmland_moist"))
                 .texture("dirt", this.mcLoc("block/dirt"))

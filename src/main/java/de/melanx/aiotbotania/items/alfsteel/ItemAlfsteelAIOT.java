@@ -8,7 +8,6 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,16 +26,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fml.ModList;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILensEffect;
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.api.mana.LensEffectItem;
+import vazkii.botania.common.entity.ManaBurstEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany, ModPylonRepairable, ILensEffect {
+public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany, ModPylonRepairable, LensEffectItem {
 
     public static final int MANA_PER_DAMAGE = 200;
     private final Multimap<Attribute, AttributeModifier> attributeModifiers;
@@ -62,7 +61,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
                 });
                 player.setItemInHand(hand, stack);
             }
-            int ITEM_COLLECT_RANGE = mythicbotany.alftools.AlfsteelAxe.ITEM_COLLECT_RANGE;
+            int ITEM_COLLECT_RANGE = 30; // TODO mythicbotany.alftools.AlfsteelAxe.ITEM_COLLECT_RANGE;
             List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(x - ITEM_COLLECT_RANGE, y - ITEM_COLLECT_RANGE, z - ITEM_COLLECT_RANGE, x + ITEM_COLLECT_RANGE, y + ITEM_COLLECT_RANGE, z + ITEM_COLLECT_RANGE));
             for (ItemEntity item : items) {
                 item.moveTo(x + level.random.nextFloat() - 0.5f, y + level.random.nextFloat(), z + level.random.nextFloat() - 0.5f, item.yRot, item.xRot);
@@ -72,8 +71,8 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     }
 
     @Override
-    public EntityManaBurst getBurst(Player player, ItemStack stack) {
-        EntityManaBurst burst = super.getBurst(player, stack);
+    public ManaBurstEntity getBurst(Player player, ItemStack stack) {
+        ManaBurstEntity burst = super.getBurst(player, stack);
         if (burst != null) {
             burst.setColor(0xF79100);
             burst.setMana(getManaPerDamage());
@@ -86,7 +85,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     }
 
     @Override
-    public void updateBurst(IManaBurst burst, ItemStack stack) {
+    public void updateBurst(ManaBurst burst, ItemStack stack) {
         ThrowableProjectile entity = burst.entity();
         AABB aabb = new AABB(
                 entity.getX(), entity.getY(), entity.getZ(),
@@ -153,7 +152,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (!ModList.get().isLoaded("mythicbotany")) {
-            tooltip.add(new TranslatableComponent(AIOTBotania.MODID + ".mythicbotany.disabled").withStyle(ChatFormatting.DARK_RED));
+            tooltip.add(Component.translatable(AIOTBotania.MODID + ".mythicbotany.disabled").withStyle(ChatFormatting.DARK_RED));
         } else {
             super.appendHoverText(stack, level, tooltip, flag);
         }
@@ -165,12 +164,12 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     }
 
     @Override
-    public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+    public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
         return shouldKill;
     }
 
     @Override
-    public boolean doParticles(IManaBurst iManaBurst, ItemStack itemStack) {
+    public boolean doParticles(ManaBurst burst, ItemStack stack) {
         return true;
     }
 }

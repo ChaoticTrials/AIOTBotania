@@ -4,7 +4,7 @@ import de.melanx.aiotbotania.items.base.ItemAIOTBase;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.Enchantment;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class ItemManasteelAIOT extends ItemAIOTBase {
 
@@ -14,6 +14,6 @@ public class ItemManasteelAIOT extends ItemAIOTBase {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(ModItems.manasteelSword);
+        return super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category.canEnchant(BotaniaItems.manasteelSword);
     }
 }

@@ -11,18 +11,18 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import javax.annotation.Nonnull;
 
 public class RecipeTerraSteelAIOTTipped extends ShapelessRecipe {
 
     private static final Ingredient INGREDIENT_TERRA = Ingredient.of(Registration.terrasteel_aiot.get());
-    private static final Ingredient INGREDIENT_ELEMENTIUM = Ingredient.of(ModItems.elementiumPick);
+    private static final Ingredient INGREDIENT_ELEMENTIUM = Ingredient.of(BotaniaItems.elementiumPick);
 
     public RecipeTerraSteelAIOTTipped(ResourceLocation idIn, String groupIn) {
         super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
-                Ingredient.of(Registration.terrasteel_aiot.get()), Ingredient.of(ModItems.elementiumPick)));
+                Ingredient.of(Registration.terrasteel_aiot.get()), Ingredient.of(BotaniaItems.elementiumPick)));
     }
 
     @Override
