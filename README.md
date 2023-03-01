@@ -2,8 +2,8 @@
 [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_294815_all.svg)](https://www.curseforge.com/minecraft/mc-mods/aiot-botania)
 [![CurseForge](http://cf.way2muchnoise.eu/full_294815_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/aiot-botania)
 
-[![Modrinth](https://modrinth-utils.vercel.app/api/badge/versions?id=TFFWPTSD&logo=true)](https://modrinth.com/mod/aiot-botania)
-[![Modrinth](https://modrinth-utils.vercel.app/api/badge/downloads?id=TFFWPTSD&logo=true)](https://modrinth.com/mod/aiot-botania)
+[![Modrinth](https://img.shields.io/modrinth/game-versions/TFFWPTSD?color=00AF5C&label=modrinth&logo=modrinth)](https://modrinth.com/mod/aiot-botania)
+[![Modrinth](https://img.shields.io/modrinth/dt/TFFWPTSD?color=00AF5C&logo=modrinth)](https://modrinth.com/mod/aiot-botania)
 
 This mod adds a few new items! That is Hoes and AIOTs (All In One Tool), each as a Manasteel and as an Elementium
 version. Since version 0.6 also Livingwood and Livingrock tools are included.
