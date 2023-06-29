@@ -6,6 +6,7 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.compat.MythicBotany;
 import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
+import mythicbotany.alftools.AlfsteelAxe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -61,7 +62,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
                 });
                 player.setItemInHand(hand, stack);
             }
-            int ITEM_COLLECT_RANGE = 30; // TODO mythicbotany.alftools.AlfsteelAxe.ITEM_COLLECT_RANGE;
+            int ITEM_COLLECT_RANGE = AlfsteelAxe.ITEM_COLLECT_RANGE;
             List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(x - ITEM_COLLECT_RANGE, y - ITEM_COLLECT_RANGE, z - ITEM_COLLECT_RANGE, x + ITEM_COLLECT_RANGE, y + ITEM_COLLECT_RANGE, z + ITEM_COLLECT_RANGE));
             for (ItemEntity item : items) {
                 item.moveTo(x + level.random.nextFloat() - 0.5f, y + level.random.nextFloat(), z + level.random.nextFloat() - 0.5f, item.yRot, item.xRot);

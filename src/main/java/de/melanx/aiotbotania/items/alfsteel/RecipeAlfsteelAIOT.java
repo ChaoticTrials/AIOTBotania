@@ -1,6 +1,7 @@
 package de.melanx.aiotbotania.items.alfsteel;
 
 import de.melanx.aiotbotania.core.Registration;
+import mythicbotany.register.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -15,9 +16,9 @@ import javax.annotation.Nonnull;
 
 public class RecipeAlfsteelAIOT extends ShapelessRecipe {
 
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(); // TODO (ModItems.alfsteelSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.of(); // TODO (ModItems.alfsteelAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.of(); // TODO (ModItems.alfsteelPick);
+    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.alfsteelSword);
+    private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.alfsteelAxe);
+    private static final Ingredient INGREDIENT_PICK = Ingredient.of(ModItems.alfsteelPick);
     private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.alfsteel_shovel.get());
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.alfsteel_hoe.get());
 

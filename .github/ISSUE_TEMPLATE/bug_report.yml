@@ -2,13 +2,13 @@ name: Bug Report
 description: Report an issue with supported versions of aiotbotania
 labels: [ bug ]
 body:
-  - type: input
+  - type: dropdown
     id: mc-version
     attributes:
       label: Minecraft version
-      placeholder: eg. 1.18.1
-    validations:
-      required: true
+      options:
+        - 1.19.4
+        - 1.20.1
   - type: input
     id: mod-version
     attributes:

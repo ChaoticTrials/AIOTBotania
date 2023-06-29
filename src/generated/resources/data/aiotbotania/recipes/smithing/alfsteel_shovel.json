@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "mythicbotany:alfsteel_ingot"
+  },
+  "base": {
+    "item": "aiotbotania:terra_shovel"
+  },
+  "conditions": [
+    {
+      "type": "aiotbotania:mythicbotany"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:alfsteel_shovel"
+  }
+}
