@@ -23,12 +23,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
@@ -37,6 +41,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.MinecraftForge;
@@ -45,7 +50,10 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.SequentialBreaker;
+import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.LensEffectItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -66,7 +74,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreaker {
+public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreaker, LensEffectItem {
 
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
@@ -334,6 +342,57 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
             ResourceKey<Level> dim = level.dimension();
             (blockSwappers.computeIfAbsent(dim, (d) -> new HashSet<>())).add(swapper);
         }
+    }
+
+    @Override
+    public void apply(ItemStack stack, BurstProperties props, Level level) {
+        // NO-OP
+    }
+
+    @Override
+    public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+        return shouldKill;
+    }
+
+    // [Botania copy] TerraBladeItem#updateBurst
+    @Override
+    public void updateBurst(ManaBurst burst, ItemStack stack) {
+        ThrowableProjectile entity = burst.entity();
+        AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
+        List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, axis);
+        Entity thrower = entity.getOwner();
+
+        for (LivingEntity living : entities) {
+            if (living == thrower || living instanceof Player livingPlayer && thrower instanceof Player throwingPlayer
+                    && !throwingPlayer.canHarmPlayer(livingPlayer)) {
+                continue;
+            }
+
+            if (living.hurtTime == 0) {
+                int cost = MANA_PER_DAMAGE / 3;
+                int mana = burst.getMana();
+                if (mana >= cost) {
+                    burst.setMana(mana - cost);
+                    float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamageBonus();
+                    if (!burst.isFake() && !entity.level.isClientSide) {
+                        DamageSource source = DamageSource.MAGIC;
+                        if (thrower instanceof Player player) {
+                            source = DamageSource.playerAttack(player);
+                        } else if (thrower instanceof LivingEntity livingEntity) {
+                            source = DamageSource.mobAttack(livingEntity);
+                        }
+                        living.hurt(source, damage);
+                        entity.discard();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean doParticles(ManaBurst burst, ItemStack stack) {
+        return true;
     }
 
     private static class BlockSwapper {
