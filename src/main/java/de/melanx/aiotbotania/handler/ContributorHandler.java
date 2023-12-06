@@ -1,7 +1,7 @@
 package de.melanx.aiotbotania.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import de.melanx.aiotbotania.AIOTBotania;
 import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.client.model.PlayerModel;
@@ -64,18 +64,23 @@ public class ContributorHandler extends RenderLayer<AbstractClientPlayer, Player
     private static ItemStack getItem(String id) {
         ResourceLocation location = new ResourceLocation(AIOTBotania.MODID, id);
         Item item = ForgeRegistries.ITEMS.getValue(location);
+        if (item == null) {
+            AIOTBotania.instance.getLogger().error("Item does not exist: " + location);
+            return ItemStack.EMPTY;
+        }
+
         return new ItemStack(item);
     }
 
     private void renderIcon(PoseStack poseStack, MultiBufferSource buffers, Player player, ItemStack stack) {
         poseStack.pushPose();
 
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
+        poseStack.mulPose(Axis.XP.rotationDegrees(180));
         poseStack.translate(0.15F, -0.17F, 0.13F);
         poseStack.scale(0.15F, 0.15F, 0.15F);
 
         if (player.isCrouching()) {
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(30));
+            poseStack.mulPose(Axis.XP.rotationDegrees(30));
             poseStack.translate(0, -1.76, 0.2);
         }
 

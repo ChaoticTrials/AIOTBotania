@@ -1,0 +1,87 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:elementium_axe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_hoe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:elementium_hoe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:elementium_pickaxe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_shovel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:elementium_shovel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:elementium_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aiotbotania:elementium_aiot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_sword",
+      "has_axe",
+      "has_pickaxe",
+      "has_shovel",
+      "has_hoe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aiotbotania:elementium_aiot"
+    ]
+  },
+  "sends_telemetry_event": false
+}

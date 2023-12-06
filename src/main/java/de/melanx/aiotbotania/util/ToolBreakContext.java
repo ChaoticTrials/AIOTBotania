@@ -20,7 +20,7 @@ public class ToolBreakContext {
     private final Tier tier;
 
     public ToolBreakContext(Player player, BlockPos pos, Tier tier) {
-        this(player.level, player, player.getMainHandItem(), pos, tier);
+        this(player.level(), player, player.getMainHandItem(), pos, tier);
     }
 
     protected ToolBreakContext(Level level, @Nullable Player player, ItemStack heldItem, BlockPos pos, Tier tier) {

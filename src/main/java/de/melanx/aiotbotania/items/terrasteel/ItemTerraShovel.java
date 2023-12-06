@@ -48,7 +48,8 @@ public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
         BlockHitResult hitResult = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        if (!player.level.isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
+        //noinspection resource
+        if (!player.level().isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
             Direction face = hitResult.getDirection();
             this.breakOtherBlock(player, stack, pos, pos, face);
             BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
@@ -60,7 +61,8 @@ public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker
     @Override
     public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
         if (ItemTerraSteelAIOT.isEnabled(stack)) {
-            Level level = player.level;
+            //noinspection resource
+            Level level = player.level();
             BlockState state = level.getBlockState(pos);
             ToolUtil.removeBlocksInRange(
                     new ToolBreakContext(player, pos, this.getTier()),

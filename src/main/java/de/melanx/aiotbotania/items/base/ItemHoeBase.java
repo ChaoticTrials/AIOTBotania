@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -27,7 +26,7 @@ public class ItemHoeBase extends HoeItem implements CustomDamageItem {
     protected final boolean lowTier;
 
     public ItemHoeBase(Tier tier, int speed, int manaPerDamage, boolean special, boolean lowTier) {
-        super(tier, 0, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        super(tier, 0, speed, new Item.Properties());
         this.manaPerDamage = manaPerDamage;
         this.special = special;
         this.lowTier = lowTier;

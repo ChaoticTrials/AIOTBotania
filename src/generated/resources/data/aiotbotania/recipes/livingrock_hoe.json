@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "M": {
       "item": "botania:livingrock"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "aiotbotania:livingrock_hoe"
-  }
+  },
+  "show_notification": true
 }

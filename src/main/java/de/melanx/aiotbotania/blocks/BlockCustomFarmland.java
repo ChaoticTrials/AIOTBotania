@@ -5,19 +5,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -54,12 +51,7 @@ public class BlockCustomFarmland extends FarmBlock {
 
     @Override
     public void fallOn(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockPos pos, Entity entity, float fallDistance) {
-        entity.causeFallDamage(fallDistance, 1.0F, DamageSource.FALL);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(MOISTURE);
+        entity.causeFallDamage(fallDistance, 1.0F, level.damageSources().fall());
     }
 
     @Override
@@ -82,7 +74,7 @@ public class BlockCustomFarmland extends FarmBlock {
     @Override
     public void tick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         if (!this.canSurvive(state, level, pos)) {
-            FarmBlock.turnToDirt(state, level, pos);
+            FarmBlock.turnToDirt(null, state, level, pos);
             return;
         }
 

@@ -2,9 +2,11 @@ package de.melanx.aiotbotania.items.alfsteel;
 
 import de.melanx.aiotbotania.core.Registration;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -21,7 +23,7 @@ public class RecipeAlfsteelAIOTTipped extends ShapelessRecipe {
     private static final Ingredient INGREDIENT_ELEMENTIUM = Ingredient.of(BotaniaItems.elementiumPick);
 
     public RecipeAlfsteelAIOTTipped(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, new ItemStack(Registration.alfsteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
+        super(idIn, groupIn, CraftingBookCategory.EQUIPMENT, new ItemStack(Registration.alfsteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
                 Ingredient.of(Registration.alfsteel_aiot.get()), Ingredient.of(BotaniaItems.elementiumPick)));
     }
 
@@ -68,7 +70,7 @@ public class RecipeAlfsteelAIOTTipped extends ShapelessRecipe {
 
     @Override
     @Nonnull
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(@Nonnull RegistryAccess registryAccess) {
         ItemStack stack = new ItemStack(Registration.alfsteel_aiot.get());
         ItemNBTHelper.setBoolean(stack, "tipped", true);
         return stack;

@@ -59,7 +59,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-        Level level = player.level;
+        Level level = player.level();
         if (this.getDestroySpeed(stack, level.getBlockState(pos)) <= 1.0F) {
             return false;
         }
@@ -83,7 +83,8 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
         if (event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player) {
             ItemStack weapon = ((Player) event.getSource().getEntity()).getMainHandItem();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                RandomSource rand = event.getEntity().level.random;
+                //noinspection resource
+                RandomSource rand = event.getEntity().level().random;
                 int looting = weapon.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
 
                 if (event.getEntity() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
@@ -104,7 +105,7 @@ public class ItemElementiumAIOT extends ItemAIOTBase {
     }
 
     private void addDrop(LivingDropsEvent event, ItemStack drop) {
-        ItemEntity entity = new ItemEntity(event.getEntity().level, event.getEntity().xOld,
+        ItemEntity entity = new ItemEntity(event.getEntity().level(), event.getEntity().xOld,
                 event.getEntity().yOld, event.getEntity().zOld, drop);
         entity.setPickUpDelay(10);
         event.getDrops().add(entity);

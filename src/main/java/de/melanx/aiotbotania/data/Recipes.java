@@ -1,14 +1,10 @@
 package de.melanx.aiotbotania.data;
 
 import com.google.gson.JsonArray;
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
-import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
@@ -20,12 +16,12 @@ import java.util.function.Consumer;
 @SuppressWarnings("SameParameterValue")
 public class Recipes extends RecipeProvider {
 
-    public Recipes(DataGenerator generator) {
-        super(generator);
+    public Recipes(PackOutput packOutput) {
+        super(packOutput);
     }
 
     @Override
-    protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         getShears(Registration.livingwood_shears.get(), BotaniaBlocks.livingwood).save(consumer);
         getShears(Registration.livingrock_shears.get(), BotaniaBlocks.livingrock).save(consumer);
 
@@ -45,15 +41,15 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_shovel.get()),
-                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-                        Registration.alfsteel_shovel.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-                .save(WrapperResult.transformJson(consumer, json -> {
-                    JsonArray array = new JsonArray();
-                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-                    json.add("conditions", array);
-                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel"));
+//        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
+//                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
+//                        Ingredient.of(Registration.alfsteel_shovel.get()), RecipeCategory.TOOLS, Registration.alfsteel_shovel.get()) // todo mythic botany
+//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+//                .save(WrapperResult.transformJson(consumer, json -> {
+//                    JsonArray array = new JsonArray();
+//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+//                    json.add("conditions", array);
+//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel"));
 
         getHoes(Registration.livingwood_hoe.get(), BotaniaBlocks.livingwood).save(consumer);
         getHoes(Registration.livingrock_hoe.get(), BotaniaBlocks.livingrock).save(consumer);
@@ -62,17 +58,17 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_hoe.get()),
-                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-                        Registration.alfsteel_hoe.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-                .save(WrapperResult.transformJson(consumer, json -> {
-                    JsonArray array = new JsonArray();
-                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-                    json.add("conditions", array);
-                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe"));
+//        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
+//                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
+//                        Ingredient.of(Registration.alfsteel_hoe.get()), RecipeCategory.TOOLS, Registration.alfsteel_hoe.get()) // todo mythic botany
+//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+//                .save(WrapperResult.transformJson(consumer, json -> {
+//                    JsonArray array = new JsonArray();
+//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+//                    json.add("conditions", array);
+//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe"));
 
-        ShapelessRecipeBuilder.shapeless(Registration.livingwood_aiot.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, Registration.livingwood_aiot.get())
                 .requires(Registration.livingwood_sword.get())
                 .requires(Registration.livingwood_axe.get())
                 .requires(Registration.livingwood_pickaxe.get())
@@ -85,7 +81,7 @@ public class Recipes extends RecipeProvider {
                 .unlockedBy("has_hoe", has(Registration.livingwood_hoe.get()))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(Registration.livingrock_aiot.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, Registration.livingrock_aiot.get())
                 .requires(Registration.livingrock_sword.get())
                 .requires(Registration.livingrock_axe.get())
                 .requires(Registration.livingrock_pickaxe.get())
@@ -98,7 +94,7 @@ public class Recipes extends RecipeProvider {
                 .unlockedBy("has_hoe", has(Registration.livingrock_hoe.get()))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(Registration.manasteel_aiot.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, Registration.manasteel_aiot.get())
                 .requires(BotaniaItems.manasteelSword)
                 .requires(BotaniaItems.manasteelAxe)
                 .requires(BotaniaItems.manasteelPick)
@@ -111,7 +107,7 @@ public class Recipes extends RecipeProvider {
                 .unlockedBy("has_hoe", has(BotaniaItems.manasteelHoe))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(Registration.elementium_aiot.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, Registration.elementium_aiot.get())
                 .requires(BotaniaItems.elementiumSword)
                 .requires(BotaniaItems.elementiumAxe)
                 .requires(BotaniaItems.elementiumPick)
@@ -126,7 +122,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getShears(ItemLike result, ItemLike material) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .pattern(" M")
                 .pattern("M ")
@@ -138,7 +134,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getSwords(ItemLike result, ItemLike material, ItemLike twig) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .define('T', twig)
                 .pattern("M")
@@ -152,7 +148,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getAxes(ItemLike result, ItemLike material, ItemLike twig) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .define('T', twig)
                 .pattern("MM")
@@ -166,7 +162,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getPickaxes(ItemLike result, ItemLike material, ItemLike twig) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .define('T', twig)
                 .pattern("MMM")
@@ -180,7 +176,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getShovels(ItemLike result, ItemLike material, ItemLike twig) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .define('T', twig)
                 .pattern("M")
@@ -194,7 +190,7 @@ public class Recipes extends RecipeProvider {
     }
 
     private static ShapedRecipeBuilder getHoes(ItemLike result, ItemLike material, ItemLike twig) {
-        return ShapedRecipeBuilder.shaped(result)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
                 .define('M', material)
                 .define('T', twig)
                 .pattern("MM")

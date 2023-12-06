@@ -93,7 +93,8 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
                 entity.xOld, entity.yOld, entity.zOld
         ).inflate(1);
         Entity thrower = entity.getOwner();
-        List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, aabb);
+        //noinspection resource
+        List<LivingEntity> entities = entity.level().getEntitiesOfClass(LivingEntity.class, aabb);
 
         for (LivingEntity living : entities) {
             if (living == thrower || living instanceof Player livingPlayer && thrower instanceof Player throwingPlayer && !throwingPlayer.canHarmPlayer(livingPlayer)) {
@@ -105,12 +106,14 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
                 if (mana >= 33) {
                     burst.setMana(mana - 33);
                     float damage = 4 + this.getAttackDamage();
-                    if (!burst.isFake() && !entity.level.isClientSide) {
-                        DamageSource source = DamageSource.MAGIC;
+                    //noinspection resource
+                    Level level = entity.level();
+                    if (!burst.isFake() && !level.isClientSide) {
+                        DamageSource source = level.damageSources().magic();
                         if (thrower instanceof Player player) {
-                            source = DamageSource.playerAttack(player);
+                            source = level.damageSources().playerAttack(player);
                         } else if (thrower instanceof LivingEntity livingThrower) {
-                            source = DamageSource.mobAttack(livingThrower);
+                            source = level.damageSources().mobAttack(livingThrower);
                         }
                         living.hurt(source, damage);
                         if (burst.getMana() <= 0) entity.discard();

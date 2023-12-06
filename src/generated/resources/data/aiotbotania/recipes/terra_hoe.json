@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "conditions": [
     {
       "type": "aiotbotania:terrasteel_enabled"
@@ -20,5 +21,6 @@
   ],
   "result": {
     "item": "aiotbotania:terra_hoe"
-  }
+  },
+  "show_notification": true
 }

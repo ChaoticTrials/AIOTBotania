@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +19,7 @@ public class ItemShovelBase extends ShovelItem implements CustomDamageItem {
     protected final int manaPerDamage;
 
     public ItemShovelBase(Tier tier, int damage, float speed, int manaPerDamage) {
-        super(tier, damage, speed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        super(tier, damage, speed, new Item.Properties());
         this.manaPerDamage = manaPerDamage;
     }
 

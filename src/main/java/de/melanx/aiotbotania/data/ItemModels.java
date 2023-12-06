@@ -3,7 +3,7 @@ package de.melanx.aiotbotania.data;
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.compat.MythicBotany;
 import de.melanx.aiotbotania.core.Registration;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -12,8 +12,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ItemModels extends ItemModelProvider {
 
-    public ItemModels(DataGenerator generator, ExistingFileHelper helper) {
-        super(generator, AIOTBotania.MODID, helper);
+    public ItemModels(PackOutput packOutput, ExistingFileHelper helper) {
+        super(packOutput, AIOTBotania.MODID, helper);
     }
 
     @Override

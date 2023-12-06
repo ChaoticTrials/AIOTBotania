@@ -37,7 +37,7 @@ public class ItemAIOTBase extends DiggerItem implements CustomDamageItem {
     protected final Tier tier;
 
     public ItemAIOTBase(Tier tier, float attackDamage, float attackSpeed, int manaPerDamage, boolean special) {
-        super(attackDamage, attackSpeed, tier, ModTags.Blocks.MINEABLE_WITH_AIOT, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        super(attackDamage, attackSpeed, tier, ModTags.Blocks.MINEABLE_WITH_AIOT, new Item.Properties());
         this.manaPerDamage = manaPerDamage;
         this.special = special;
         this.tier = tier;

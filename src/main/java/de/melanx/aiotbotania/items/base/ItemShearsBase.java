@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,7 @@ public class ItemShearsBase extends ShearsItem implements CustomDamageItem {
     protected final int manaPerDamage;
 
     public ItemShearsBase(int manaPerDamage, int durability) {
-        super(new Item.Properties().tab(AIOTBotania.instance.getTab()).stacksTo(1).defaultDurability(durability));
+        super(new Item.Properties().stacksTo(1).defaultDurability(durability));
         this.manaPerDamage = manaPerDamage;
     }
 

@@ -7,7 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.melanx.aiotbotania.items.base.ItemShearsBase;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -52,7 +52,7 @@ public class GrassModifier extends LootModifier {
     private static Item getRandomSeed() {
         List<Item> items = new ArrayList<>();
         //noinspection deprecation
-        for (Holder<Item> itemHolder : Registry.ITEM.getTagOrEmpty(Tags.Items.SEEDS)) {
+        for (Holder<Item> itemHolder : BuiltInRegistries.ITEM.getTagOrEmpty(Tags.Items.SEEDS)) {
             items.add(itemHolder.value());
         }
 

@@ -5,6 +5,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -23,7 +24,7 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.terrasteel_hoe.get());
 
     public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
+        super(idIn, groupIn, CraftingBookCategory.EQUIPMENT, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
                 INGREDIENT_SWORD, INGREDIENT_AXE, INGREDIENT_PICK, INGREDIENT_SHOVEL, INGREDIENT_HOE));
     }
 

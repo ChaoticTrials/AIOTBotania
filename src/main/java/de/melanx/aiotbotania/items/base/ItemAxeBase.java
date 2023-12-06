@@ -1,6 +1,5 @@
 package de.melanx.aiotbotania.items.base;
 
-import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +19,7 @@ public class ItemAxeBase extends AxeItem implements CustomDamageItem {
     protected final int manaPerDamage;
 
     public ItemAxeBase(Tier tier, int manaPerDamage, float attackDamage, float attackSpeed) {
-        super(tier, attackDamage, attackSpeed, new Item.Properties().tab(AIOTBotania.instance.getTab()));
+        super(tier, attackDamage, attackSpeed, new Item.Properties());
         this.manaPerDamage = manaPerDamage;
     }
 
