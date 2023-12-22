@@ -1,0 +1,62 @@
+{
+  "itemGroup.aiotbotania": "AIOT Botania",
+  "aiotbotania.mythicbotany.disabled": "MythicBotany をインストールしてください。",
+  "aiotbotania.toggleMode": "\u00A76モード:",
+  "aiotbotania.hoeMode": "\u00A73土を耕す",
+  "aiotbotania.hoeModePath": "\u00A73土を耕して草道を作る",
+  "aiotbotania.utilityMode": "\u00A7e苗木と松明を置く",
+
+  "item.aiotbotania.livingwood_shears": "リビングウッドのハサミ",
+  "item.aiotbotania.livingwood_sword": "リビングウッドの剣",
+  "item.aiotbotania.livingwood_axe": "リビングウッドの斧",
+  "item.aiotbotania.livingwood_pickaxe": "リビングウッドのツルハシ",
+  "item.aiotbotania.livingwood_shovel": "リビングウッドのシャベル",
+  "item.aiotbotania.livingwood_hoe": "リビングウッドのクワ",
+  "item.aiotbotania.livingwood_aiot": "リビングウッドのパクセル",
+
+  "item.aiotbotania.livingrock_shears": "リビングロックのハサミ",
+  "item.aiotbotania.livingrock_sword": "リビングロックの剣",
+  "item.aiotbotania.livingrock_axe": "リビングロックの斧",
+  "item.aiotbotania.livingrock_pickaxe": "リビングロックのツルハシ",
+  "item.aiotbotania.livingrock_shovel": "リビングロックのシャベル",
+  "item.aiotbotania.livingrock_hoe": "リビングロックのクワ",
+  "item.aiotbotania.livingrock_aiot": "リビングロックのパクセル",
+
+  "item.aiotbotania.manasteel_aiot": "マナスチールのパクセル",
+
+  "item.aiotbotania.elementium_aiot": "エレメンチウムのパクセル",
+
+  "item.aiotbotania.terra_shovel": "テラスペード",
+  "item.aiotbotania.terra_hoe": "テラホー",
+  "item.aiotbotania.terra_aiot": "テラスチールのパクセル",
+
+  "item.aiotbotania.alfsteel_shovel": "アルフスチールのシャベル",
+  "item.aiotbotania.alfsteel_hoe": "アルフスチールのクワ",
+  "item.aiotbotania.alfsteel_aiot": "アルフスチールのパクセル",
+
+  "botania.entry.livingwoodTools": "リビングウッドのツール",
+  "botania.entry.livingrockTools": "リビングロックのツール",
+
+  "botania.page.livingwoodTools0": "$(1)リビングウッド$(0) は AIOT Botania によってツールに成形することができます。<br>ツールは $(1)木$(0) と同様の特性を持っていますが、エンチャント性と耐久性では多少優れています。 $(1)リビングウッド$(0) はアイテムがダメージを受けるたびに、在庫に $(4)マナ$(0) があれば ($(1)マナタブレット$(0) など)、 代わりにそれを使用します。<br>ダメージを除けば、それらはバニラのツールに似ています。",
+  "botania.page.livingwoodTools1": "$(1)リビングウッドの剣$(0)",
+  "botania.page.livingwoodTools2": "$(1)リビングウッドの斧$(0)",
+  "botania.page.livingwoodTools3": "$(1)リビングウッドのツルハシ$(0)",
+  "botania.page.livingwoodTools4": "リビングウッドのシャベル$(0)",
+  "botania.page.livingwoodTools5": "$(1)リビングウッドのハサミ$(0)",
+  "botania.page.livingwoodTools6": "$(1)リビングウッドのクワ$(0)",
+  "botania.page.livingwoodTools7": "$(1)リビングウッドのパクセル$(0)",
+  "botania.page.livingrockTools0": "$(1)リビングロック$(0) は AIOT Botania でツールに成形できます。<br>ツールは $(1)石$(0) のような特性を持っていますが、エンチャント性、耐久性、およびいくつかの調整の点で多少優れています。 $(1)リビングロック$(0) アイテムがダメージを受けるたびに、在庫に $(4)マナ$(0) があれば ($(1)マナタブレット$(0) など)、 代わりにそれを使用します。<br>このツールは、改良されたバニラ ツールのようなものです。",
+  "botania.page.livingrockTools1": "$(1)リビングロックの剣$(0)",
+  "botania.page.livingrockTools2": "リビングロックの斧$(0)",
+  "botania.page.livingrockTools3": "$(1)リビングロックのツルハシ$(0)",
+  "botania.page.livingrockTools4": "リビングロックのシャベル$(0)",
+  "botania.page.livingrockTools5": "リビングロックのハサミ$(0)",
+  "botania.page.livingrockTools6": "$(1)リビングロックのクワ$(0)",
+  "botania.page.livingrockTools7": "$(1)リビングロックのパクセル$(0)",
+  "botania.page.manaGear11": "$(2)AIOT Botania$(0) がインストールされているため、項目が 1 つ増えています。 ボタニア $(1)クワ$(0) はさらに農地を土に戻すことができます。$(1)パクセル$(0) は $(1)マナスティール ソード$(0) と(1)ツルハシ$(0)、$(1)斧$(0)、$(1)シャベル$(0)、$(1)クワ$(0) れらの機能をすべて組み合わせています。",
+  "botania.page.manaGear12": "$(1)マナスチールのパクセル$(0)",
+  "botania.page.elfGear10": "$(1)エレメンチウムの剣$(0) はヒット時に $(4)ピクシー$(0) が出現する確率を高めます (これは $(1)エレメンチウムの鎧$(0) を着用していない場合にも当てはまります)。 スポーンされた $(4)ピクシー$(0) の強さ。",
+  "botania.page.elfGear16": "Botania の $(1)エレメンチウムのクワ$(0) は、土ブロックなどを耕して農地ブロックにし、飛び乗っても壊れないようにします。 この農地では近くに水を必要とせず、ブロックは常に濡れています。 この農地は作物の成長速度を高めます。 農地を右クリックすると、農地が草に戻ります。",
+  "botania.page.elfGear17": "最後に、$(1)エレメンチウムのパクセル$(0) は、他の $(1)エレメンチウム$(0) ツールの特殊効果をすべて融合させています。 <br>$(4)苗木$(0)と$(4)たいまつ$(0)は斧とつるはしで配置できるため、$(4)Shiftキーを押しながら右クリックすることで切り替えることができるモードがあります$( 0)。 1 つのモードは耕して草の道を作成するためのもので、もう 1 つのモードは苗木や松明を配置するためのものです。",
+  "botania.page.elfGear18": "$(1)エレメンチウムのパクセル$(0)"
+}
