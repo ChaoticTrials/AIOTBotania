@@ -1,10 +1,14 @@
 package de.melanx.aiotbotania.data;
 
 import com.google.gson.JsonArray;
+import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
+import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
@@ -41,15 +45,15 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-//        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
-//                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-//                        Ingredient.of(Registration.alfsteel_shovel.get()), RecipeCategory.TOOLS, Registration.alfsteel_shovel.get()) // todo mythic botany
-//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-//                .save(WrapperResult.transformJson(consumer, json -> {
-//                    JsonArray array = new JsonArray();
-//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-//                    json.add("conditions", array);
-//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel"));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
+                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
+                        Ingredient.of(Registration.alfsteel_shovel.get()), RecipeCategory.TOOLS, Registration.alfsteel_shovel.get())
+                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+                .save(WrapperResult.transformJson(consumer, json -> {
+                    JsonArray array = new JsonArray();
+                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+                    json.add("conditions", array);
+                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_shovel"));
 
         getHoes(Registration.livingwood_hoe.get(), BotaniaBlocks.livingwood).save(consumer);
         getHoes(Registration.livingrock_hoe.get(), BotaniaBlocks.livingrock).save(consumer);
@@ -58,15 +62,15 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-//        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
-//                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-//                        Ingredient.of(Registration.alfsteel_hoe.get()), RecipeCategory.TOOLS, Registration.alfsteel_hoe.get()) // todo mythic botany
-//                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
-//                .save(WrapperResult.transformJson(consumer, json -> {
-//                    JsonArray array = new JsonArray();
-//                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
-//                    json.add("conditions", array);
-//                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe"));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
+                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
+                        Ingredient.of(Registration.alfsteel_hoe.get()), RecipeCategory.TOOLS, Registration.alfsteel_hoe.get())
+                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+                .save(WrapperResult.transformJson(consumer, json -> {
+                    JsonArray array = new JsonArray();
+                    array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
+                    json.add("conditions", array);
+                }), new ResourceLocation(AIOTBotania.MODID, "smithing/alfsteel_hoe"));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, Registration.livingwood_aiot.get())
                 .requires(Registration.livingwood_sword.get())

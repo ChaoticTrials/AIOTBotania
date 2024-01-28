@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.data;
 
 import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
+import mythicbotany.register.tags.ModItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -56,6 +57,8 @@ public class ModTags {
             this.tag(ItemTags.HOES).add(Registration.livingwood_hoe.get(), Registration.livingrock_hoe.get(), Registration.terrasteel_hoe.get(), Registration.alfsteel_hoe.get());
             this.tag(TOOLS_AIOTS).add(Registration.livingwood_aiot.get(), Registration.livingrock_aiot.get(), Registration.manasteel_aiot.get(), Registration.elementium_aiot.get(), Registration.terrasteel_aiot.get(), Registration.alfsteel_aiot.get());
             this.tag(Tags.Items.TOOLS).addTag(TOOLS_AIOTS);
+
+            this.tag(ModItemTags.ELEMENTIUM_WEAPONS).add(Registration.elementium_aiot.get());
         }
     }
 }

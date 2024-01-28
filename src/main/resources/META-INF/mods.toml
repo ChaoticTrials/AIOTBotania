@@ -32,13 +32,13 @@ This mod adds AIOTs. Because an AIOT is so much better than just a tool.
 [[dependencies.aiotbotania]]
     modId="botania"
     mandatory=true
-    versionRange="[1.20.1-441,)"
+    versionRange="[1.20.1-443,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.aiotbotania]]
     modId="mythicbotany"
     mandatory=false
-    versionRange="[1.20, 1.21)"
+    versionRange="[1.20.1-4.0.0, 1.21)"
     ordering="NONE"
     side="BOTH"

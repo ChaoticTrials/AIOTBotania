@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aiotbotania:alfsteel_hoe"
+  },
+  "base": {
+    "item": "mythicbotany:alfsteel_ingot"
+  },
+  "conditions": [
+    {
+      "type": "aiotbotania:mythicbotany"
+    }
+  ],
+  "result": {
+    "item": "aiotbotania:alfsteel_hoe"
+  },
+  "template": []
+}
