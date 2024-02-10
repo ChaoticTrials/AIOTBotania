@@ -48,7 +48,7 @@ public class Recipes extends RecipeProvider {
         UpgradeRecipeBuilder.smithing(Ingredient.of(Registration.terrasteel_shovel.get()),
                         Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
                         Registration.alfsteel_shovel.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+                .unlocks("has_item", has(Registration.terrasteel_shovel.get()))
                 .save(WrapperResult.transformJson(consumer, json -> {
                     JsonArray array = new JsonArray();
                     array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
