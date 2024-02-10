@@ -5,6 +5,7 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
+import mythicbotany.register.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -45,10 +46,10 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
-                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-                        Ingredient.of(Registration.alfsteel_shovel.get()), RecipeCategory.TOOLS, Registration.alfsteel_shovel.get())
-                .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(ModItems.alfsteelTemplate),
+                        Ingredient.of(Registration.terrasteel_shovel.get()),
+                        Ingredient.of(ModItems.alfsteelIngot), RecipeCategory.TOOLS, Registration.alfsteel_shovel.get())
+                .unlocks("has_item", has(Registration.terrasteel_shovel.get()))
                 .save(WrapperResult.transformJson(consumer, json -> {
                     JsonArray array = new JsonArray();
                     array.add(MythicBotanyCondition.SERIALIZER.getJson(new MythicBotanyCondition()));
@@ -62,9 +63,9 @@ public class Recipes extends RecipeProvider {
             array.add(TerrasteelCondition.SERIALIZER.getJson(new TerrasteelCondition()));
             json.add("conditions", array);
         }));
-        SmithingTransformRecipeBuilder.smithing(Ingredient.EMPTY,
-                        Ingredient.of(mythicbotany.register.ModItems.alfsteelIngot),
-                        Ingredient.of(Registration.alfsteel_hoe.get()), RecipeCategory.TOOLS, Registration.alfsteel_hoe.get())
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(ModItems.alfsteelTemplate),
+                        Ingredient.of(Registration.terrasteel_hoe.get()),
+                        Ingredient.of(ModItems.alfsteelIngot), RecipeCategory.TOOLS, Registration.alfsteel_hoe.get())
                 .unlocks("has_item", has(Registration.terrasteel_hoe.get()))
                 .save(WrapperResult.transformJson(consumer, json -> {
                     JsonArray array = new JsonArray();
