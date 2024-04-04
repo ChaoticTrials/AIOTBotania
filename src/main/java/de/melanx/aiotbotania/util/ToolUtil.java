@@ -248,7 +248,7 @@ public class ToolUtil {
 
         if (context.getClickedFace() != Direction.DOWN) {
             Player player = context.getPlayer();
-            BlockState modifiedState = state.getToolModifiedState(level, pos, player, context.getItemInHand(), SHOVEL_FLATTEN);
+            BlockState modifiedState = state.getToolModifiedState(context, SHOVEL_FLATTEN, false);
             if (modifiedState != null && level.isEmptyBlock(pos.above())) {
                 level.playSound(player, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT)) {
@@ -283,9 +283,9 @@ public class ToolUtil {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        Optional<BlockState> strip = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_STRIP));
-        Optional<BlockState> scrape = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_SCRAPE));
-        Optional<BlockState> waxOff = Optional.ofNullable(state.getToolModifiedState(level, pos, player, context.getItemInHand(), ToolActions.AXE_WAX_OFF));
+        Optional<BlockState> strip = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_STRIP, false));
+        Optional<BlockState> scrape = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_SCRAPE, false));
+        Optional<BlockState> waxOff = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_WAX_OFF, false));
         Optional<BlockState> resultState = Optional.empty();
         if (strip.isPresent()) {
             level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
