@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -41,6 +42,7 @@ public class CommonProxy implements IProxy {
     public static final ResourceLocation TERRA_RECIPE_ID_TIPPED = new ResourceLocation(AIOTBotania.MODID, "recipe_terrasteel_aiot_tipped");
     public static final ResourceLocation ALFSTEEL_RECIPE_ID = new ResourceLocation(AIOTBotania.MODID, "recipe_alfsteel_aiot");
     public static final ResourceLocation ALFSTEEL_RECIPE_ID_TIPPED = new ResourceLocation(AIOTBotania.MODID, "recipe_alfsteel_aiot_tipped");
+    public static boolean LOCKED = false;
 
     public CommonProxy() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -102,16 +104,21 @@ public class CommonProxy implements IProxy {
     public void onTilt(BlockEvent.BlockToolModificationEvent event) {
         UseOnContext context = event.getContext();
 
-        if (event.getToolAction() != ToolActions.HOE_TILL || context.getLevel().isClientSide) {
+        if (LOCKED || event.getToolAction() != ToolActions.HOE_TILL || context.getLevel().isClientSide) {
             return;
         }
 
         ItemStack stack = context.getItemInHand();
         if (stack.getItem() == BotaniaItems.elementiumHoe || stack.getItem() == BotaniaItems.manasteelHoe) {
+            LOCKED = true;
             InteractionResult resultType = ToolUtil.hoeUse(context, stack.getItem() == BotaniaItems.elementiumHoe, false);
             if (resultType != InteractionResult.PASS) {
                 event.setCanceled(true);
+                if (event.getPlayer() != null) {
+                    event.getPlayer().swing(InteractionHand.MAIN_HAND, true);
+                }
             }
+            LOCKED = false;
         }
     }
 }
