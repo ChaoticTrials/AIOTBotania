@@ -1,8 +1,22 @@
+import org.w3c.dom.Document
+import org.w3c.dom.NodeList
+
+import javax.xml.parsers.DocumentBuilderFactory
+
 buildscript {
     apply from: 'https://moddingx.github.io/ModUtils/v5/buildscript.gradle', to: buildscript
 }
 
 apply from: 'https://moddingx.github.io/ModUtils/v5/mod.gradle'
+
+apply plugin: 'maven-publish'
+mod['version'] = getVersion(mod.minecraft + "-" + mod.base_version, new URL(mod.remote_maven + "/" + group.replace('.', '/') + "/" + name + "/maven-metadata.xml"))
+project.version = mod.version
+
+println "Java: ${System.getProperty('java.version')}   JVM: ${System.getProperty('java.vm.version')}(${System.getProperty('java.vendor')})   Arch: ${System.getProperty('os.arch')}"
+println "Mod: ${project.name}(${mod.modid})   Group: ${project.group}   Version: ${project.version}"
+println "Minecraft: ${mod.minecraft}   Target: java${mod.java}" + (mod.mixin ? "   Mixin: ${mod.mixin_version}" : '')
+println ''
 
 repositories {
     maven {
@@ -22,7 +36,66 @@ dependencies {
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE")
 
     runtimeOnly fg.deobf("org.moddingx:LibX:1.20.1-5.0.12")
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.20.1-4.0.0")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.20.1-4.0.4")
 
 //    runtimeOnly fg.deobf("de.melanx.recipeprinter:recipeprinter-1.16.3:2.0.1")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+            artifact(jar) {
+                builtBy project.provider { project.tasks.named('reobfJar') }
+            }
+            if (mod.sources) {
+                artifact(sourceJar)
+            }
+            pom {
+                licenses {
+                    license {
+                        name = mod.license
+                        url = mod.license_url.toString()
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name 'melanx'
+            url mod.remote_maven
+            credentials(PasswordCredentials)
+        }
+    }
+}
+publish.dependsOn('reobfJar')
+
+
+private static String getVersion(String baseVersion, URL url) {
+    try {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(connection.getInputStream());
+        NodeList versionNodes = doc.getElementsByTagName("version");
+
+        String latestVersion = null;
+        for (int i = 0; i < versionNodes.getLength(); i++) {
+            String version = versionNodes.item(i).getTextContent();
+            if (version.startsWith(baseVersion)) {
+                latestVersion = version;
+            }
+        }
+
+        if (latestVersion == null) {
+            return baseVersion + ".0";
+        }
+
+        return baseVersion + "." + (Integer.parseInt(latestVersion.substring(latestVersion.lastIndexOf('.') + 1)) + 1);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
 }
