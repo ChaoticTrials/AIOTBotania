@@ -32,7 +32,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 public class ItemElementiumAIOT extends ItemAIOTBase {
     private static final int MANA_PER_DAMAGE = 66;
     private static final float DAMAGE = 6.0F;
-    private static final float SPEED = -2.2F;
+    private static final float SPEED = -2.6F;
 
     // The following code is by Vazkii (https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/common/item/equipment/tool/elementium/ <-- Axe, Pick, Shovel and Sword)
 

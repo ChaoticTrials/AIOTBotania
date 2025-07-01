@@ -41,7 +41,7 @@ public class Registration {
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
 
     public static final RegistryObject<Item> livingwood_shears = ITEMS.register("livingwood_shears", () -> new ItemShearsBase(10, 60));
-    public static final RegistryObject<Item> livingwood_sword = ITEMS.register("livingwood_sword", () -> new ItemSwordBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 3, -2.5F, 30));
+    public static final RegistryObject<Item> livingwood_sword = ITEMS.register("livingwood_sword", () -> new ItemSwordBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 3, -2.4F, 30));
     public static final RegistryObject<Item> livingwood_axe = ITEMS.register("livingwood_axe", () -> new ItemAxeBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 30, 6.0F, -3.2F));
     public static final RegistryObject<Item> livingwood_pickaxe = ITEMS.register("livingwood_pickaxe", () -> new ItemPickaxeBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -2.8F, 30));
     public static final RegistryObject<Item> livingwood_shovel = ITEMS.register("livingwood_shovel", () -> new ItemShovelBase(ItemTiers.LIVINGWOOD_ITEM_TIER, 1, -3.0F, 30));
@@ -56,7 +56,7 @@ public class Registration {
     public static final RegistryObject<Item> livingrock_hoe = ITEMS.register("livingrock_hoe", () -> new ItemHoeBase(ItemTiers.LIVINGROCK_ITEM_TIER, -2, 40, false, true));
     public static final RegistryObject<Item> livingrock_aiot = ITEMS.register("livingrock_aiot", ItemLivingrockAIOT::new);
 
-    public static final RegistryObject<Item> manasteel_aiot = ITEMS.register("manasteel_aiot", () -> new ItemManasteelAIOT(ItemTiers.MANASTEEL_AIOT_ITEM_TIER, 6.0F, -2.2F, 66, false));
+    public static final RegistryObject<Item> manasteel_aiot = ITEMS.register("manasteel_aiot", () -> new ItemManasteelAIOT(ItemTiers.MANASTEEL_AIOT_ITEM_TIER, 6.0F, -2.6F, 66, false));
 
     public static final RegistryObject<Item> elementium_aiot = ITEMS.register("elementium_aiot", ItemElementiumAIOT::new);
 

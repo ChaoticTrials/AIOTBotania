@@ -18,7 +18,7 @@ public class ItemLivingrockAIOT extends ItemAIOTBase {
 
     private static final int MANA_PER_DAMAGE = 44;
     private static final float DAMAGE = 6.0F;
-    private static final float SPEED = -2.4F;
+    private static final float SPEED = -2.6F;
 
     public ItemLivingrockAIOT() {
         super(ItemTiers.LIVINGROCK_AIOT_ITEM_TIER, DAMAGE, SPEED, MANA_PER_DAMAGE, false);

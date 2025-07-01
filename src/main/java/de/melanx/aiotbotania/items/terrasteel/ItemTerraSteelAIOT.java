@@ -82,7 +82,7 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
     public static final int BLOCK_RANGE = 32;
     public static final int MANA_PER_DAMAGE = 100;
     public static final float DAMAGE = 6.0F;
-    public static final float SPEED = -2.2F;
+    public static final float SPEED = -2.6F;
     public static final int[] LEVELS = new int[]{0, 10000, 1000000, 10000000, 100000000, 1000000000};
     public static final int[] CREATIVE_MANA = new int[]{9999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
     private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
@@ -135,7 +135,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
         BlockHitResult hitResult = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        //noinspection resource
         if (!player.level().isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
             Direction face = hitResult.getDirection();
 
@@ -159,7 +158,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
         if (event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player) {
             ItemStack weapon = ((Player) event.getSource().getEntity()).getMainHandItem();
             if (!weapon.isEmpty() && weapon.getItem() == this) {
-                //noinspection resource
                 RandomSource rand = event.getEntity().level().random;
                 int looting = weapon.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE);
                 if (event.getEntity() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
@@ -188,7 +186,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
 
     public void trySpawnBurst(Player player) {
         if (!player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == this && player.getAttackStrengthScale(0.0F) == 1) {
-            //noinspection resource
             Level level = player.level();
             ManaBurstEntity burst = this.getBurst(player, player.getMainHandItem());
             level.addFreshEntity(burst);
@@ -208,7 +205,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
     }
 
     private void attackEntity(AttackEntityEvent event) {
-        //noinspection resource
         if (!event.getEntity().level().isClientSide) {
             this.trySpawnBurst(event.getEntity());
         }
@@ -366,7 +362,6 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
     public void updateBurst(ManaBurst burst, ItemStack stack) {
         ThrowableProjectile entity = burst.entity();
         AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
-        //noinspection resource
         Level level = entity.level();
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, axis);
         Entity thrower = entity.getOwner();

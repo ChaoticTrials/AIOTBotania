@@ -45,7 +45,7 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
         super(ItemTiers.ALFSTEEL_AIOT_ITEM_TIER);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", 2.4, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", 2.2, AttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
     }
 
