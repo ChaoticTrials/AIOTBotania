@@ -12,7 +12,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -46,7 +45,7 @@ public class ItemHoeBase extends HoeItem implements CustomDamageItem {
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
         BlockState originalState = context.getLevel().getBlockState(context.getClickedPos());
-        BlockState modifiedState = ForgeEventFactory.onToolUse(originalState, context, ToolActions.HOE_TILL, false);
+        BlockState modifiedState = originalState.getToolModifiedState(context, ToolActions.HOE_TILL, false);
         if (originalState == modifiedState || modifiedState == null) {
             return InteractionResult.FAIL;
         }
