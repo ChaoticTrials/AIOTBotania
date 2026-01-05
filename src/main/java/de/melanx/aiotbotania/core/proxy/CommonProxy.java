@@ -6,10 +6,6 @@ import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.items.alfsteel.CustomPylonRepairable;
-import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOT;
-import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOTTipped;
-import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
-import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -89,12 +85,12 @@ public class CommonProxy implements IProxy {
             private Map<ResourceLocation, Recipe<?>> insertRecipe(Map<ResourceLocation, Recipe<?>> recipeMap) {
                 ImmutableMap.Builder<ResourceLocation, Recipe<?>> builder = ImmutableMap.<ResourceLocation, Recipe<?>>builder().putAll(recipeMap);
                 if (CommonConfig.terraAiot.get()) {
-                    builder.put(TERRA_RECIPE_ID, new RecipeTerraSteelAIOT(TERRA_RECIPE_ID, "terrasteel_aiot"))
-                            .put(TERRA_RECIPE_ID_TIPPED, new RecipeTerraSteelAIOTTipped(TERRA_RECIPE_ID_TIPPED, "recipe_terrasteel_aiot_tipped"));
+//                    builder.put(TERRA_RECIPE_ID, new RecipeTerraSteelAIOT(TERRA_RECIPE_ID, "terrasteel_aiot"))
+//                            .put(TERRA_RECIPE_ID_TIPPED, new RecipeTerraSteelAIOTTipped(TERRA_RECIPE_ID_TIPPED, "recipe_terrasteel_aiot_tipped"));
                 }
                 if (ModList.get().isLoaded("mythicbotany")) {
-                    builder.put(ALFSTEEL_RECIPE_ID, new RecipeAlfsteelAIOT(ALFSTEEL_RECIPE_ID, "recipe_alfsteel_aiot"))
-                            .put(ALFSTEEL_RECIPE_ID_TIPPED, new RecipeAlfsteelAIOTTipped(ALFSTEEL_RECIPE_ID_TIPPED, "recipe_alfsteel_aiot_tipped"));
+//                    builder.put(ALFSTEEL_RECIPE_ID, new RecipeAlfsteelAIOT(ALFSTEEL_RECIPE_ID, "recipe_alfsteel_aiot"))
+//                            .put(ALFSTEEL_RECIPE_ID_TIPPED, new RecipeAlfsteelAIOTTipped(ALFSTEEL_RECIPE_ID_TIPPED, "recipe_alfsteel_aiot_tipped"));
                 }
                 return builder.build();
             }

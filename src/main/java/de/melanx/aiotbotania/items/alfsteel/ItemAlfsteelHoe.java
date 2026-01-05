@@ -9,6 +9,7 @@ import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -67,5 +68,10 @@ public class ItemAlfsteelHoe extends ItemTerraHoe implements MythicBotany, ModPy
         } else {
             super.appendHoverText(stack, level, tooltip, flag);
         }
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return super.isEnabled(enabledFeatures) && ModList.get().isLoaded("mythicbotany");
     }
 }

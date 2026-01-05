@@ -2,6 +2,7 @@ package de.melanx.aiotbotania.items.terrasteel;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.core.network.AIOTBotaniaNetwork;
 import de.melanx.aiotbotania.core.network.TerrasteelCreateBurstMesssage;
 import de.melanx.aiotbotania.items.ItemTiers;
@@ -32,6 +33,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -532,5 +534,10 @@ public class ItemTerraSteelAIOT extends ItemAIOTBase implements SequentialBreake
                 return InteractionResult.PASS;
             }
         }
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return CommonConfig.terraAiot.get();
     }
 }

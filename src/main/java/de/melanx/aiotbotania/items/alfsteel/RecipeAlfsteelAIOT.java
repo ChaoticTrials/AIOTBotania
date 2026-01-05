@@ -2,20 +2,19 @@ package de.melanx.aiotbotania.items.alfsteel;
 
 import de.melanx.aiotbotania.core.Registration;
 import mythicbotany.register.ModItems;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 
 import javax.annotation.Nonnull;
 
-public class RecipeAlfsteelAIOT extends ShapelessRecipe {
+public class RecipeAlfsteelAIOT extends CustomRecipe {
+
+    public static final NoOpRecipeSerializer<RecipeAlfsteelAIOT> SERIALIZER = new NoOpRecipeSerializer<>(RecipeAlfsteelAIOT::new);
 
     private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.alfsteelSword);
     private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.alfsteelAxe);
@@ -23,18 +22,18 @@ public class RecipeAlfsteelAIOT extends ShapelessRecipe {
     private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.alfsteel_shovel.get());
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.alfsteel_hoe.get());
 
-    public RecipeAlfsteelAIOT(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, CraftingBookCategory.EQUIPMENT, new ItemStack(Registration.alfsteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
-                INGREDIENT_SWORD, INGREDIENT_AXE, INGREDIENT_PICK, INGREDIENT_SHOVEL, INGREDIENT_HOE));
+    public RecipeAlfsteelAIOT(ResourceLocation id) {
+        super(id, CraftingBookCategory.EQUIPMENT);
     }
 
-    @Override
     @Nonnull
+    @Override
     public RecipeType<?> getType() {
         return RecipeType.CRAFTING;
     }
 
-    public boolean matches(CraftingContainer inv, @Nonnull Level level) {
+    @Override
+    public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level level) {
         boolean foundSword = false;
         boolean foundAxe = false;
         boolean foundPick = false;
@@ -58,11 +57,13 @@ public class RecipeAlfsteelAIOT extends ShapelessRecipe {
                 }
             }
         }
+
         return foundSword && foundAxe && foundPick && foundShovel && foundHoe;
     }
 
     @Nonnull
-    public ItemStack assemble(CraftingContainer inv) {
+    @Override
+    public ItemStack assemble(@Nonnull CraftingContainer inv, @Nonnull RegistryAccess registryAccess) {
         ItemStack stack = new ItemStack(Registration.alfsteel_aiot.get());
         for (int j = 0; j < inv.getContainerSize(); ++j) {
             ItemStack ingredient = inv.getItem(j);
@@ -73,7 +74,14 @@ public class RecipeAlfsteelAIOT extends ShapelessRecipe {
         return stack;
     }
 
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 3;
+    }
+
+    @Nonnull
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
     }
 }

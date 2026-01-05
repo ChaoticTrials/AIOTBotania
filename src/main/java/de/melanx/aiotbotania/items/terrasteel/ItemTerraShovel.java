@@ -1,5 +1,6 @@
 package de.melanx.aiotbotania.items.terrasteel;
 
+import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.items.base.ItemShovelBase;
 import de.melanx.aiotbotania.util.ToolBreakContext;
 import de.melanx.aiotbotania.util.ToolUtil;
@@ -10,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
@@ -48,7 +50,6 @@ public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
         BlockHitResult hitResult = ToolCommons.raytraceFromEntity(player, 10.0D, false);
-        //noinspection resource
         if (!player.level().isClientSide && hitResult.getType() == HitResult.Type.BLOCK) {
             Direction face = hitResult.getDirection();
             this.breakOtherBlock(player, stack, pos, pos, face);
@@ -61,7 +62,6 @@ public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker
     @Override
     public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
         if (ItemTerraSteelAIOT.isEnabled(stack)) {
-            //noinspection resource
             Level level = player.level();
             BlockState state = level.getBlockState(pos);
             ToolUtil.removeBlocksInRange(
@@ -71,5 +71,10 @@ public class ItemTerraShovel extends ItemShovelBase implements SequentialBreaker
                     blockState -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
                             && (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
         }
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return CommonConfig.terraAiot.get();
     }
 }

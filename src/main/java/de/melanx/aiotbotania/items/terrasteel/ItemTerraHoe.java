@@ -1,5 +1,6 @@
 package de.melanx.aiotbotania.items.terrasteel;
 
+import de.melanx.aiotbotania.config.CommonConfig;
 import de.melanx.aiotbotania.items.base.ItemHoeBase;
 import de.melanx.aiotbotania.util.ToolUtil;
 import net.minecraft.sounds.SoundSource;
@@ -7,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
@@ -55,5 +57,10 @@ public class ItemTerraHoe extends ItemHoeBase {
         } else {
             return ToolUtil.hoeUse(context, this.special, this.lowTier);
         }
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return CommonConfig.terraAiot.get();
     }
 }

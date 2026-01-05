@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -175,5 +176,10 @@ public class ItemAlfsteelAIOT extends ItemTerraSteelAIOT implements MythicBotany
     @Override
     public boolean doParticles(ManaBurst burst, ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return super.isEnabled(enabledFeatures) && ModList.get().isLoaded("mythicbotany");
     }
 }

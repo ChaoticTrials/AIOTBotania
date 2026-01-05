@@ -1,21 +1,20 @@
 package de.melanx.aiotbotania.items.terrasteel;
 
 import de.melanx.aiotbotania.core.Registration;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 import vazkii.botania.common.item.BotaniaItems;
 
 import javax.annotation.Nonnull;
 
-public class RecipeTerraSteelAIOT extends ShapelessRecipe {
+public class RecipeTerraSteelAIOT extends CustomRecipe {
+
+    public static final NoOpRecipeSerializer<RecipeTerraSteelAIOT> SERIALIZER = new NoOpRecipeSerializer<>(RecipeTerraSteelAIOT::new);
 
     private static final Ingredient INGREDIENT_SWORD = Ingredient.of(BotaniaItems.terraSword);
     private static final Ingredient INGREDIENT_AXE = Ingredient.of(BotaniaItems.terraAxe);
@@ -23,17 +22,17 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.terrasteel_shovel.get());
     private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.terrasteel_hoe.get());
 
-    public RecipeTerraSteelAIOT(ResourceLocation idIn, String groupIn) {
-        super(idIn, groupIn, CraftingBookCategory.EQUIPMENT, new ItemStack(Registration.terrasteel_aiot.get()), NonNullList.of(Ingredient.of(Blocks.BARRIER),
-                INGREDIENT_SWORD, INGREDIENT_AXE, INGREDIENT_PICK, INGREDIENT_SHOVEL, INGREDIENT_HOE));
+    public RecipeTerraSteelAIOT(ResourceLocation id) {
+        super(id, CraftingBookCategory.EQUIPMENT);
     }
 
-    @Override
     @Nonnull
+    @Override
     public RecipeType<?> getType() {
         return RecipeType.CRAFTING;
     }
 
+    @Override
     public boolean matches(CraftingContainer inv, @Nonnull Level level) {
         boolean foundSword = false;
         boolean foundAxe = false;
@@ -63,7 +62,8 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
     }
 
     @Nonnull
-    public ItemStack assemble(CraftingContainer inv) {
+    @Override
+    public ItemStack assemble(@Nonnull CraftingContainer inv, @Nonnull RegistryAccess registryAccess) {
         ItemStack stack = new ItemStack(Registration.terrasteel_aiot.get());
         for (int j = 0; j < inv.getContainerSize(); ++j) {
             ItemStack ingredient = inv.getItem(j);
@@ -71,10 +71,18 @@ public class RecipeTerraSteelAIOT extends ShapelessRecipe {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
         }
+
         return stack;
     }
 
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 3;
+    }
+
+    @Nonnull
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
     }
 }

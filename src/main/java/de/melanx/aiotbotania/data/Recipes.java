@@ -5,13 +5,20 @@ import de.melanx.aiotbotania.AIOTBotania;
 import de.melanx.aiotbotania.core.Registration;
 import de.melanx.aiotbotania.core.crafting.MythicBotanyCondition;
 import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
+import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOT;
+import de.melanx.aiotbotania.items.alfsteel.RecipeAlfsteelAIOTTipped;
+import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOT;
+import de.melanx.aiotbotania.items.terrasteel.RecipeTerraSteelAIOTTipped;
 import mythicbotany.register.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.data.recipes.WrapperResult;
 
@@ -124,6 +131,12 @@ public class Recipes extends RecipeProvider {
                 .unlockedBy("has_shovel", has(BotaniaItems.elementiumShovel))
                 .unlockedBy("has_hoe", has(BotaniaItems.elementiumHoe))
                 .save(consumer);
+
+        dynamicRecipe(consumer, RecipeAlfsteelAIOT.SERIALIZER);
+        dynamicRecipe(consumer, RecipeAlfsteelAIOTTipped.SERIALIZER);
+
+        dynamicRecipe(consumer, RecipeTerraSteelAIOT.SERIALIZER);
+        dynamicRecipe(consumer, RecipeTerraSteelAIOTTipped.SERIALIZER);
     }
 
     private static ShapedRecipeBuilder getShears(ItemLike result, ItemLike material) {
@@ -202,5 +215,10 @@ public class Recipes extends RecipeProvider {
                 .pattern(" T")
                 .pattern(" T")
                 .unlockedBy("has_material", has(material));
+    }
+
+    private static void dynamicRecipe(Consumer<FinishedRecipe> consumer, NoOpRecipeSerializer<? extends CraftingRecipe> serializer) {
+        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
+        SpecialRecipeBuilder.special(serializer).save(consumer, new ResourceLocation(name.getNamespace(), "dynamic/" + name.getPath()).toString());
     }
 }

@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
     implementation fg.deobf("vazkii.botania:Botania:1.20.1-443-FORGE")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+    implementation fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.5.0+1.20.1")
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE")
 

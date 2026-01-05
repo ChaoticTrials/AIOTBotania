@@ -8,9 +8,7 @@ import de.melanx.aiotbotania.core.crafting.TerrasteelCondition;
 import de.melanx.aiotbotania.handler.lootmodifier.DisposeModifier;
 import de.melanx.aiotbotania.handler.lootmodifier.GrassModifier;
 import de.melanx.aiotbotania.items.ItemTiers;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelAIOT;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelHoe;
-import de.melanx.aiotbotania.items.alfsteel.ItemAlfsteelShovel;
+import de.melanx.aiotbotania.items.alfsteel.*;
 import de.melanx.aiotbotania.items.base.*;
 import de.melanx.aiotbotania.items.elementium.ItemElementiumAIOT;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockAIOT;
@@ -19,11 +17,10 @@ import de.melanx.aiotbotania.items.livingrock.ItemLivingrockPickaxe;
 import de.melanx.aiotbotania.items.livingrock.ItemLivingrockShovel;
 import de.melanx.aiotbotania.items.livingwood.ItemLivingwoodAIOT;
 import de.melanx.aiotbotania.items.manasteel.ItemManasteelAIOT;
-import de.melanx.aiotbotania.items.terrasteel.ItemTerraHoe;
-import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
-import de.melanx.aiotbotania.items.terrasteel.ItemTerraSteelAIOT;
+import de.melanx.aiotbotania.items.terrasteel.*;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -38,6 +35,7 @@ public class Registration {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AIOTBotania.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AIOTBotania.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, AIOTBotania.MODID);
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AIOTBotania.MODID);
 
     public static final RegistryObject<Item> livingwood_shears = ITEMS.register("livingwood_shears", () -> new ItemShearsBase(10, 60));
@@ -73,6 +71,11 @@ public class Registration {
     public static final RegistryObject<Codec<DisposeModifier>> dispose_modifier = LOOT_MODIFIER.register("dispose", DisposeModifier.CODEC);
     public static final RegistryObject<Codec<GrassModifier>> grass_modifier = LOOT_MODIFIER.register("grass", GrassModifier.CODEC);
 
+    public static final RegistryObject<RecipeSerializer<RecipeAlfsteelAIOT>> alfsteel_aiot_recipe = RECIPE_SERIALIZERS.register("alfsteel_aiot", () -> RecipeAlfsteelAIOT.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<RecipeAlfsteelAIOTTipped>> alfsteel_aiot_tipped_recipe = RECIPE_SERIALIZERS.register("alfsteel_aiot_tipped", () -> RecipeAlfsteelAIOTTipped.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<RecipeTerraSteelAIOT>> terrasteel_aiot_recipe = RECIPE_SERIALIZERS.register("terrasteel_aiot", () -> RecipeTerraSteelAIOT.SERIALIZER);
+    public static final RegistryObject<RecipeSerializer<RecipeTerraSteelAIOTTipped>> terrasteel_aiot_tipped_recipe = RECIPE_SERIALIZERS.register("terrasteel_aiot_tipped", () -> RecipeTerraSteelAIOTTipped.SERIALIZER);
+
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ITEMS.register(bus);
@@ -81,6 +84,8 @@ public class Registration {
         AIOTBotania.instance.getLogger().info("Blocks registered.");
         LOOT_MODIFIER.register(bus);
         AIOTBotania.instance.getLogger().info("Global loot modifiers registered.");
+        RECIPE_SERIALIZERS.register(bus);
+        AIOTBotania.instance.getLogger().info("Recipe serializers registered.");
 
         CraftingHelper.register(MythicBotanyCondition.SERIALIZER);
         CraftingHelper.register(TerrasteelCondition.SERIALIZER);

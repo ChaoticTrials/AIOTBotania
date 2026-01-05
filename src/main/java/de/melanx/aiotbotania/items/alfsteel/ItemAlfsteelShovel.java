@@ -6,6 +6,7 @@ import de.melanx.aiotbotania.items.ItemTiers;
 import de.melanx.aiotbotania.items.terrasteel.ItemTerraShovel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -44,5 +45,10 @@ public class ItemAlfsteelShovel extends ItemTerraShovel implements MythicBotany,
         } else {
             super.appendHoverText(stack, level, tooltip, flag);
         }
+    }
+
+    @Override
+    public boolean isEnabled(@Nonnull FeatureFlagSet enabledFeatures) {
+        return super.isEnabled(enabledFeatures) && ModList.get().isLoaded("mythicbotany");
     }
 }
