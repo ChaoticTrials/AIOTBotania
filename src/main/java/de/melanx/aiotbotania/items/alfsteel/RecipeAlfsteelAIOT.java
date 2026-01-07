@@ -1,12 +1,17 @@
 package de.melanx.aiotbotania.items.alfsteel;
 
+import de.melanx.aiotbotania.compat.MythicBotanyCompat;
 import de.melanx.aiotbotania.core.Registration;
-import mythicbotany.register.ModItems;
+import de.melanx.aiotbotania.util.ToolSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 
@@ -15,12 +20,9 @@ import javax.annotation.Nonnull;
 public class RecipeAlfsteelAIOT extends CustomRecipe {
 
     public static final NoOpRecipeSerializer<RecipeAlfsteelAIOT> SERIALIZER = new NoOpRecipeSerializer<>(RecipeAlfsteelAIOT::new);
-
-    private static final Ingredient INGREDIENT_SWORD = Ingredient.of(ModItems.alfsteelSword);
-    private static final Ingredient INGREDIENT_AXE = Ingredient.of(ModItems.alfsteelAxe);
-    private static final Ingredient INGREDIENT_PICK = Ingredient.of(ModItems.alfsteelPick);
-    private static final Ingredient INGREDIENT_SHOVEL = Ingredient.of(Registration.alfsteel_shovel.get());
-    private static final Ingredient INGREDIENT_HOE = Ingredient.of(Registration.alfsteel_hoe.get());
+    public static final ToolSet TOOL_SET = MythicBotanyCompat.isLoaded()
+            ? MythicBotanyCompat.alfsteelToolset()
+            : new ToolSet(Items.WOODEN_SWORD, Items.WOODEN_AXE, Items.WOODEN_PICKAXE, Items.WOODEN_SHOVEL, Items.WOODEN_HOE);
 
     public RecipeAlfsteelAIOT(ResourceLocation id) {
         super(id, CraftingBookCategory.EQUIPMENT);
@@ -39,18 +41,19 @@ public class RecipeAlfsteelAIOT extends CustomRecipe {
         boolean foundPick = false;
         boolean foundShovel = false;
         boolean foundHoe = false;
+
         for (int j = 0; j < inv.getContainerSize(); ++j) {
             ItemStack stack = inv.getItem(j);
             if (!stack.isEmpty()) {
-                if (INGREDIENT_SWORD.test(stack) && !foundSword) {
+                if (TOOL_SET.testSword(stack) && !foundSword) {
                     foundSword = true;
-                } else if (INGREDIENT_AXE.test(stack) && !foundAxe) {
+                } else if (TOOL_SET.testAxe(stack) && !foundAxe) {
                     foundAxe = true;
-                } else if (INGREDIENT_PICK.test(stack) && !foundPick) {
+                } else if (TOOL_SET.testPickaxe(stack) && !foundPick) {
                     foundPick = true;
-                } else if (INGREDIENT_SHOVEL.test(stack) && !foundShovel) {
+                } else if (TOOL_SET.testShovel(stack) && !foundShovel) {
                     foundShovel = true;
-                } else if (INGREDIENT_HOE.test(stack) && !foundHoe) {
+                } else if (TOOL_SET.testHoe(stack) && !foundHoe) {
                     foundHoe = true;
                 } else {
                     return false;
@@ -67,7 +70,7 @@ public class RecipeAlfsteelAIOT extends CustomRecipe {
         ItemStack stack = new ItemStack(Registration.alfsteel_aiot.get());
         for (int j = 0; j < inv.getContainerSize(); ++j) {
             ItemStack ingredient = inv.getItem(j);
-            if (!ingredient.isEmpty() && INGREDIENT_PICK.test(ingredient)) {
+            if (!ingredient.isEmpty() && TOOL_SET.testPickaxe(ingredient)) {
                 stack.setTag(ingredient.getOrCreateTag().copy());
             }
         }
